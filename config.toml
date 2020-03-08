@@ -1,4 +1,4 @@
-baseURL = "https://mayukhdeb.github.io/"
+baseURL = "https://mayukhdeb.github.io/blog/"
 
 languageCode = "en-us"
 title = "@mayukhdeb"
@@ -11,7 +11,7 @@ publishdir = "public"
 builddrafts = false
 canonifyurls = true
 
-publishDir = "mayukhdeb.github.io"
+publishDir = "mayukhdeb.github.io/blog/"
 
 
 [params]
