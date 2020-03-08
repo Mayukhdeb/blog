@@ -1,3 +1,5 @@
+baseURL = "https://mayukhdeb.github.io/"
+
 languageCode = "en-us"
 title = "@mayukhdeb"
 baseurl = ""
@@ -8,6 +10,9 @@ layoutdir = "layouts"
 publishdir = "public"
 builddrafts = false
 canonifyurls = true
+
+publishDir = "mayukhdeb.github.io"
+
 
 [params]
 description = "" ## add something later on 
