@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             "value": 80,
             "density": {
               "enable": true,
-              "value_area": 800
+              "value_area": 1000
             }
           },
           "color": {
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function() {
               "duration": 0.4
             },
             "push": {
-              "particles_nb": 5
+              "particles_nb": 1
             },
             "remove": {
               "particles_nb": 2
