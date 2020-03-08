@@ -1,26 +1,19 @@
-# Dependencies
-markdown:         redcarpet
-highlighter:      pygments
+# Site settings
+title: Mayukh Deb
+description: 
+# baseurl: "" # the subpath of your site, e.g. /blog
+# url: "localhost:3000" # the base hostname & protocol for your site e.g. http://willianjusten.com.br
 
-# Permalinks
-permalink:        pretty
-relative_permalinks: true
+# User settings
+username: Mayukh Deb
+user_description: Mario jumps over luigi. 
+user_title: Making computers see things
+email: mayukhmainak2000@gmail.com
+twitter_username: mayukh091
+github_username:  mayukhdeb
 
-# Setup
-title:            Hyde
-tagline:          'A Jekyll theme'
-description:      'A brazen two-column <a href="http://jekyllrb.com" target="_blank">Jekyll</a> theme that pairs a prominent sidebar with uncomplicated content. Made by <a href="https://twitter.com/mdo" target="_blank">@mdo</a>.'
-url:              http://username.github.io
-baseurl:          /blog
+# Google-analytics
+google-analytics:
+  id: ""
 
-author:
-  name:           'Mark Otto'
-  url:            https://twitter.com/mdo
-
-paginate:         5
-
-# Custom vars
-version:          2.1.0
-
-github:
-  repo:           https://github.com/poole/hyde
+exclude: ['package.json', 'src' , 'node_modules']
