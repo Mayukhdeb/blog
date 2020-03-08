@@ -1,0 +1,32 @@
+languageCode = "en-us"
+title = "@mayukhdeb"
+baseurl = ""
+theme = "darksimplicity"
+min_version = "0.57.0"
+contentdir = "content"
+layoutdir = "layouts"
+publishdir = "public"
+builddrafts = false
+canonifyurls = true
+
+[params]
+description = "" ## add something later on 
+copyright = ""
+mainSections = ["post"]
+#google_analytics_id=""
+#disqus_shortname=""
+
+[taxonomies]
+tag = "tags"
+
+[menu]
+  [[menu.top]]
+  name = "Github"
+  pre = ""
+  weight = -100
+  url = "https://github.com/Mayukhdeb"
+  [[menu.top]]
+  name = "Twitter"
+  pre = ""
+  weight = -90
+  url = "https://twitter.com/mayukh091"
