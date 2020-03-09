@@ -1,0 +1,52 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>@mayukhdeb on @mayukhdeb </title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://mayukhdeb.github.io/blog/</link>
+    <language>en-us</language>
+    
+    
+    <updated>Wed, 01 Jan 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Mind the bend</title>
+      <link>https://mayukhdeb.github.io/blog/post/mind_the_bend/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/mind_the_bend/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/example.gif&#34; alt=&#34;example&#34;&gt;
+&lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/pipeline.png&#34; alt=&#34;pipeline&#34;&gt;&lt;/p&gt;
+&lt;p&gt;The whole point of this project was to make a car stay on the road all by itself and defeat other players in a racing game called speed dreams.&lt;/p&gt;
+&lt;h2 id=&#34;collection-of-training-data&#34;&gt;Collection of training data&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Rapidly takes screenshots of the game and saves them in a folder&lt;/li&gt;
+&lt;li&gt;The label in this case is the x-co-ordinate of the mouse which is captured by pyautogui and is stored in the formatted filename of each collected image. Image fileame formatting is done as  &lt;code&gt;(x-value)_(unique_ID).png&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;processing-images&#34;&gt;Processing images&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Converts all images to numpy arrays with a depth of 3 for R,G and B color channels&lt;/li&gt;
+&lt;li&gt;The shape gets changed from  &lt;code&gt;[ width, height, depth ]&lt;/code&gt; to &lt;code&gt;[ depth, width, height]&lt;/code&gt; for it to be of the right size for the CNN input channel&lt;/li&gt;
+&lt;li&gt;Pairs them with the corresponding mouse x-coordinate as array &lt;code&gt;[  [[[image]]]  ,  [x-value]   ]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;all of the generated pairs are then stacked into one numpy array with the help of np.vstack() and saved&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;data-preprocessing-and-augmentation&#34;&gt;Data preprocessing and augmentation&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;First things first, plotted the frequency distribution of each steering value hen&lt;/li&gt;
+&lt;li&gt;Roughly doubled the amount of training data by generating mirror images of existing images and vstacking them with reversed steer value.&lt;/li&gt;
+&lt;li&gt;Flattened the frequency distribution by making copies of random ramples of under-represented steering value data points&lt;/li&gt;
+&lt;li&gt;Normalised the steering values by replacing the x-co-ordinates with steering values. In my case the &amp;ldquo;straight&amp;rdquo; steer value was at &lt;code&gt;x = 400&lt;/code&gt;, for &lt;code&gt;normalised_value = 400 - x_value&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;note :  Right is negative steer value and left is positive&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;self-driving&#34;&gt;Self driving&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Rapidly taken screenshots are prerpocessed and fed to the trained CNN drunk_driver()&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;drunk_driver()&lt;/code&gt; returns a steer value&lt;/li&gt;
+&lt;li&gt;Returned value is taken care  of by pyauogui which moves the mouse accordingly&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

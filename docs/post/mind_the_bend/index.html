@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Mind the bend &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/mind_the_bend/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.65.3" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Mind the bend &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/mind_the_bend/">Mind the bend</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/computer-vision" rel="tag">Computer vision </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">Deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/self-driving-car" rel="tag">Self driving car </a>
+              </span>
+          </div>
+          <div class="content-full"><p><img src="https://mayukhdeb.github.io/blog/post/images/example.gif" alt="example">
+<img src="https://mayukhdeb.github.io/blog/post/images/pipeline.png" alt="pipeline"></p>
+<p>The whole point of this project was to make a car stay on the road all by itself and defeat other players in a racing game called speed dreams.</p>
+<h2 id="collection-of-training-data">Collection of training data</h2>
+<ul>
+<li>Rapidly takes screenshots of the game and saves them in a folder</li>
+<li>The label in this case is the x-co-ordinate of the mouse which is captured by pyautogui and is stored in the formatted filename of each collected image. Image fileame formatting is done as  <code>(x-value)_(unique_ID).png</code></li>
+</ul>
+<h2 id="processing-images">Processing images</h2>
+<ul>
+<li>Converts all images to numpy arrays with a depth of 3 for R,G and B color channels</li>
+<li>The shape gets changed from  <code>[ width, height, depth ]</code> to <code>[ depth, width, height]</code> for it to be of the right size for the CNN input channel</li>
+<li>Pairs them with the corresponding mouse x-coordinate as array <code>[  [[[image]]]  ,  [x-value]   ]</code></li>
+<li>all of the generated pairs are then stacked into one numpy array with the help of np.vstack() and saved</li>
+</ul>
+<h2 id="data-preprocessing-and-augmentation">Data preprocessing and augmentation</h2>
+<ul>
+<li>First things first, plotted the frequency distribution of each steering value hen</li>
+<li>Roughly doubled the amount of training data by generating mirror images of existing images and vstacking them with reversed steer value.</li>
+<li>Flattened the frequency distribution by making copies of random ramples of under-represented steering value data points</li>
+<li>Normalised the steering values by replacing the x-co-ordinates with steering values. In my case the &ldquo;straight&rdquo; steer value was at <code>x = 400</code>, for <code>normalised_value = 400 - x_value</code></li>
+</ul>
+<blockquote>
+<p>note :  Right is negative steer value and left is positive</p>
+</blockquote>
+<h2 id="self-driving">Self driving</h2>
+<ul>
+<li>Rapidly taken screenshots are prerpocessed and fed to the trained CNN drunk_driver()</li>
+<li><code>drunk_driver()</code> returns a steer value</li>
+<li>Returned value is taken care  of by pyauogui which moves the mouse accordingly</li>
+</ul>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>&copy; 2020. @mayukhdeb. All rights reserved. </div>    
+
+  </footer>
+</body>
+</html>
+
