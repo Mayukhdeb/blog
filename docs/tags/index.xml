@@ -6,10 +6,73 @@
     <description>Recent content in Tags on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Jan 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>CNN</title>
+      <link>https://mayukhdeb.github.io/blog/tags/cnn/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/cnn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>data augmentation</title>
+      <link>https://mayukhdeb.github.io/blog/tags/data-augmentation/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/data-augmentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deep learning</title>
+      <link>https://mayukhdeb.github.io/blog/tags/deep-learning/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heatmaps</title>
+      <link>https://mayukhdeb.github.io/blog/tags/heatmaps/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/heatmaps/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>object detection</title>
+      <link>https://mayukhdeb.github.io/blog/tags/object-detection/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/object-detection/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>object tracking</title>
+      <link>https://mayukhdeb.github.io/blog/tags/object-tracking/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/object-tracking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Image dataset</title>
+      <link>https://mayukhdeb.github.io/blog/tags/image-dataset/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/image-dataset/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Computer vision</title>
@@ -17,15 +80,6 @@
       <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/computer-vision/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Deep learning</title>
-      <link>https://mayukhdeb.github.io/blog/tags/deep-learning/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/tags/deep-learning/</guid>
       <description></description>
     </item>
     

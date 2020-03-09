@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content="  &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/2020-01-02-adv-w-aug/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.65.3" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title>  &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/2020-01-02-adv-w-aug/"></a></h3>
+        
+          <div class="content-full"><h1 id="adventures-with-augmentation-mag">Adventures with augmentation :mag:</h1>
+<p>Exploring and experimenting with microscope imagery datasets. :microscope:</p>
+<p><a href="https://nbviewer.jupyter.org/github/Mayukhdeb/adventures-with-augmentation/tree/master/"><img src="https://camo.githubusercontent.com/bfeb5472ee3df9b7c63ea3b260dc0c679be90b97/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f72656e6465722d6e627669657765722d6f72616e67652e7376673f636f6c6f72423d66333736323626636f6c6f72413d346434643464" alt="Binder"></a></p>
+<h2 id="whats-under-way-chart_with_upwards_trend">What&rsquo;s under way :chart_with_upwards_trend:</h2>
+<ol>
+<li>Trying to find out which augmentation technique works best for the cell images</li>
+<li>Experiment with the augmentation techniques and reach a high accuracy on the test set</li>
+<li>Implement transfer learning with image resizing to reach high accuracies in less that half the time it&rsquo;s supposed to take</li>
+<li>Trying to implement parallel CNNs for better accuracies on smaller architectures</li>
+<li>Plotting and comparing confusion matrices of different architectures</li>
+</ol>
+<h2 id="parallel-cnns-work-just-as-good-as-they-look">Parallel CNNs work just as good as they look</h2>
+<p><!-- raw HTML omitted -->.</p>
+<h3 id="but-why-use-them-anyways-">But why use them anyways ?</h3>
+<ul>
+<li>Because when two different architectures are trained on the same training set, they don&rsquo;t have the same weaknesses (i.e different confusion matrices)</li>
+<li>This means that when both are combined, they tend to neutralise each other&rsquo;s weaknesses, which gives us a boost in accuracy.</li>
+</ul>
+<h2 id="class-activation-heatmaps-on-deep-neural-networks">Class activation heatmaps on deep neural networks</h2>
+<p><!-- raw HTML omitted --> <!-- raw HTML omitted -->.</p>
+<ul>
+<li>Shows the regions of the image which gave the most activations for a certain label in a trained classification model</li>
+<li>In simpler words, it tells us about the regions of the image which made the model decide that it belongs to a certain label &ldquo;x&rdquo;</li>
+</ul>
+<h4 id="and-when-the-heatmap-is-superimposed-upon-the-real-image-it-gives-us-an-insight-on-how-the-cnn-looked-at-the-image">And when the heatmap is superimposed upon the real image, it gives us an insight on how the CNN &ldquo;looked&rdquo; at the image</h4>
+<!-- raw HTML omitted -->
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>&copy; 2020. @mayukhdeb. All rights reserved. </div>    
+
+  </footer>
+</body>
+</html>
+

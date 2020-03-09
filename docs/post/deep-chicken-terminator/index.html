@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Deep chicken terminator &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.65.3" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Deep chicken terminator &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/">Deep chicken terminator</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">Deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/object-tracking" rel="tag">object tracking </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/object-detection" rel="tag">object detection </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/cnn" rel="tag">CNN </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/data-augmentation" rel="tag">data augmentation </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/heatmaps" rel="tag">heatmaps </a>
+              </span>
+          </div>
+          <div class="content-full"><h1 id="deep-chicken-terminator">deep-chicken-terminator</h1>
+<p>deep learning to track (and possibly kill)  chicken in minecraft</p>
+<h2 id="step-1---collecting-training-data-for-the-deep-neural-network">Step 1 - collecting training data for the deep neural network</h2>
+<p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/training_data_samples.png" alt="dataset"></p>
+<ul>
+<li>This was mostly just me taking cropped screenshots of animals while playing the game, took about 40 screenshots of each animal.</li>
+<li>The 20 screenshots of each animal were then augmented and got 500 samples of each.</li>
+<li>The dataset is very small, but it works anyways for now</li>
+</ul>
+<h2 id="step-2---training-a-deep-learning-model-on-the-samples">Step 2 - training a deep learning model on the samples</h2>
+<p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/training_curve.png" alt="dataset"></p>
+<ul>
+<li>The architecture was kept intentionally small so that it keeps a good response time on the live feed</li>
+<li>The dataset had only 2000 images sized at 50*50, so training barely took any time</li>
+</ul>
+<h2 id="step-3---detecting-a-chicken-or-any-animal-for-that-matter-from-an-image">Step 3 - detecting a chicken (or any animal for that matter) from an image</h2>
+<p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/pre_barbecue.png" alt="dataset"></p>
+<ul>
+<li>This was done using a custom <code>detect_animal_numpy()</code> function which iterates through the image with a certain kernel size and a stride size, and feeds each sample to the trained NN (nicknamed hunter)</li>
+<li>A heatmap is then generated from the output of the NN which gives us a probability distribution over the image of a certain animal ( chicken, pig, or panda)</li>
+<li>why use heatmaps instead of rectangles ? because they look cooler.</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/barbecue.png" alt="dataset"></p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>&copy; 2020. @mayukhdeb. All rights reserved. </div>    
+
+  </footer>
+</body>
+</html>
+

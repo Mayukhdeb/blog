@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Image dataset on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/image-dataset/</link>
+    <description>Recent content in Image dataset on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Feb 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/image-dataset/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Adventures with augmentation</title>
+      <link>https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/</guid>
+      <description>Exploring and experimenting with microscope imagery datasets.</description>
+    </item>
+    
+  </channel>
+</rss>
