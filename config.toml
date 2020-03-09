@@ -11,7 +11,7 @@ publishdir = "public"
 builddrafts = false
 canonifyurls = true
 
-publishDir = "mayukhdeb.github.io/blog/"
+publishDir = "docs"
 
 
 [params]
