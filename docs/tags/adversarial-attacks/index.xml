@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Computer vision on @mayukhdeb</title>
-    <link>https://mayukhdeb.github.io/blog/tags/computer-vision/</link>
-    <description>Recent content in Computer vision on @mayukhdeb</description>
+    <title>adversarial attacks on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/adversarial-attacks/</link>
+    <description>Recent content in adversarial attacks on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://mayukhdeb.github.io/blog/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/adversarial-attacks/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://mayukhdeb.github.io/blog/post/deep-chicken-saviour/</guid>
       <description>Adversarial attacks as a contermeasure against deep-chicken-terminator</description>
-    </item>
-    
-    <item>
-      <title>Mind the bend</title>
-      <link>https://mayukhdeb.github.io/blog/post/mind_the_bend/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/post/mind_the_bend/</guid>
-      <description>Making a car drive by itself using deep learning and some PyAutoGUI</description>
     </item>
     
   </channel>
