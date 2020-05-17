@@ -13,9 +13,9 @@ summary = "Google Summer of Code | Community bonding period week 1"
 +++
 
 
-It was after over ten weeks of the gruesome cycle of writing and reviewing my GSoC proposal, that I finally got a sigh of relief when I was selected for the only project I worked towards, which was [Pre-trained models for developmental neuroscience](https://summerofcode.withgoogle.com/projects/#6078813261266944). And things have been better than ever since then.
+  Ten weeks of proposal writing and 3 personal (but very beloved) deep learning projects later, I was selected for the only project I worked towards for GSoC, which was [Pre-trained models for developmental neuroscience](https://summerofcode.withgoogle.com/projects/#6078813261266944) under [INCF](https://www.incf.org/). And things have been better than ever since then.
 
-The first week was mostly me getting to know more about the OpenWorm community and what are they strivung to do. I got to meet [Dr. Bradley Alicea](https://github.com/balicea), [Vinay Varma](https://github.com/nvinayvarma189) and [Ujjwal Singh](https://github.com/ujjwalll). They gave me a warm welcome into the community.
+The first week was mostly me getting to know more about the OpenWorm community and what are they striving to do. I got to meet [Dr. Bradley Alicea](https://github.com/balicea), [Vinay Varma](https://github.com/nvinayvarma189) and [Ujjwal Singh](https://github.com/ujjwalll). They gave me a warm welcome into the community.
 
 I started setting up the environment right after the results were out, and cleaned up one of my [older repos](https://github.com/Mayukhdeb/adventures-with-augmentation) which would act as a quick reference through the span of this project.
 
@@ -42,7 +42,7 @@ The first weekly meeting with OpenWorm gave me a much better idea of the goals o
  {{< figure src="/post/images/may_17/segmented.png" width="60%">}}
 
 
-Here's a GIF to visualise the tracking in the live feed. 
+Here's a GIF to visualise the tracking on the live feed. 
 
 
  {{< figure src="/post/images/may_17/tracking.gif" width="80%">}}
