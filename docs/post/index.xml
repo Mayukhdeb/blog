@@ -6,10 +6,19 @@
     <description>Recent content in Posts on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hello Openworm</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-17/</link>
+      <pubDate>Sun, 17 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-17/</guid>
+      <description>Google Summer of Code | Community bonding period week 1</description>
+    </item>
     
     <item>
       <title>Deep chicken saviour</title>

@@ -6,7 +6,53 @@
     <language>en-us</language>
     
     
-    <updated>Wed, 01 Apr 2020 00:00:00 UTC</updated>
+    <updated>Sun, 17 May 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Hello Openworm</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-17/</link>
+      <pubDate>Sun, 17 May 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-17/</guid>
+      <description>&lt;p&gt;It was after over ten weeks of the gruesome cycle of writing and reviewing my GSoC proposal, that I finally got a sigh of relief when I was selected for the only project I worked towards, which was &lt;a href=&#34;https://summerofcode.withgoogle.com/projects/#6078813261266944&#34;&gt;Pre-trained models for developmental neuroscience&lt;/a&gt;. And things have been better than ever since then.&lt;/p&gt;
+&lt;p&gt;The first week was mostly me getting to know more about the OpenWorm community and what are they strivung to do. I got to meet &lt;a href=&#34;https://github.com/balicea&#34;&gt;Dr. Bradley Alicea&lt;/a&gt;, &lt;a href=&#34;https://github.com/nvinayvarma189&#34;&gt;Vinay Varma&lt;/a&gt; and &lt;a href=&#34;https://github.com/ujjwalll&#34;&gt;Ujjwal Singh&lt;/a&gt;. They gave me a warm welcome into the community.&lt;/p&gt;
+&lt;p&gt;I started setting up the environment right after the results were out, and cleaned up one of my &lt;a href=&#34;https://github.com/Mayukhdeb/adventures-with-augmentation&#34;&gt;older repos&lt;/a&gt; which would act as a quick reference through the span of this project.&lt;/p&gt;
+&lt;p&gt;The first weekly meeting with OpenWorm gave me a much better idea of the goals of this project.&lt;/p&gt;
+&lt;p&gt;The key to a good deep learning model is good data. If the data is clean, half the battle is won. This led to the the first &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/worm_tracking_pipeline.ipynb&#34;&gt;notebook&lt;/a&gt; which builds a pipeline for tracking and segmenting the worms directly from video files. The pipeline works as follows:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/may_17_visualization.png&#34; height=&#34;900&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;The video file is first trimmed to shorten the clip to extract only a short subclip (this is optional).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;All the frames from the subclip are extracted from the video using &lt;a href=&#34;https://zulko.github.io/moviepy/ref/ffmpeg.html&#34;&gt;ffmpeg&lt;/a&gt; and saved into a folder in a numerical sequence of filenames.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The locations of the worms are determined by drawing padded rectangles around the contours of the thresholded image.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/rectangles.png&#34; width=&#34;60%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;The original image is then cropped and segmented to remove all background except the worm(s) in the image.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/segmented.png&#34; width=&#34;60%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a GIF to visualise the tracking in the live feed.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/tracking.gif&#34; width=&#34;80%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Apart from all of this, I also read quite a few papers on the C.elegans worm. This was an effort towards getting more familiar with the underlying biological concepts surrounding the worm.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Deep chicken saviour</title>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content="  &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc_post_may_17/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.70.0" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title>  &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc_post_may_17/"></a></h3>
+        
+          <div class="content-full"><h1 id="hello-openworm-">Hello OpenWorm !</h1>
+<h2 id="google-summer-of-code-week-1">Google Summer of Code week 1</h2>
+<p>It was after over ten weeks of the gruesome cycle of writing and reviewing my GSoC proposal, that I finally got a sigh of relief when I was selected for the only project I worked towards, which was <a href="https://summerofcode.withgoogle.com/projects/#6078813261266944">Pre-trained models for developmental neuroscience</a>. And things have been better than ever since that.</p>
+<p>The first week was mostly me getting to know more about the OpenWorm community and what are they strivung to do. I got to meet <a href="https://github.com/balicea">Dr. Bradley Alicea</a>, <a href="https://github.com/nvinayvarma189">Vinay Varma</a> and <a href="https://github.com/ujjwalll">Ujjwal Singh</a>. They gave me a warm welcome into the community.</p>
+<p>I started setting up the environment right after the results were out, and cleaned up one of my <a href="link">older repos</a> which would act as a quick reference through this project.</p>
+<p>The first weekly meeting with OpenWorm gave me a much better idea of the goals of this project.</p>
+<p>The key to a good deep learning model is good data. If the data is clean, half the battle is won. This led to the the first <a href="link">notebook</a> which builds a pipeline for tracking and segmenting the worms directly from video files. The pipeline works as follows:</p>
+<ol>
+<li>
+<p>The video file is first trimmed to shorten the clip to extract only a short subclip (this is optional).</p>
+</li>
+<li>
+<p>All the frames from the subclip are extracted from the video using <a href="link">ffmpeg</a> and saved into a folder in a numerical sequence of filenames.</p>
+</li>
+<li>
+<p>The locations of the worms are determined by drawing padded rectangles around the contours of the thresholded image.</p>
+</li>
+</ol>
+<p><!-- raw HTML omitted --></p>
+<ol start="4">
+<li>The original image is then cropped and segmented to remove all background except the worm(s) in the image.</li>
+</ol>
+<p><!-- raw HTML omitted --></p>
+<p>Here&rsquo;s a GIF to visualise the tracking in the live feed.</p>
+<p><!-- raw HTML omitted --></p>
+<p>Apart from all of this, I also read quite a few papers on the C.elegans worm. This was an effort towards getting more familiar with the underlying biological concepts surrounding the worm.</p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>&copy; 2020. @mayukhdeb. All rights reserved. </div>    
+
+  </footer>
+</body>
+</html>
+
