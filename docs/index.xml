@@ -6,7 +6,38 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 24 May 2020 00:00:00 UTC</updated>
+    <updated>Sat, 30 May 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Finding patterns</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</guid>
+      <description>&lt;p&gt;Week 3 started off with some more improvements to the &amp;ldquo;skeletonization process, but soon took a turn towards data analysis.I Downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/head_tail_time_series_data.png&#34; width=&#34;100%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;As seen above, there are two distinct patterns that are observed in the head to tail distances of the &amp;ldquo;wild&amp;rdquo; strain and the &amp;ldquo;unc&amp;rdquo; strain of the worm. The wild type seems to be more noisy with deeper local minimas. While the changes in the &amp;ldquo;unc&amp;rdquo; type are more gradual and predictable.&lt;/p&gt;
+&lt;p&gt;It is possible to generate a large amount of time series data from the videos that are available on the Movement database. This time series data can be used for 2 possible purposes:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;First would be to use an LSTM to predict the future sequence of values, a good enough LSTM would be able to find the underlying patterns through the noise.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Another possibility would be to use the LSTM to classify the worm&amp;rsquo;s strain based on the time series data.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I already used a simple LSTM RNN on the time series data as a proof of concept, and here&amp;rsquo;s how the predictions looked like:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/LSTM_sample_alpha_001.png&#34; width=&#34;100%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;The predictions made aren&amp;rsquo;t absolutely perfect because the dummy model is too small, and lacks tuning, but it still manages to predict the second half of the curve.&lt;/p&gt;
+&lt;p&gt;Trying to achieve at least one of these goals would be the goal of the next week.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Exploring the Movement Database</title>
@@ -20,7 +51,37 @@
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/initial_image.png&#34; width=&#34;60%&#34;/&gt; 
 &lt;/figure&gt;
 
-&lt;p&gt;The issue with the video data (as seen above) was that the worms were &amp;ldquo;partially segmented out&amp;rdquo;. Which meant that the background was all blacked out except for a small &amp;ldquo;padding area&amp;rdquo; around the worm. This &amp;ldquo;padding area&amp;rdquo; was a good safety measure on the Tierpsy tracker&amp;rsquo;s side, but was a minor hurdle  for someone who wanted to segment out just the worm from the image in order to gain inferences from behavioural dynamics.&lt;/p&gt;
+&lt;p&gt;The issue with the video data (as seen above) wThe issue with the video data (as seen above) was that the worms were &amp;ldquo;partially segmented out&amp;rdquo;. Which meant that the background was all blacked out except for a small &amp;ldquo;padding area&amp;rdquo; around the worm. This &amp;ldquo;padding area&amp;rdquo; was a good safety measure on the Tierpsy tracker&amp;rsquo;s side, but was a minor hurdle  for someone who wanted to segment out just the worm from the image in order to gain inferences from behavioural dynamics.&lt;/p&gt;
+&lt;p&gt;This hurdle was taken care of in 3 stages:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/OW_movement_database_pipeline.png&#34; width=&#34;100%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Stage 1: Extracting the &amp;ldquo;padding region&amp;rdquo; around the worm with &lt;a href=&#34;https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html&#34;&gt;&lt;code&gt;cv2.threshold()&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Stage 2: Removing the padding region by using &lt;a href=&#34;https://docs.opencv.org/master/d0/d86/tutorial_py_image_arithmetics.html&#34;&gt;&lt;code&gt;cv2.bitwise_and()&lt;/code&gt;&lt;/a&gt; between the real and the thresholded image&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Removing any extra noise (as seen on stage 2) with &lt;a href=&#34;https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html&#34;&gt;&lt;code&gt;cv2.erode()&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now the next objecive was to extract the head and tail, this was done  using corner detection with &lt;a href=&#34;https://docs.opencv.org/2.4/modules/imgproc/doc/feature_detection.html#goodfeaturestotrack&#34;&gt;&lt;code&gt;cv2.goodFeaturesToTrack()&lt;/code&gt;&lt;/a&gt; with &lt;code&gt;maxCorners = 2&lt;/code&gt; to only capture the 2 most prominent corners.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/head_and_tail.png&#34; width=&#34;60%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;To complete the skeletonization, all that was needed now was to skeletonize the main body, and that was done with the very self explanatory function named &lt;a href=&#34;https://scikit-image.org/docs/dev/auto_examples/edges/plot_skeleton.html&#34;&gt;&lt;code&gt;skimage.morphology.skeletonize()&lt;/code&gt;&lt;/a&gt;. Combined with two circles which signify the head and the tail, we get a clean skeleton which can now be used for analysis on a bigger scale with a large number of frames.&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/skeleton.png&#34; width=&#34;60%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/skeleton_long.png&#34; width=&#34;60%&#34;/&gt; 
+&lt;/figure&gt;
+as that the worms were &amp;ldquo;partially segmented out&amp;rdquo;. Which meant that the background was all blacked out except for a small &amp;ldquo;padding area&amp;rdquo; around the worm. This &amp;ldquo;padding area&amp;rdquo; was a good safety measure on the Tierpsy tracker&amp;rsquo;s side, but was a minor hurdle  for someone who wanted to segment out just the worm from the image in order to gain inferences from behavioural dynamics.&lt;/p&gt;
 &lt;p&gt;This hurdle was taken care of in 3 stages:&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/OW_movement_database_pipeline.png&#34; width=&#34;100%&#34;/&gt; 

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Finding patterns &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.71.1" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Finding patterns &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/">Finding patterns</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/lstm" rel="tag">LSTM </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/time-series-data" rel="tag">time series data </a>
+              </span>
+          </div>
+          <div class="content-full"><p>Week 3 started off with some more improvements to the &ldquo;skeletonization process, but soon took a turn towards data analysis.I Downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/may_31/head_tail_time_series_data.png" width="100%"/> 
+</figure>
+
+<p>As seen above, there are two distinct patterns that are observed in the head to tail distances of the &ldquo;wild&rdquo; strain and the &ldquo;unc&rdquo; strain of the worm. The wild type seems to be more noisy with deeper local minimas. While the changes in the &ldquo;unc&rdquo; type are more gradual and predictable.</p>
+<p>It is possible to generate a large amount of time series data from the videos that are available on the Movement database. This time series data can be used for 2 possible purposes:</p>
+<ol>
+<li>
+<p>First would be to use an LSTM to predict the future sequence of values, a good enough LSTM would be able to find the underlying patterns through the noise.</p>
+</li>
+<li>
+<p>Another possibility would be to use the LSTM to classify the worm&rsquo;s strain based on the time series data.</p>
+</li>
+</ol>
+<p>I already used a simple LSTM RNN on the time series data as a proof of concept, and here&rsquo;s how the predictions looked like:</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/may_31/LSTM_sample_alpha_001.png" width="100%"/> 
+</figure>
+
+<p>The predictions made aren&rsquo;t absolutely perfect because the dummy model is too small, and lacks tuning, but it still manages to predict the second half of the curve.</p>
+<p>Trying to achieve at least one of these goals would be the goal of the next week.</p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>&copy; 2020. @mayukhdeb. All rights reserved. </div>    
+
+  </footer>
+</body>
+</html>
+

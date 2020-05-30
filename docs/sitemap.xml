@@ -4,7 +4,42 @@
   
   <url>
     <loc>https://mayukhdeb.github.io/blog/</loc>
-    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/tags/gsoc/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/tags/lstm/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/tags/openworm/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/post/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/tags/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayukhdeb.github.io/blog/tags/time-series-data/</loc>
+    <lastmod>2020-05-30T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -24,26 +59,6 @@
   
   <url>
     <loc>https://mayukhdeb.github.io/blog/tags/feature-extraction/</loc>
-    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayukhdeb.github.io/blog/tags/gsoc/</loc>
-    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayukhdeb.github.io/blog/tags/openworm/</loc>
-    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayukhdeb.github.io/blog/post/</loc>
-    <lastmod>2020-05-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayukhdeb.github.io/blog/tags/</loc>
     <lastmod>2020-05-24T00:00:00+00:00</lastmod>
   </url>
   

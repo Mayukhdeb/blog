@@ -6,10 +6,46 @@
     <description>Recent content in Tags on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GSoC</title>
+      <link>https://mayukhdeb.github.io/blog/tags/gsoc/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/gsoc/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>LSTM</title>
+      <link>https://mayukhdeb.github.io/blog/tags/lstm/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/lstm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OpenWorm</title>
+      <link>https://mayukhdeb.github.io/blog/tags/openworm/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/openworm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>time series data</title>
+      <link>https://mayukhdeb.github.io/blog/tags/time-series-data/</link>
+      <pubDate>Sat, 30 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/time-series-data/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Computer vision</title>
@@ -35,24 +71,6 @@
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/feature-extraction/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>GSoC</title>
-      <link>https://mayukhdeb.github.io/blog/tags/gsoc/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/tags/gsoc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>OpenWorm</title>
-      <link>https://mayukhdeb.github.io/blog/tags/openworm/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/tags/openworm/</guid>
       <description></description>
     </item>
     
