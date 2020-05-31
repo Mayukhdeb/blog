@@ -6,15 +6,15 @@
     <language>en-us</language>
     
     
-    <updated>Sat, 30 May 2020 00:00:00 UTC</updated>
+    <updated>Sun, 31 May 2020 00:00:00 UTC</updated>
     
     <item>
       <title>Finding patterns</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</link>
-      <pubDate>Sat, 30 May 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 31 May 2020 00:00:00 UTC</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</guid>
-      <description>&lt;p&gt;Week 3 started off with some more improvements to the &amp;ldquo;skeletonization process, but soon took a turn towards data analysis.I Downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.&lt;/p&gt;
+      <description>&lt;p&gt;Week 3 started off with some more improvements to the &amp;ldquo;skeletonization process&amp;rdquo;, but soon took a turn towards data analysis. I Downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/head_tail_time_series_data.png&#34; width=&#34;100%&#34;/&gt; 
 &lt;/figure&gt;
@@ -31,10 +31,18 @@
 &lt;/ol&gt;
 &lt;p&gt;I already used a simple LSTM RNN on the time series data as a proof of concept, and here&amp;rsquo;s how the predictions looked like:&lt;/p&gt;
 &lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/LSTM_sample_alpha_001.png&#34; width=&#34;100%&#34;/&gt; 
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/LSTM_sample_alpha_001.png&#34; width=&#34;60%&#34;/&gt; 
 &lt;/figure&gt;
 
-&lt;p&gt;The predictions made aren&amp;rsquo;t absolutely perfect because the dummy model is too small, and lacks tuning, but it still manages to predict the second half of the curve.&lt;/p&gt;
+&lt;p&gt;The predictions made aren&amp;rsquo;t absolutely perfect for now because:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The dummy model is too small, but it still manages to predict the first quarter of test zone.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The amount of data used to train the model is relatively low for faster prototyping.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;p&gt;Trying to achieve at least one of these goals would be the goal of the next week.&lt;/p&gt;
 </description>
     </item>
