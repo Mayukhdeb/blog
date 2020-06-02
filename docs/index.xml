@@ -14,7 +14,7 @@
       <pubDate>Sun, 31 May 2020 00:00:00 UTC</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</guid>
-      <description>&lt;p&gt;Week 3 started off with some more improvements to the &amp;ldquo;skeletonization process&amp;rdquo;, but soon took a turn towards data analysis. I Downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.&lt;/p&gt;
+      <description>&lt;p&gt;Week 3 started off with some more improvements to the &amp;ldquo;skeletonization process&amp;rdquo;, but soon took a turn towards data analysis. I downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/head_tail_time_series_data.png&#34; width=&#34;100%&#34;/&gt; 
 &lt;/figure&gt;

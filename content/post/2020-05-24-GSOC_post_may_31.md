@@ -13,7 +13,7 @@ summary = "Google Summer of Code | Community bonding period week 3"
 +++
 
 
-Week 3 started off with some more improvements to the "skeletonization process", but soon took a turn towards data analysis. I Downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.
+Week 3 started off with some more improvements to the "skeletonization process", but soon took a turn towards data analysis. I downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.
 
 
  {{< figure src="/post/images/may_31/head_tail_time_series_data.png" width="100%">}}
