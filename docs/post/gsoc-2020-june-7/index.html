@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" The &#34;EPIC&#34; dataset &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-7/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.72.0" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> The &#34;EPIC&#34; dataset &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-7/">The &#34;EPIC&#34; dataset</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/lstm" rel="tag">LSTM </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/time-series-data" rel="tag">time series data </a>
+              </span>
+          </div>
+          <div class="content-full"><h2 id="exploring-the-metadatahttpsnbviewerjupyterorggithubdevowormgsoc-2020blobmasterpre-trained20models2028devlearning29notebooksembryo_analysismetadata_explorationipynb"><a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/metadata_exploration.ipynb">Exploring the metadata</a></h2>
+<p>So, the week started with me shifting my focus from movement analysis to developmental biology. Which made me stumble upon the <a href="http://epic.gs.washington.edu/">EPIC dataset</a>. The website contained a lot of videos capturing the process of embryogenesis in the C. elegans embryo.  The best part was that each video was accompanied with time tagged metadata with columns like:</p>
+<ul>
+<li>
+<p><code>x</code> and <code>y</code> co-ordinates of the cell</p>
+</li>
+<li>
+<p>Cell name (more on that below)</p>
+</li>
+<li>
+<p>Time value of when the data point was captured.</p>
+</li>
+</ul>
+<p>Plotting the movements of some of the cells gave an interesting insight on how a certain type of a dwells in a certain part of the embryo.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/june_7/movement_vis.png" width="60%"/> 
+</figure>
+
+<h2 id="deep-learning-on-the-metadatahttpsnbviewerjupyterorggithubdevowormgsoc-2020blobmasterpre-trained20models2028devlearning29notebooksembryo_analysisdeep_learning_on_metadataipynb"><a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/deep_learning_on_metadata.ipynb">Deep learning on the metadata</a></h2>
+<p>The first objective was to make sense of what the cell names meant, and the diagram shown below summed it up pretty well.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/june_7/lineage_diagram.jpg" width="60%"/> 
+</figure>
+
+<p>But there was a new problem now, it was that there were more than 700 unique cell names with a highly unbalanced distribution through the dataset.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/june_7/compact_cellname_explain.png" width="40%"/> 
+</figure>
+
+<p>The solution was to &ldquo;shorten&rdquo; the cell names to only the first few characters. This would give us info about the cell&rsquo;s lineage (or the name of the cell itself, depending on the value of <code>time</code>) and not necessarily it&rsquo;s precise name. This shortened <code>compact_cellname</code> would now be used as a label for the deep learning model.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/june_7/pie.png" width="50%"/> 
+</figure>
+
+<p>This reduced the number of labels to 32, but there was still a lot of imbalance (as seen above), which was taken care of by the <a href="https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.over_sampling.RandomOverSampler.html"><code>RandomOverSampler()</code></a>.</p>
+<p>The next step was to train a model on the data, and with the help of an adaptive learning rate which only reduced when the loss plateaued (check - <a href="https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau"><code>ReduceLROnPlateau()</code></a>), the simple 5 layer model reached a a 90% accuracy after 30 epochs of training.</p>
+<p><figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/june_7/lr.png" width="60%"/> 
+</figure>
+
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/june_7/training_curve.png" width="60%"/> 
+</figure>
+</p>
+<p>The model can obviously be improved in the coming weeks with more data and a better architecture.</p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>&copy; 2020. @mayukhdeb. All rights reserved. </div>    
+
+  </footer>
+</body>
+</html>
+

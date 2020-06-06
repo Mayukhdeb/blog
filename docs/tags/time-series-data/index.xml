@@ -6,10 +6,19 @@
     <description>Recent content in time series data on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/time-series-data/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The &#34;EPIC&#34; dataset</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-7/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-7/</guid>
+      <description>Google Summer of Code | Coding period week 1</description>
+    </item>
     
     <item>
       <title>Finding patterns</title>
