@@ -12,20 +12,20 @@
     
     
     <item>
+      <title>Deep learning</title>
+      <link>https://mayukhdeb.github.io/blog/tags/deep-learning/</link>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>GSoC</title>
       <link>https://mayukhdeb.github.io/blog/tags/gsoc/</link>
       <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/gsoc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>LSTM</title>
-      <link>https://mayukhdeb.github.io/blog/tags/lstm/</link>
-      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/tags/lstm/</guid>
       <description></description>
     </item>
     
@@ -39,9 +39,18 @@
     </item>
     
     <item>
+      <title>LSTM</title>
+      <link>https://mayukhdeb.github.io/blog/tags/lstm/</link>
+      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/lstm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>time series data</title>
       <link>https://mayukhdeb.github.io/blog/tags/time-series-data/</link>
-      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/time-series-data/</guid>
       <description></description>
@@ -53,15 +62,6 @@
       <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/computer-vision/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Deep learning</title>
-      <link>https://mayukhdeb.github.io/blog/tags/deep-learning/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/tags/deep-learning/</guid>
       <description></description>
     </item>
     
