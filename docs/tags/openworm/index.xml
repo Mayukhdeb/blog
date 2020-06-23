@@ -6,10 +6,19 @@
     <description>Recent content in OpenWorm on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 11 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/openworm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Training the segmetation model</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/</link>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/</guid>
+      <description>Google Summer of Code | Coding period week 3</description>
+    </item>
     
     <item>
       <title>PCA and semantic segmentation</title>
