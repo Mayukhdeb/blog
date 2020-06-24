@@ -9,33 +9,36 @@
     <updated>Sun, 21 Jun 2020 00:00:00 UTC</updated>
     
     <item>
-      <title>Training the segmetation model</title>
+      <title>Training the segmentation model</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 UTC</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/</guid>
-      <description>&lt;p&gt;The objective of week 3 was to train the model on a dummy dataset first (for prototyping) and then on a larger dataset.&lt;/p&gt;
+      <description>&lt;p&gt;The objective of week 3 was to train the model initially on a dummy dataset(for prototyping) and then on a larger dataset. Check out &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_segmentation/train_segmentation_model.ipynb&#34;&gt;this notebook&lt;/a&gt; if you want to have a better look.&lt;/p&gt;
 &lt;p&gt;The three primary conponents of our training pipeline were:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://pytorch.org/&#34;&gt;PyTorch&lt;/a&gt; for training and deploying the models.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://pytorch.org/&#34;&gt;PyTorch&lt;/a&gt; for building, training and deploying the models.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/albumentations-team/albumentations&#34;&gt;albumentations&lt;/a&gt; for building the image augmentation pipeline. It was important for us to make sure that the image and the mask went through the exact&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/albumentations-team/albumentations&#34;&gt;albumentations&lt;/a&gt; for building the image augmentation pipeline. It was important for us to make sure that the image and the mask went through the same exact set of transforms whenever they&amp;rsquo;re loaded into the batch, and this was possible in this library.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/qubvel/segmentation_models.pytorch&#34;&gt;segmentation-models-pytorch&lt;/a&gt; to build Neural Networks for Image segmentation.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/qubvel/segmentation_models.pytorch&#34;&gt;segmentation-models-pytorch&lt;/a&gt; is a high level API to build models for multi class (or binary) image segmentation.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;But now there was a problem with the augmented/resized images, the problem was that the pixel values were getting altered due to the resizing interpolations. This was fixed with a manual override with &lt;code&gt;mask[mask != 0] = 255&lt;/code&gt;. It converted all the non zero values to 255 forcefully, just like it was before going through the augmentative transforms.&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;the-issue-with-interpolation&#34;&gt;The issue with interpolation&lt;/h2&gt;
+&lt;p&gt;The problem with the image loading class was that the pixel values were getting altered due to the resizing interpolations. This was fixed (or so I thought) with a manual override with &lt;code&gt;mask[mask != 0] = 255&lt;/code&gt;. It converted all the non zero values to 255 forcefully, just like it was before going through the augmentative transforms.&lt;/p&gt;
 &lt;p&gt;Interestingly enough, I faced this problem even after using the manual fix. But this time it was because of the &lt;code&gt;transforms.resize&lt;/code&gt; function within the &lt;code&gt;torchvision.transforms&lt;/code&gt;. The problem was traced down to the interpolation, the very fact that the default interpolation was set to &lt;code&gt;Image.BILINEAR&lt;/code&gt; (default arg) was the reason why the pixel values were getting altered in the mask. This was fixed by setting &lt;code&gt;interpolation = Image.NEAREST&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;After all of these transforms, the training images and masks came out to be as shown:
+&lt;p&gt;After all of these transforms, the training images and masks came out to be as shown:&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/train_image.png&#34; width=&#34;20%&#34;/&gt; 
 &lt;/figure&gt;
-&lt;/p&gt;
+
+&lt;hr&gt;
 &lt;h2 id=&#34;the-model&#34;&gt;The model&lt;/h2&gt;
-&lt;p&gt;So the next step was to train the model on these images, and for our case, we used the &lt;a href=&#34;https://supervise.ly/explore/models/res-net-18-image-net-2717/overview&#34;&gt;pre-trained ResNet18&lt;/a&gt; as the encoder. Some of the other parameters used are as follows:&lt;/p&gt;
+&lt;p&gt;The next step was to train the model on the images, and for our case, we used the &lt;a href=&#34;https://supervise.ly/explore/models/res-net-18-image-net-2717/overview&#34;&gt;pre-trained ResNet18&lt;/a&gt; as the encoder. Some of the other parameters used are as follows:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;ACTIVATION = &#39;sigmoid&#39;&lt;/code&gt; clamps the output pixel values between &lt;code&gt;[0.,1.]&lt;/code&gt;, which are ideal for calculating a loss with respect to a mask whose pixel values also are within the same range.&lt;/p&gt;
@@ -62,9 +65,9 @@
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/diceloss.png&#34; width=&#34;30%&#34;/&gt; 
 &lt;/figure&gt;
 
-&lt;p&gt;where &lt;code&gt;|X| ∩ |Y|&lt;/code&gt;  is the intersection where the prediction correctly overlaps the label in the 2D mask.&lt;/p&gt;
+&lt;p&gt;Where &lt;code&gt;|X| ∩ |Y|&lt;/code&gt;  is the intersection where the prediction correctly overlaps the label in the 2D mask.&lt;/p&gt;
 &lt;h2 id=&#34;training-metrics-and-visualizing-the-outputs&#34;&gt;Training metrics and visualizing the outputs&lt;/h2&gt;
-&lt;p&gt;The model could hit an IOU score of about 0.7 after 24 epochs of training.&lt;/p&gt;
+&lt;p&gt;The model could hit an IOU score of just above 0.7 after 24 epochs of training.&lt;/p&gt;
 &lt;figure&gt;
     &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/training_curve.png&#34; width=&#34;30%&#34;/&gt; 
 &lt;/figure&gt;

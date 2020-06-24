@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Training the segmetation model &middot;  @mayukhdeb" />
+  <meta property="og:title" content=" Training the segmentation model &middot;  @mayukhdeb" />
   <meta property="og:site_name" content="@mayukhdeb" />
   <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/" />
   <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.72.0" />
+  <meta name="generator" content="Hugo 0.73.0" />
   
   
   <base href="https://mayukhdeb.github.io/blog/">
-  <title> Training the segmetation model &middot;  @mayukhdeb</title>
+  <title> Training the segmentation model &middot;  @mayukhdeb</title>
   <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
 
 </head>
@@ -31,34 +31,37 @@
   </header>
   <main>
       <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/">Training the segmetation model</a></h3>
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/">Training the segmentation model</a></h3>
         
             <div class="tags">tags: &nbsp;
               <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/semantic-segmentation" rel="tag">semantic segmentation </a>
               </span>
           </div>
-          <div class="content-full"><p>The objective of week 3 was to train the model on a dummy dataset first (for prototyping) and then on a larger dataset.</p>
+          <div class="content-full"><p>The objective of week 3 was to train the model initially on a dummy dataset(for prototyping) and then on a larger dataset. Check out <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_segmentation/train_segmentation_model.ipynb">this notebook</a> if you want to have a better look.</p>
 <p>The three primary conponents of our training pipeline were:</p>
 <ul>
 <li>
-<p><a href="https://pytorch.org/">PyTorch</a> for training and deploying the models.</p>
+<p><a href="https://pytorch.org/">PyTorch</a> for building, training and deploying the models.</p>
 </li>
 <li>
-<p><a href="https://github.com/albumentations-team/albumentations">albumentations</a> for building the image augmentation pipeline. It was important for us to make sure that the image and the mask went through the exact</p>
+<p><a href="https://github.com/albumentations-team/albumentations">albumentations</a> for building the image augmentation pipeline. It was important for us to make sure that the image and the mask went through the same exact set of transforms whenever they&rsquo;re loaded into the batch, and this was possible in this library.</p>
 </li>
 <li>
-<p><a href="https://github.com/qubvel/segmentation_models.pytorch">segmentation-models-pytorch</a> to build Neural Networks for Image segmentation.</p>
+<p><a href="https://github.com/qubvel/segmentation_models.pytorch">segmentation-models-pytorch</a> is a high level API to build models for multi class (or binary) image segmentation.</p>
 </li>
 </ul>
-<p>But now there was a problem with the augmented/resized images, the problem was that the pixel values were getting altered due to the resizing interpolations. This was fixed with a manual override with <code>mask[mask != 0] = 255</code>. It converted all the non zero values to 255 forcefully, just like it was before going through the augmentative transforms.</p>
+<hr>
+<h2 id="the-issue-with-interpolation">The issue with interpolation</h2>
+<p>The problem with the image loading class was that the pixel values were getting altered due to the resizing interpolations. This was fixed (or so I thought) with a manual override with <code>mask[mask != 0] = 255</code>. It converted all the non zero values to 255 forcefully, just like it was before going through the augmentative transforms.</p>
 <p>Interestingly enough, I faced this problem even after using the manual fix. But this time it was because of the <code>transforms.resize</code> function within the <code>torchvision.transforms</code>. The problem was traced down to the interpolation, the very fact that the default interpolation was set to <code>Image.BILINEAR</code> (default arg) was the reason why the pixel values were getting altered in the mask. This was fixed by setting <code>interpolation = Image.NEAREST</code>.</p>
-<p>After all of these transforms, the training images and masks came out to be as shown:
+<p>After all of these transforms, the training images and masks came out to be as shown:</p>
 <figure>
     <img src="https://mayukhdeb.github.io/blog/post/images/june_21/train_image.png" width="20%"/> 
 </figure>
-</p>
+
+<hr>
 <h2 id="the-model">The model</h2>
-<p>So the next step was to train the model on these images, and for our case, we used the <a href="https://supervise.ly/explore/models/res-net-18-image-net-2717/overview">pre-trained ResNet18</a> as the encoder. Some of the other parameters used are as follows:</p>
+<p>The next step was to train the model on the images, and for our case, we used the <a href="https://supervise.ly/explore/models/res-net-18-image-net-2717/overview">pre-trained ResNet18</a> as the encoder. Some of the other parameters used are as follows:</p>
 <ul>
 <li>
 <p><code>ACTIVATION = 'sigmoid'</code> clamps the output pixel values between <code>[0.,1.]</code>, which are ideal for calculating a loss with respect to a mask whose pixel values also are within the same range.</p>
@@ -85,9 +88,9 @@
     <img src="https://mayukhdeb.github.io/blog/post/images/june_21/diceloss.png" width="30%"/> 
 </figure>
 
-<p>where <code>|X| ∩ |Y|</code>  is the intersection where the prediction correctly overlaps the label in the 2D mask.</p>
+<p>Where <code>|X| ∩ |Y|</code>  is the intersection where the prediction correctly overlaps the label in the 2D mask.</p>
 <h2 id="training-metrics-and-visualizing-the-outputs">Training metrics and visualizing the outputs</h2>
-<p>The model could hit an IOU score of about 0.7 after 24 epochs of training.</p>
+<p>The model could hit an IOU score of just above 0.7 after 24 epochs of training.</p>
 <figure>
     <img src="https://mayukhdeb.github.io/blog/post/images/june_21/training_curve.png" width="30%"/> 
 </figure>
