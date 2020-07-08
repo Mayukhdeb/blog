@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Building a bridge &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.73.0" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Building a bridge &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/">Building a bridge</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">deep learning </a>
+              </span>
+          </div>
+          <div class="content-full"><p>The bridge that we&rsquo;ll have to build is between the videos and the annotations in the <a href="http://epic.gs.washington.edu/">EPIC dataset</a>, and for that we&rsquo;ll need to train a deep learning model that connects these two. It turned out that it wasn&rsquo;t as straighforward as throwing a bunch of tensors into a model.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_5/raw_frames.png" width="50%"/> 
+</figure>
+
+<p>From the frames like the ones shown above, we&rsquo;ll  have to find the population of various lineages of cells within the embryo.</p>
+<p>The C. elegans embryo contains cells from various lineages which move on to become various body parts during adulthood, and the total population of each lineage depends primarily on time, but there are a few other biological factors as well. The plot below shows how the populations of each lineage varied with time for a single embryo.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_5/lineage.png" width="60%"/> 
+</figure>
+
+<p>The first task was to <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/merging_video_data_with_annotations.ipynb">format the data</a> in a way that can be used to train a model to gain inferences. This mostly involved algorithms that determined the population of each lineage with time from the raw metadata.</p>
+<p>The second problem was with mapping the video with the annotations. The issue was that there were about 130 or so time instances per video, but there were around 40 frames. So I had to write another algorithm that distrubutes these 240 frames on the 130 time instances.</p>
+<p>So now all that was left was to <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/estimate_cell_family_population.ipynb">train a deep learning model</a> which would map the frames to the populations. The prediction for each frame of the model is a 1 dimensional tensor which contains the populations of the lineages <code>['A', 'E', 'M', 'P', 'C', 'D', 'Z']</code> in that order.</p>
+<p>When trained on only 2 videos and about 480 frames, these are the results that were obtained:</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_5/preds.png" width="80%"/> 
+</figure>
+
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>
+
+&copy; 2020. 
+
+@mayukhdeb. All rights reserved. 
+
+</div>    
+
+
+
+  </footer>
+
+<body>
+</body>
+
+</html>
+

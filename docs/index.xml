@@ -6,7 +6,35 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 21 Jun 2020 00:00:00 UTC</updated>
+    <updated>Sun, 05 Jul 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Building a bridge</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/</guid>
+      <description>&lt;p&gt;The bridge that we&amp;rsquo;ll have to build is between the videos and the annotations in the &lt;a href=&#34;http://epic.gs.washington.edu/&#34;&gt;EPIC dataset&lt;/a&gt;, and for that we&amp;rsquo;ll need to train a deep learning model that connects these two. It turned out that it wasn&amp;rsquo;t as straighforward as throwing a bunch of tensors into a model.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_5/raw_frames.png&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;From the frames like the ones shown above, we&amp;rsquo;ll  have to find the population of various lineages of cells within the embryo.&lt;/p&gt;
+&lt;p&gt;The C. elegans embryo contains cells from various lineages which move on to become various body parts during adulthood, and the total population of each lineage depends primarily on time, but there are a few other biological factors as well. The plot below shows how the populations of each lineage varied with time for a single embryo.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_5/lineage.png&#34; width=&#34;60%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;The first task was to &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/merging_video_data_with_annotations.ipynb&#34;&gt;format the data&lt;/a&gt; in a way that can be used to train a model to gain inferences. This mostly involved algorithms that determined the population of each lineage with time from the raw metadata.&lt;/p&gt;
+&lt;p&gt;The second problem was with mapping the video with the annotations. The issue was that there were about 130 or so time instances per video, but there were around 40 frames. So I had to write another algorithm that distrubutes these 240 frames on the 130 time instances.&lt;/p&gt;
+&lt;p&gt;So now all that was left was to &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/estimate_cell_family_population.ipynb&#34;&gt;train a deep learning model&lt;/a&gt; which would map the frames to the populations. The prediction for each frame of the model is a 1 dimensional tensor which contains the populations of the lineages &lt;code&gt;[&#39;A&#39;, &#39;E&#39;, &#39;M&#39;, &#39;P&#39;, &#39;C&#39;, &#39;D&#39;, &#39;Z&#39;]&lt;/code&gt; in that order.&lt;/p&gt;
+&lt;p&gt;When trained on only 2 videos and about 480 frames, these are the results that were obtained:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_5/preds.png&#34; width=&#34;80%&#34;/&gt; 
+&lt;/figure&gt;
+
+</description>
+    </item>
     
     <item>
       <title>Training the segmentation model</title>

@@ -6,10 +6,19 @@
     <description>Recent content in Posts on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Building a bridge</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/</link>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/</guid>
+      <description>Google Summer of Code | Coding period week 5</description>
+    </item>
     
     <item>
       <title>Training the segmentation model</title>
