@@ -6,7 +6,46 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 05 Jul 2020 00:00:00 UTC</updated>
+    <updated>Sun, 12 Jul 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Cleaning up the bridge</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/</link>
+      <pubDate>Sun, 12 Jul 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/</guid>
+      <description>&lt;p&gt;The videos from the EPIC dataset were not all clean and tidy, some of them had random black frames, and some even had random red lines/patches through the frame. These factors were highly unfavourable when it came to training a good deep learning model. This problem was solved in &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/data_cleanup.ipynb&#34;&gt;this notebook&lt;/a&gt;.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/red_line.png&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/red_patch.png&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;And as it turns out, these images were also acompanied with corrupt annotations, where the population went down to zero all of a sudden, even through the associated frames had well populated embryos. I called them the &amp;ldquo;cliffs&amp;rdquo;.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/with_cliffs.png&#34; width=&#34;90%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/cliffs.png&#34; width=&#34;90%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;As it was seen above, some of the data points had cases where the population went down almost vertically all of a sudden. Upon further inspection, it was found that the frames associated with these drops were well populated with cells and definitely not as depicted by these &amp;ldquo;cliff curves&amp;rdquo;. So the next step was to remove them.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/without_cliffs.png&#34; width=&#34;90%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Now the only problem that remained was to remove the corrupt random frames with the patches. For this problem, I went on with &lt;a href=&#34;https://github.com/ujjwalll&#34;&gt;ujjwal&lt;/a&gt;&amp;rsquo;s aproach, which involved dropping the frames with the highest loss after a few epochs of training and the re-train on the &amp;ldquo;clean&amp;rdquo; frames.&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/lossy_frames.png&#34; width=&#34;90%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;The plot above shows the loss of each frame in the training set, with the red lines highlighting the top 10% frames with the highest loss after training.&lt;/p&gt;
+&lt;p&gt;Expecting a much lower loss next week.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Building a bridge</title>

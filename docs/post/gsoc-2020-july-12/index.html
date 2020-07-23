@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Cleaning up the bridge &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.74.2" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Cleaning up the bridge &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/">Cleaning up the bridge</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/data-science" rel="tag">data science </a>
+              </span>
+          </div>
+          <div class="content-full"><p>The videos from the EPIC dataset were not all clean and tidy, some of them had random black frames, and some even had random red lines/patches through the frame. These factors were highly unfavourable when it came to training a good deep learning model. This problem was solved in <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/data_cleanup.ipynb">this notebook</a>.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_12/red_line.png" width="50%"/> 
+</figure>
+
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_12/red_patch.png" width="50%"/> 
+</figure>
+
+<p>And as it turns out, these images were also acompanied with corrupt annotations, where the population went down to zero all of a sudden, even through the associated frames had well populated embryos. I called them the &ldquo;cliffs&rdquo;.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_12/with_cliffs.png" width="90%"/> 
+</figure>
+
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_12/cliffs.png" width="90%"/> 
+</figure>
+
+<p>As it was seen above, some of the data points had cases where the population went down almost vertically all of a sudden. Upon further inspection, it was found that the frames associated with these drops were well populated with cells and definitely not as depicted by these &ldquo;cliff curves&rdquo;. So the next step was to remove them.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_12/without_cliffs.png" width="90%"/> 
+</figure>
+
+<p>Now the only problem that remained was to remove the corrupt random frames with the patches. For this problem, I went on with <a href="https://github.com/ujjwalll">ujjwal</a>&rsquo;s aproach, which involved dropping the frames with the highest loss after a few epochs of training and the re-train on the &ldquo;clean&rdquo; frames.</p>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_12/lossy_frames.png" width="90%"/> 
+</figure>
+
+<p>The plot above shows the loss of each frame in the training set, with the red lines highlighting the top 10% frames with the highest loss after training.</p>
+<p>Expecting a much lower loss next week.</p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>
+
+&copy; 2020. 
+
+@mayukhdeb. All rights reserved. 
+
+</div>    
+
+
+
+  </footer>
+
+<body>
+</body>
+
+</html>
+
