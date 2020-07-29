@@ -6,7 +6,45 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 12 Jul 2020 00:00:00 UTC</updated>
+    <updated>Sun, 19 Jul 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Finally the bridge works now</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-19/</link>
+      <pubDate>Sun, 19 Jul 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-19/</guid>
+      <description>&lt;h2 id=&#34;the-bridge-works-now&#34;&gt;The bridge works now&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/resnet_preds_with_input.gif&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;So, after cleaning up the data last week, I started training the model again from scratch. This time I included all the bells and whistles like &lt;code&gt;ReduceLROnPlateau&lt;/code&gt; and image augmentation with &lt;code&gt;albumentations&lt;/code&gt;. Check out  &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/estimate_cell_family_population.ipynb&#34;&gt;this notebook&lt;/a&gt; for the code.&lt;/p&gt;
+&lt;p&gt;All the values of the populations were yet again normalised to values between -1 and 1. The &lt;code&gt;ResNet18&lt;/code&gt; was customized to a smaller last layer (7 in our case, because 7 lineages of cells).&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/resnet18_pipeline.jpg&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;And after training the model for 8 epochs, the model was able to estimate the populations pretty well. So much so that it was almost at par with the accuracy of the real data.&lt;/p&gt;
+&lt;p&gt;We fed a whole timelapse of the embryogenesis of the C. elegans embryo into the trained model and plotted its predictions, and compared it with the real values as shown:&lt;/p&gt;
+&lt;p&gt;&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_19/pred.png&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_19/pred_2.png&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;py_eleganshttpsgithubcomdevowormgsoc-2020treemasterpre-trained20models20devlearningpy_elegans&#34;&gt;&lt;a href=&#34;https://github.com/devoworm/GSoC-2020/tree/master/Pre-trained%20Models%20(DevLearning)/py_elegans&#34;&gt;Py_elegans&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Apart from all of this, I also started working  on a python library, which would make these deep learning models I&amp;rsquo;ve been training more accessible to the commmunity through a high level framework. For now it&amp;rsquo;s temporarily named &amp;ldquo;py_elegans&amp;rdquo;.&lt;/p&gt;
+&lt;p&gt;In this framework, loading up a pretrained model would be as easy as&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;from pyelegans import lineage_population_model&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;and predictions can be made using:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;pred = model.predict(image_path = &amp;quot;sample.png&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;More updates on this next week.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Cleaning up the bridge</title>
