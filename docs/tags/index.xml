@@ -6,7 +6,7 @@
     <description>Recent content in Tags on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,16 +14,25 @@
     <item>
       <title>Deep learning</title>
       <link>https://mayukhdeb.github.io/blog/tags/deep-learning/</link>
-      <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>GAN</title>
+      <link>https://mayukhdeb.github.io/blog/tags/gan/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/gan/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>GSoC</title>
       <link>https://mayukhdeb.github.io/blog/tags/gsoc/</link>
-      <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/gsoc/</guid>
       <description></description>
@@ -32,7 +41,7 @@
     <item>
       <title>OpenWorm</title>
       <link>https://mayukhdeb.github.io/blog/tags/openworm/</link>
-      <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/openworm/</guid>
       <description></description>

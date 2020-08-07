@@ -6,7 +6,91 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 19 Jul 2020 00:00:00 UTC</updated>
+    <updated>Sun, 26 Jul 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Training a GAN</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/</guid>
+      <description>&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/generated_embryos_3.gif&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Training a GAN is an act of balance where we have to balance the generator and the discriminator in a game of losses and probabilities.&lt;/p&gt;
+&lt;h2 id=&#34;the-generator&#34;&gt;The generator:&lt;/h2&gt;
+&lt;p&gt;The generator, when properly trained, takes in random noise as input and returns a sample which would look very similar to the ones from the training distribution. What we&amp;rsquo;re doing here is basically mapping points a high dimensional distribution to the training samples.&lt;/p&gt;
+&lt;p&gt;While training, the generator&amp;rsquo;s main objective is to &lt;strong&gt;try to fool the discriminator&lt;/strong&gt; by generating real looking images.&lt;/p&gt;
+&lt;h2 id=&#34;the-discriminator&#34;&gt;The discriminator:&lt;/h2&gt;
+&lt;p&gt;The discriminator, when properly trained, would be able to take in an image as an input and return a probability as to whether the image is real or generated. This is more of a classification problem.&lt;/p&gt;
+&lt;p&gt;While training, the discriminator&amp;rsquo;s main objective is to &lt;strong&gt;distinguish between real and fake images&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Initially when the training starts, both the models are equally bad at their jobs, but in the end pf training, the ideal scenario would be when the generator generators images in-distinguishable from the training set. While the discriminator takes in thatgenerated image and returns a probability of 0.5.&lt;/p&gt;
+&lt;h2 id=&#34;the-game-of-minimax&#34;&gt;The game of minimax&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_26/minimax.png&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;h3 id=&#34;lets-break-down-the-equation-above-part-by-part&#34;&gt;Let&amp;rsquo;s break down the equation above part by part:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;x&lt;/code&gt; is the real data&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;z&lt;/code&gt; is the latent vector i.e random noise. It can also be seen as a point in the latent space with n dimensions.  For example, &lt;code&gt;torch.randn(64, 1, 1)&lt;/code&gt; is a point in the 64 dimensional space.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;D(x)&lt;/code&gt; is the probability of the original image being real according  to the discriminator.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;G(z)&lt;/code&gt; is the generated image with noise &lt;code&gt;z&lt;/code&gt; as input.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;D(G(z))&lt;/code&gt; is the probability of the generated image being real according to the discriminator.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;E&lt;/code&gt; represents the expected value function, the expected value is also known as the expectation, mathematical expectation, mean, average, or first moment.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;so-whats-going-on-during-training-&#34;&gt;So what&amp;rsquo;s going on during training ?&lt;/h3&gt;
+&lt;p&gt;The discriminator wants to &lt;strong&gt;maximize &lt;code&gt;D(x)&lt;/code&gt; and minimize &lt;code&gt;D(G(z))&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The generator wants to &lt;strong&gt;maximize &lt;code&gt;D(G(z))&lt;/code&gt;&lt;/strong&gt; so that the discriminator gets fooled into believing that the generated image is real.&lt;/p&gt;
+&lt;p&gt;The key factor to maintaining a balance between the 2 model&amp;rsquo;s capabilities is to choose the right loss landscape.&lt;/p&gt;
+&lt;h2 id=&#34;the-training-loop&#34;&gt;The training loop:&lt;/h2&gt;
+&lt;h3 id=&#34;1-update-discriminator--maximize-logdx--log1---dgz&#34;&gt;1. Update discriminator : maximize &lt;code&gt;log(D(x)) + log(1 - D(G(z)))&lt;/code&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.1 Backprop the discriminator after feeding real images with labels as 1 (sometimes people also use noisy labels with &lt;code&gt;1 ± noise&lt;/code&gt;) (trying to make &lt;code&gt;D(x)&lt;/code&gt; tend towards 1)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.2 Generate fake images (&lt;code&gt;G(z)&lt;/code&gt;) with the generator with random noise &lt;code&gt;z&lt;/code&gt; as input.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.2 Backprop the discriminator after feeding fake images with labels as 0 (sometimes people also use noisy labels with &lt;code&gt;0 ± noise&lt;/code&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Note: the real and the fake batches were not mixed, first we fed the real batch, and then the fake batch.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;2-update-generator-maximize-logdgz&#34;&gt;2. Update generator: maximize &lt;code&gt;log(D(G(z)))&lt;/code&gt;&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2.1 Use the discriminator&amp;rsquo;s output on the fake images to calculate a loss with respect to 1. Since the generator&amp;rsquo;s job is to try to make the discriminator return a 1 on fake images, the closer &lt;code&gt;criterion(discriminator_output, one)&lt;/code&gt; is to zero, the better the situation is for the generator.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;If you&amp;rsquo;re more into code than human sentences, here&amp;rsquo;s a snippet&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;label&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fill_(real_label) &lt;span style=&#34;color:#75715e&#34;&gt;# perform another forward pass of all-fake batch through D&lt;/span&gt;
+output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; netD(fake_images)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# Calculate G&amp;#39;s loss based on this output&lt;/span&gt;
+errG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; criterion(output, label)
+&lt;span style=&#34;color:#75715e&#34;&gt;# Calculate gradients for G&lt;/span&gt;
+errG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
+D_G_z2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; output&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()
+&lt;span style=&#34;color:#75715e&#34;&gt;# Update G&lt;/span&gt;
+optimizerG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;step()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you made it this far, here&amp;rsquo;s a gif of another model trying to make predictions on the generated images:&lt;/p&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/model_vs_GAN.gif&#34; width=&#34;70%&#34;/&gt; 
+&lt;/figure&gt;
+
+</description>
+    </item>
     
     <item>
       <title>Finally the bridge works now</title>

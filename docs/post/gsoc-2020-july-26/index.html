@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Training a GAN &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.74.3" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Training a GAN &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/">Training a GAN</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gan" rel="tag">GAN </a>
+              </span>
+          </div>
+          <div class="content-full"><figure>
+    <img src="https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/generated_embryos_3.gif" width="50%"/> 
+</figure>
+
+<p>Training a GAN is an act of balance where we have to balance the generator and the discriminator in a game of losses and probabilities.</p>
+<h2 id="the-generator">The generator:</h2>
+<p>The generator, when properly trained, takes in random noise as input and returns a sample which would look very similar to the ones from the training distribution. What we&rsquo;re doing here is basically mapping points a high dimensional distribution to the training samples.</p>
+<p>While training, the generator&rsquo;s main objective is to <strong>try to fool the discriminator</strong> by generating real looking images.</p>
+<h2 id="the-discriminator">The discriminator:</h2>
+<p>The discriminator, when properly trained, would be able to take in an image as an input and return a probability as to whether the image is real or generated. This is more of a classification problem.</p>
+<p>While training, the discriminator&rsquo;s main objective is to <strong>distinguish between real and fake images</strong>.</p>
+<p>Initially when the training starts, both the models are equally bad at their jobs, but in the end pf training, the ideal scenario would be when the generator generators images in-distinguishable from the training set. While the discriminator takes in thatgenerated image and returns a probability of 0.5.</p>
+<h2 id="the-game-of-minimax">The game of minimax</h2>
+<figure>
+    <img src="https://mayukhdeb.github.io/blog/post/images/july_26/minimax.png" width="50%"/> 
+</figure>
+
+<h3 id="lets-break-down-the-equation-above-part-by-part">Let&rsquo;s break down the equation above part by part:</h3>
+<ul>
+<li>
+<p><code>x</code> is the real data</p>
+</li>
+<li>
+<p><code>z</code> is the latent vector i.e random noise. It can also be seen as a point in the latent space with n dimensions.  For example, <code>torch.randn(64, 1, 1)</code> is a point in the 64 dimensional space.</p>
+</li>
+<li>
+<p><code>D(x)</code> is the probability of the original image being real according  to the discriminator.</p>
+</li>
+<li>
+<p><code>G(z)</code> is the generated image with noise <code>z</code> as input.</p>
+</li>
+<li>
+<p><code>D(G(z))</code> is the probability of the generated image being real according to the discriminator.</p>
+</li>
+<li>
+<p><code>E</code> represents the expected value function, the expected value is also known as the expectation, mathematical expectation, mean, average, or first moment.</p>
+</li>
+</ul>
+<h3 id="so-whats-going-on-during-training-">So what&rsquo;s going on during training ?</h3>
+<p>The discriminator wants to <strong>maximize <code>D(x)</code> and minimize <code>D(G(z))</code></strong></p>
+<p>The generator wants to <strong>maximize <code>D(G(z))</code></strong> so that the discriminator gets fooled into believing that the generated image is real.</p>
+<p>The key factor to maintaining a balance between the 2 model&rsquo;s capabilities is to choose the right loss landscape.</p>
+<h2 id="the-training-loop">The training loop:</h2>
+<h3 id="1-update-discriminator--maximize-logdx--log1---dgz">1. Update discriminator : maximize <code>log(D(x)) + log(1 - D(G(z)))</code></h3>
+<blockquote>
+<p>1.1 Backprop the discriminator after feeding real images with labels as 1 (sometimes people also use noisy labels with <code>1 ± noise</code>) (trying to make <code>D(x)</code> tend towards 1)</p>
+</blockquote>
+<blockquote>
+<p>1.2 Generate fake images (<code>G(z)</code>) with the generator with random noise <code>z</code> as input.</p>
+</blockquote>
+<blockquote>
+<p>1.2 Backprop the discriminator after feeding fake images with labels as 0 (sometimes people also use noisy labels with <code>0 ± noise</code>)</p>
+</blockquote>
+<blockquote>
+<p>Note: the real and the fake batches were not mixed, first we fed the real batch, and then the fake batch.</p>
+</blockquote>
+<h3 id="2-update-generator-maximize-logdgz">2. Update generator: maximize <code>log(D(G(z)))</code></h3>
+<blockquote>
+<p>2.1 Use the discriminator&rsquo;s output on the fake images to calculate a loss with respect to 1. Since the generator&rsquo;s job is to try to make the discriminator return a 1 on fake images, the closer <code>criterion(discriminator_output, one)</code> is to zero, the better the situation is for the generator.</p>
+</blockquote>
+<p>If you&rsquo;re more into code than human sentences, here&rsquo;s a snippet</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">label<span style="color:#f92672">.</span>fill_(real_label) <span style="color:#75715e"># perform another forward pass of all-fake batch through D</span>
+output <span style="color:#f92672">=</span> netD(fake_images)<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+<span style="color:#75715e"># Calculate G&#39;s loss based on this output</span>
+errG <span style="color:#f92672">=</span> criterion(output, label)
+<span style="color:#75715e"># Calculate gradients for G</span>
+errG<span style="color:#f92672">.</span>backward()
+D_G_z2 <span style="color:#f92672">=</span> output<span style="color:#f92672">.</span>mean()<span style="color:#f92672">.</span>item()
+<span style="color:#75715e"># Update G</span>
+optimizerG<span style="color:#f92672">.</span>step()
+</code></pre></div><p>If you made it this far, here&rsquo;s a gif of another model trying to make predictions on the generated images:</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/model_vs_GAN.gif" width="70%"/> 
+</figure>
+
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>
+
+&copy; 2020. 
+
+@mayukhdeb. All rights reserved. 
+
+</div>    
+
+
+
+  </footer>
+
+<body>
+</body>
+
+</html>
+
