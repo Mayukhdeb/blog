@@ -9,6 +9,48 @@
     <updated>Sun, 26 Jul 2020 00:00:00 UTC</updated>
     
     <item>
+      <title>Hello DevoLearn</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/</link>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/</guid>
+      <description>&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/banner_1.jpg&#34; width=&#34;70%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Building a python library with the Pre-Trained models has been one of my secondary objectives for GSoC 2020, and it was about time that I got started with it. Devolearn is a python library that can be used to collect useful metadata from videos and images of C. elegans embryos with deep learning.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s a quick example with which one can get started with DevoLearn:&lt;/p&gt;
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;pip install devolearn&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;segmenting-the-c-elegans-embryo&#34;&gt;Segmenting the C. elegans embryo&lt;/h3&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/pred_centroids.gif&#34; width=&#34;50%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Importing the model&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; devolearn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; embryo_segmentor
+segmentor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; embryo_segmentor()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Running the model on an image and viewing the prediction&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;seg_pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; segmentor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;predict(image_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sample_data/images/seg_sample.jpg&amp;#34;&lt;/span&gt;)
+plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;imshow(seg_pred)
+plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;Running the model on a video and saving the predictions into a folder&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;filenames &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; segmentor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;predict_from_video(video_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sample_data/videos/seg_sample.mov&amp;#34;&lt;/span&gt;, centroid_mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; False, save_folder &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;preds&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I won&amp;rsquo;t be including all of the examples here, because it&amp;rsquo;s already there on the &lt;a href=&#34;https://github.com/DevoLearn/devolearn/blob/master/README.md&#34;&gt;README.md&lt;/a&gt; of the devolearn repo.&lt;/p&gt;
+&lt;p&gt;As you might be able to see, the primary focus of devolearn was ease of use, the user could be a complete beginner in python and still be able to use the deep learning models in devolearn for his/her research. All that he has to do is to know the filename of his images/videos which he wants to work on.&lt;/p&gt;
+&lt;p&gt;One can use the  &lt;code&gt;embryo_segmentor()&lt;/code&gt; to extract the centroids of the cells from a video and save the centroid co-ordinates into a CSV file which might look like &lt;a href=&#34;https://github.com/DevoLearn/data-science-demos/blob/master/Networks/c_elegans_centroids.csv&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Devolearn is open to any form of contributions/improvements from the open source community. The best place to start for someone who wants to contribute is the &lt;a href=&#34;https://github.com/DevoLearn/devolearn/blob/master/.github/contributing.md&#34;&gt;contributing.md&lt;/a&gt; file.&lt;/p&gt;
+&lt;p&gt;I&amp;rsquo;ll be writing more on how devolearn works under the hood in the next few weeks.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Training a GAN</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/</link>
       <pubDate>Sun, 26 Jul 2020 00:00:00 UTC</pubDate>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Hello DevoLearn &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.74.3" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Hello DevoLearn &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/">Hello DevoLearn</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gan" rel="tag">GAN </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/computer-vision" rel="tag">computer vision </a>
+              </span>
+          </div>
+          <div class="content-full"><figure>
+    <img src="https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/banner_1.jpg" width="70%"/> 
+</figure>
+
+<p>Building a python library with the Pre-Trained models has been one of my secondary objectives for GSoC 2020, and it was about time that I got started with it. Devolearn is a python library that can be used to collect useful metadata from videos and images of C. elegans embryos with deep learning.</p>
+<p>Here&rsquo;s a quick example with which one can get started with DevoLearn:</p>
+<h2 id="installation">Installation</h2>
+<p><code>pip install devolearn</code></p>
+<h3 id="segmenting-the-c-elegans-embryo">Segmenting the C. elegans embryo</h3>
+<figure>
+    <img src="https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/pred_centroids.gif" width="50%"/> 
+</figure>
+
+<ul>
+<li>Importing the model</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> devolearn <span style="color:#f92672">import</span> embryo_segmentor
+segmentor <span style="color:#f92672">=</span> embryo_segmentor()
+</code></pre></div><ul>
+<li>Running the model on an image and viewing the prediction</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">seg_pred <span style="color:#f92672">=</span> segmentor<span style="color:#f92672">.</span>predict(image_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sample_data/images/seg_sample.jpg&#34;</span>)
+plt<span style="color:#f92672">.</span>imshow(seg_pred)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></div><ul>
+<li>Running the model on a video and saving the predictions into a folder</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">filenames <span style="color:#f92672">=</span> segmentor<span style="color:#f92672">.</span>predict_from_video(video_path <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;sample_data/videos/seg_sample.mov&#34;</span>, centroid_mode <span style="color:#f92672">=</span> False, save_folder <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;preds&#34;</span>)
+</code></pre></div><p>I won&rsquo;t be including all of the examples here, because it&rsquo;s already there on the <a href="https://github.com/DevoLearn/devolearn/blob/master/README.md">README.md</a> of the devolearn repo.</p>
+<p>As you might be able to see, the primary focus of devolearn was ease of use, the user could be a complete beginner in python and still be able to use the deep learning models in devolearn for his/her research. All that he has to do is to know the filename of his images/videos which he wants to work on.</p>
+<p>One can use the  <code>embryo_segmentor()</code> to extract the centroids of the cells from a video and save the centroid co-ordinates into a CSV file which might look like <a href="https://github.com/DevoLearn/data-science-demos/blob/master/Networks/c_elegans_centroids.csv">this</a>.</p>
+<p>Devolearn is open to any form of contributions/improvements from the open source community. The best place to start for someone who wants to contribute is the <a href="https://github.com/DevoLearn/devolearn/blob/master/.github/contributing.md">contributing.md</a> file.</p>
+<p>I&rsquo;ll be writing more on how devolearn works under the hood in the next few weeks.</p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>
+
+&copy; 2020. 
+
+@mayukhdeb. All rights reserved. 
+
+</div>    
+
+
+
+  </footer>
+
+<body>
+</body>
+
+</html>
+
