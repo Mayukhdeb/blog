@@ -6,12 +6,80 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 26 Jul 2020 00:00:00 UTC</updated>
+    <updated>Sun, 09 Aug 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Publishing a PyPI package</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/</link>
+      <pubDate>Sun, 09 Aug 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/</guid>
+      <description>&lt;p&gt;First off, this blog post is definitely not an official guide, if you&amp;rsquo;re looking for an official guide, have a look &lt;a href=&#34;https://packaging.python.org/tutorials/packaging-projects/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This blog post is pretty specific to the PyPI package that I authored along with &lt;a href=&#34;https://github.com/balicea&#34;&gt;Bradly&lt;/a&gt; and &lt;a href=&#34;https://github.com/ujjwalll&#34;&gt;Ujjwall&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;the-project-structure&#34;&gt;The project structure:&lt;/h2&gt;
+&lt;figure&gt;
+    &lt;img src=&#34;https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/project_structure.jpg&#34; width=&#34;80%&#34;/&gt; 
+&lt;/figure&gt;
+
+&lt;p&gt;Each of the classes under &lt;code&gt;devolearn&lt;/code&gt; have their own folder which would contain all the utils required for that class including the model files.&lt;/p&gt;
+&lt;p&gt;For example, the folder &lt;code&gt;embryo_generator_model&lt;/code&gt; would look like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;├── embryo_generator_model
+    ├── embryo_generator_model.py
+    ├── embryo_generator.pt
+    ├── __init__.py
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;the-repo-structure-for-pypi&#34;&gt;The repo structure for PyPI&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;devolearn
+├── LICENSE
+├── README.md
+├── devolearn
+│   ├── __init__.py
+│   ├── model_1
+│   │    ├── model_1.py
+│   │    ├── model_1.pt
+│   │    ├── __init__.py
+│   ├── model_2
+│         ├── model_2.py
+│         ├── model_2.pt
+│         ├── __init__.py
+│
+├── setup.py
+
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;generating-a-distribution-archive&#34;&gt;Generating a distribution archive&lt;/h2&gt;
+&lt;p&gt;Once the folder was structured, The next objective was to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.&lt;/p&gt;
+&lt;p&gt;For this I had to install the latest versions of setuptools and wheel with:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;python3 -m pip install --user --upgrade setuptools wheel
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then we had to run the following command  in the same directory as &lt;code&gt;setup.py&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;python3 setup.py sdist bdist_wheel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This command should output a lot of text and once completed should generate two files in the dist directory:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dist/
+    devolearn-0.1.9.tar.gz
+    devolearn-0.1.9-py3-none-any.whl
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;uploading-the-archive&#34;&gt;Uploading the archive&lt;/h2&gt;
+&lt;p&gt;First, we&amp;rsquo;d have to upload the package to test.pypi.org, and for that we&amp;rsquo;d have to &lt;a href=&#34;https://test.pypi.org/account/register/&#34;&gt;make&lt;/a&gt; an account. Then go to &lt;a href=&#34;https://test.pypi.org/manage/account/#api-tokens&#34;&gt;this url&lt;/a&gt; and create a new API token.&lt;/p&gt;
+&lt;p&gt;Then we upload the package using the twine package:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;python3 -m pip install --user --upgrade twine
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And then:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;python3 -m twine upload --repository testpypi dist/*
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When prompted for a username, use &lt;code&gt;__token__&lt;/code&gt; and then enter the token value as the password;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Uploading distributions to https://test.pypi.org/legacy/
+Enter your username: __token__
+Enter your password: your_token_value
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;the-problem-with-package-size&#34;&gt;The problem with package size&lt;/h2&gt;
+&lt;p&gt;In order  to upload a package to test.pypi.org, it had to be under 100 mb, but devolearn was above 150 mb because of the model files. So the workaround was to not include the models in the &lt;code&gt;MANIFEST.in&lt;/code&gt; file and downloading the models from GitHub directly using &lt;code&gt;wget&lt;/code&gt; from within the package. The models would get downloaded when the user calls the model class for the first time.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;  &lt;code&gt;MANIFEST.in&lt;/code&gt; is a file that can be used to specify the &lt;strong&gt;non&lt;/strong&gt; &lt;code&gt;.py&lt;/code&gt; files that you&amp;rsquo;d want to include in the python package to be uploaded, for example, I included the &lt;code&gt;scaler.gz&lt;/code&gt; file in our manifest file.&lt;/p&gt;
+&lt;h2 id=&#34;uploading-to-pypi&#34;&gt;Uploading to PyPI&lt;/h2&gt;
+&lt;p&gt;When you are ready to upload a real package to the Python Package Index you can do much the same as you did above,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;python3 -m twine upload dist/*
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;done-and-dusted&#34;&gt;Done and dusted&lt;/h2&gt;
+&lt;p&gt;This post was basically my own informal guide for uploading a package to PyPI. If you&amp;rsquo;ve read this far, you need to take a break from stalking me so hard.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Hello DevoLearn</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/</link>
-      <pubDate>Sun, 26 Jul 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 UTC</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/</guid>
       <description>&lt;figure&gt;
@@ -671,46 +739,6 @@ In FGSM, we were tampering with the pixels which has a &lt;em&gt;positive&lt;/em
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/cell_detect_pipeline.png&#34; alt=&#34;comma&#34;&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;And when the heatmap is superimposed upon the real image, it gives us an insight on how the CNN &amp;ldquo;looked&amp;rdquo; at the image&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Mind the bend</title>
-      <link>https://mayukhdeb.github.io/blog/post/mind_the_bend/</link>
-      <pubDate>Wed, 01 Jan 2020 00:00:00 UTC</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/post/mind_the_bend/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/example.gif&#34; alt=&#34;example&#34;&gt;
-&lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/pipeline.png&#34; alt=&#34;pipeline&#34;&gt;&lt;/p&gt;
-&lt;p&gt;The whole point of this project was to make a car stay on the road all by itself and defeat other players in a racing game called speed dreams.&lt;/p&gt;
-&lt;h2 id=&#34;collection-of-training-data&#34;&gt;Collection of training data&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Rapidly takes screenshots of the game and saves them in a folder&lt;/li&gt;
-&lt;li&gt;The label in this case is the x-co-ordinate of the mouse which is captured by pyautogui and is stored in the formatted filename of each collected image. Image fileame formatting is done as  &lt;code&gt;(x-value)_(unique_ID).png&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;processing-images&#34;&gt;Processing images&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Converts all images to numpy arrays with a depth of 3 for R,G and B color channels&lt;/li&gt;
-&lt;li&gt;The shape gets changed from  &lt;code&gt;[ width, height, depth ]&lt;/code&gt; to &lt;code&gt;[ depth, width, height]&lt;/code&gt; for it to be of the right size for the CNN input channel&lt;/li&gt;
-&lt;li&gt;Pairs them with the corresponding mouse x-coordinate as array &lt;code&gt;[  [[[image]]]  ,  [x-value]   ]&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;all of the generated pairs are then stacked into one numpy array with the help of np.vstack() and saved&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;data-preprocessing-and-augmentation&#34;&gt;Data preprocessing and augmentation&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;First things first, plotted the frequency distribution of each steering value hen&lt;/li&gt;
-&lt;li&gt;Roughly doubled the amount of training data by generating mirror images of existing images and vstacking them with reversed steer value.&lt;/li&gt;
-&lt;li&gt;Flattened the frequency distribution by making copies of random ramples of under-represented steering value data points&lt;/li&gt;
-&lt;li&gt;Normalised the steering values by replacing the x-co-ordinates with steering values. In my case the &amp;ldquo;straight&amp;rdquo; steer value was at &lt;code&gt;x = 400&lt;/code&gt;, for &lt;code&gt;normalised_value = 400 - x_value&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;blockquote&gt;
-&lt;p&gt;note :  Right is negative steer value and left is positive&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;self-driving&#34;&gt;Self driving&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Rapidly taken screenshots are prerpocessed and fed to the trained CNN drunk_driver()&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;drunk_driver()&lt;/code&gt; returns a steer value&lt;/li&gt;
-&lt;li&gt;Returned value is taken care  of by pyauogui which moves the mouse accordingly&lt;/li&gt;
 &lt;/ul&gt;
 </description>
     </item>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta property="og:title" content=" Publishing a PyPI package &middot;  @mayukhdeb" />
+  <meta property="og:site_name" content="@mayukhdeb" />
+  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/" />
+  <meta name="theme" content="darksimplicity">
+  <meta name="generator" content="Hugo 0.74.3" />
+  
+  
+  <base href="https://mayukhdeb.github.io/blog/">
+  <title> Publishing a PyPI package &middot;  @mayukhdeb</title>
+  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+
+</head>
+<body>
+  <header>
+      <nav role="top-nav">
+          <ul class="navbar-list">
+            
+            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
+            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
+          </ul>
+      </nav>
+      <br />
+      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
+        
+      </h1>
+  </header>
+  <main>
+      <article itemscope itemtype="http://schema.org/Blog">
+        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/">Publishing a PyPI package</a></h3>
+        
+            <div class="tags">tags: &nbsp;
+              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/pypi" rel="tag">PyPI </a>
+              </span>
+          </div>
+          <div class="content-full"><p>First off, this blog post is definitely not an official guide, if you&rsquo;re looking for an official guide, have a look <a href="https://packaging.python.org/tutorials/packaging-projects/">here</a>.</p>
+<p>This blog post is pretty specific to the PyPI package that I authored along with <a href="https://github.com/balicea">Bradly</a> and <a href="https://github.com/ujjwalll">Ujjwall</a>.</p>
+<h2 id="the-project-structure">The project structure:</h2>
+<figure>
+    <img src="https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/project_structure.jpg" width="80%"/> 
+</figure>
+
+<p>Each of the classes under <code>devolearn</code> have their own folder which would contain all the utils required for that class including the model files.</p>
+<p>For example, the folder <code>embryo_generator_model</code> would look like:</p>
+<pre><code>├── embryo_generator_model
+    ├── embryo_generator_model.py
+    ├── embryo_generator.pt
+    ├── __init__.py
+</code></pre><h2 id="the-repo-structure-for-pypi">The repo structure for PyPI</h2>
+<pre><code>devolearn
+├── LICENSE
+├── README.md
+├── devolearn
+│   ├── __init__.py
+│   ├── model_1
+│   │    ├── model_1.py
+│   │    ├── model_1.pt
+│   │    ├── __init__.py
+│   ├── model_2
+│         ├── model_2.py
+│         ├── model_2.pt
+│         ├── __init__.py
+│
+├── setup.py
+
+</code></pre><h2 id="generating-a-distribution-archive">Generating a distribution archive</h2>
+<p>Once the folder was structured, The next objective was to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.</p>
+<p>For this I had to install the latest versions of setuptools and wheel with:</p>
+<pre><code>python3 -m pip install --user --upgrade setuptools wheel
+
+</code></pre><p>Then we had to run the following command  in the same directory as <code>setup.py</code>:</p>
+<pre><code>python3 setup.py sdist bdist_wheel
+</code></pre><p>This command should output a lot of text and once completed should generate two files in the dist directory:</p>
+<pre><code>dist/
+    devolearn-0.1.9.tar.gz
+    devolearn-0.1.9-py3-none-any.whl
+</code></pre><h2 id="uploading-the-archive">Uploading the archive</h2>
+<p>First, we&rsquo;d have to upload the package to test.pypi.org, and for that we&rsquo;d have to <a href="https://test.pypi.org/account/register/">make</a> an account. Then go to <a href="https://test.pypi.org/manage/account/#api-tokens">this url</a> and create a new API token.</p>
+<p>Then we upload the package using the twine package:</p>
+<pre><code>python3 -m pip install --user --upgrade twine
+</code></pre><p>And then:</p>
+<pre><code>python3 -m twine upload --repository testpypi dist/*
+</code></pre><p>When prompted for a username, use <code>__token__</code> and then enter the token value as the password;</p>
+<pre><code>Uploading distributions to https://test.pypi.org/legacy/
+Enter your username: __token__
+Enter your password: your_token_value
+</code></pre><h2 id="the-problem-with-package-size">The problem with package size</h2>
+<p>In order  to upload a package to test.pypi.org, it had to be under 100 mb, but devolearn was above 150 mb because of the model files. So the workaround was to not include the models in the <code>MANIFEST.in</code> file and downloading the models from GitHub directly using <code>wget</code> from within the package. The models would get downloaded when the user calls the model class for the first time.</p>
+<p><strong>Note:</strong>  <code>MANIFEST.in</code> is a file that can be used to specify the <strong>non</strong> <code>.py</code> files that you&rsquo;d want to include in the python package to be uploaded, for example, I included the <code>scaler.gz</code> file in our manifest file.</p>
+<h2 id="uploading-to-pypi">Uploading to PyPI</h2>
+<p>When you are ready to upload a real package to the Python Package Index you can do much the same as you did above,</p>
+<pre><code>python3 -m twine upload dist/*
+</code></pre><h2 id="done-and-dusted">Done and dusted</h2>
+<p>This post was basically my own informal guide for uploading a package to PyPI. If you&rsquo;ve read this far, you need to take a break from stalking me so hard.</p>
+
+</div>
+      </article>
+  </main>
+  <footer>
+      <div class="copyright"><p>
+
+&copy; 2020. 
+
+@mayukhdeb. All rights reserved. 
+
+</div>    
+
+
+
+  </footer>
+
+<body>
+</body>
+
+</html>
+

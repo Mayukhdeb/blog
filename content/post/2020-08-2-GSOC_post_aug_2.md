@@ -3,7 +3,7 @@
 
 title = "Hello DevoLearn"
 description = "Google summer of code week 11"
-date = "2020-07-26"
+date = "2020-08-02"
 tags = ["GSoC", "OpenWorm", "deep learning", "GAN", "computer vision"]
 slug = "gsoc-2020-aug-2"
 
