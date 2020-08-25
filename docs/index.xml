@@ -6,7 +6,58 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 09 Aug 2020 00:00:00 UTC</updated>
+    <updated>Sun, 16 Aug 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>And then there were tests</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/</link>
+      <pubDate>Sun, 16 Aug 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/</guid>
+      <description>&lt;p&gt;Setting up &lt;a href=&#34;https://github.com/DevoLearn/devolearn/blob/master/devolearn/tests/test.py&#34;&gt;unit tests for devolearn&lt;/a&gt; was actually the first time that I was ever touching those testing libraries. While setting up the tests, &lt;a href=&#34;https://realpython.com/python-testing/&#34;&gt;this&lt;/a&gt; came to be the most useful resource I found.&lt;/p&gt;
+&lt;h2 id=&#34;why-do-we-even-need-tests-&#34;&gt;Why do we even need tests ?&lt;/h2&gt;
+&lt;p&gt;It is safe to assume that one day more contributors would come to &lt;a href=&#34;https://github.com/DevoLearn/devolearn&#34;&gt;devolearn&lt;/a&gt;. When a future contributor makes a pull request, these tests would make sure that the pull requests are not breaking the code, and the tests would work as an early warning system if a pull request does break the code.&lt;/p&gt;
+&lt;p&gt;In our case, we used &lt;a href=&#34;https://travis-ci.org/&#34;&gt;travis CI&lt;/a&gt; to run our tests online after each push/pull request. For this we had to set up a &lt;code&gt;.travis.yml&lt;/code&gt; file on the same diirectory as the &lt;code&gt;setup.py&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;A &lt;code&gt;.travis.yml&lt;/code&gt; file looks like:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;language: python
+python:
+  - &amp;quot;3.7&amp;quot;
+  - &amp;quot;3.8&amp;quot;
+
+dist: bionic
+
+install: 
+  - pip install .
+  - pip install -r requirements.txt
+script:  
+  - python setup.py test 
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I will break down the file bit by bit:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;language: python&lt;/code&gt; : Because we&amp;rsquo;ll be running the tests on python.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;python:&lt;/code&gt; This section specifies the versions of python on which we&amp;rsquo;ll be running the tests.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;install:&lt;/code&gt; Specifies the terminal commands one would need to run in order to install the required libraries.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;script:&lt;/code&gt; Specifies the terminal command(s) needed to run the test(s).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;On top of that, I had to add this to the &lt;code&gt;setup()&lt;/code&gt; function in &lt;code&gt;setup.py&lt;/code&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;test_suite=&#39;nose.collector&#39;,
+tests_require=[&#39;nose&#39;]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And as for the test functions themselves, the were pretty easy to set up. It was as simple as calling all the functions within a subclass of &lt;code&gt;unittest.TestCase&lt;/code&gt;. One of the tests in the devolearn unit tests looks like as follows:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;centroid_df = segmentor.predict_from_video(&amp;lt;args&amp;gt;)
+
+self.assertTrue(isinstance(centroid_df, pd.DataFrame), &amp;quot;should be a pandas.DataFrame&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The snippet above makes sure that the object returned from the function &lt;code&gt;predict_from_video()&lt;/code&gt; is a &lt;code&gt;pandas.DataFrame&lt;/code&gt;. If something ever breaks in between, then this test would fail with the message in the 2nd arg of &lt;code&gt;self.assertTrue&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After about an hour worth of errors and debugging, I was finally able to make this &lt;a href=&#34;https://api.travis-ci.org/DevoLearn/devolearn.svg?branch=master&amp;amp;status=passed&#34;&gt;weird flex&lt;/a&gt; on the readme.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Publishing a PyPI package</title>
@@ -707,39 +758,6 @@ In FGSM, we were tampering with the pixels which has a &lt;em&gt;positive&lt;/em
 &lt;li&gt;why use heatmaps instead of rectangles ? because they look cooler.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/barbecue.png&#34; alt=&#34;dataset&#34;&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Adventures with augmentation</title>
-      <link>https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/</link>
-      <pubDate>Sat, 01 Feb 2020 00:00:00 UTC</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/</guid>
-      <description>&lt;p&gt;&lt;a href=&#34;https://nbviewer.jupyter.org/github/Mayukhdeb/adventures-with-augmentation/tree/master/&#34;&gt;&lt;img src=&#34;https://camo.githubusercontent.com/bfeb5472ee3df9b7c63ea3b260dc0c679be90b97/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f72656e6465722d6e627669657765722d6f72616e67652e7376673f636f6c6f72423d66333736323626636f6c6f72413d346434643464&#34; alt=&#34;Binder&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;parallel-cnns-work-just-as-good-as-they-look&#34;&gt;Parallel CNNs work just as good as they look&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/parallel_cnn.jpg&#34; alt=&#34;parallel_cnns&#34;&gt;&lt;/p&gt;
-&lt;h3 id=&#34;but-why-use-them-anyways-&#34;&gt;But why use them anyways ?&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Because when two different architectures are trained on the same training set, they don&amp;rsquo;t have the same weaknesses (i.e different confusion matrices)&lt;/li&gt;
-&lt;li&gt;This means that when both are combined, they tend to neutralise each other&amp;rsquo;s weaknesses, which gives us a boost in accuracy.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;class-activation-heatmaps-on-deep-neural-networks&#34;&gt;Class activation heatmaps on deep neural networks&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/original_comma.png&#34; alt=&#34;comma&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/heatmap.png&#34; alt=&#34;comma&#34;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/superimposed.png&#34; alt=&#34;comma&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Shows the regions of the image which gave the most activations for a certain label in a trained classification model&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;In simpler words, it tells us about the regions of the image which made the model decide that it belongs to a certain label &amp;ldquo;x&amp;rdquo;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/cell_detect_pipeline.png&#34; alt=&#34;comma&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;And when the heatmap is superimposed upon the real image, it gives us an insight on how the CNN &amp;ldquo;looked&amp;rdquo; at the image&lt;/li&gt;
-&lt;/ul&gt;
 </description>
     </item>
     
