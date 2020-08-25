@@ -6,7 +6,74 @@
     <language>en-us</language>
     
     
-    <updated>Sun, 16 Aug 2020 00:00:00 UTC</updated>
+    <updated>Sun, 23 Aug 2020 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Looking ahead</title>
+      <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/</link>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 UTC</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/</guid>
+      <description>&lt;h2 id=&#34;gsoc-stuff&#34;&gt;GSoC stuff&lt;/h2&gt;
+&lt;p&gt;If you&amp;rsquo;re someone who&amp;rsquo;s here because of GSoC related things, here&amp;rsquo;s some stuff I wish I knew before starting out:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;First, remember that you &lt;strong&gt;will&lt;/strong&gt; have to go out of your comfort zone when building stuff.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Your mentor is your best friend through all the odds.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The better you know the objective of the org, the better your proposal will be. Dig around and find out the approximate thought process that went behind the formation of the project if possible.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Make sure you&amp;rsquo;re ready to learn new things. In my case, I had to learn a lot of things on the fly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The experience I gained from my personal projects in the past helped me the most.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;On writing proposals:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Proposals should not be about what you know, it should be about what you plan to build with what you know.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Pictures/visualizations &amp;gt; words&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;If possible, show them that you&amp;rsquo;ve done something similar to the project before.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Less jargon, more reasoning.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Show them how exactly is your approach better than the average approach. If your approach has some downfalls, mention them as well. This would mean that you know what you&amp;rsquo;re doing.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Original projects that actually work &amp;gt;  courses. This specifically applies to deep learning related GSoC projects like the one I did.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;miscellaneous&#34;&gt;Miscellaneous&lt;/h2&gt;
+&lt;p&gt;It&amp;rsquo;s been the most productive 3 months I&amp;rsquo;ve ever had in my life. When I say productivity, I do not mean pushing code. Productivity is when I&amp;rsquo;m learning and applying new things, not when I&amp;rsquo;m just doing something I&amp;rsquo;ve done before. If I&amp;rsquo;m not making mistakes, I&amp;rsquo;m not learning new things.&lt;/p&gt;
+&lt;p&gt;As much as I don&amp;rsquo;t want so sound like some nerd, I&amp;rsquo;m not productive unless I&amp;rsquo;m backpropagating on my own mistakes. The best way to do that is to first calculate the loss by reflecting on the mistake and analysing where I went wrong.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;new_action = old_action - learning_rate*gradient&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;where:
+&lt;figure&gt;
+    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/august_23/gradient.jpg&#34; width=&#34;40%&#34;/&gt; 
+&lt;/figure&gt;
+&lt;/p&gt;
+&lt;p&gt;The right amount of patience is like the adaptive learning rate that everyone needs. Too fast and you overshoot, too slow and you&amp;rsquo;ll never reach the minima.&lt;/p&gt;
+&lt;p&gt;Thank you for reading this far.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;“It is better to fail in originality than to succeed in imitation.”&lt;/p&gt;
+&lt;p&gt;&amp;ndash; Herman Melville&lt;/p&gt;
+&lt;hr&gt;
+</description>
+    </item>
     
     <item>
       <title>And then there were tests</title>
@@ -726,38 +793,6 @@ In FGSM, we were tampering with the pixels which has a &lt;em&gt;positive&lt;/em
 &lt;/ul&gt;
 &lt;h2 id=&#34;generating-adversarial-patches-from-black-images&#34;&gt;Generating adversarial patches from black images&lt;/h2&gt;
 &lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/adversarial_patches.png&#34; alt=&#34;no_FGSM&#34;&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Deep chicken terminator</title>
-      <link>https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/</link>
-      <pubDate>Sun, 01 Mar 2020 00:00:00 UTC</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/</guid>
-      <description>&lt;h1 id=&#34;deep-chicken-terminator&#34;&gt;deep-chicken-terminator&lt;/h1&gt;
-&lt;p&gt;deep learning to track (and possibly kill)  chicken in minecraft&lt;/p&gt;
-&lt;h2 id=&#34;step-1---collecting-training-data-for-the-deep-neural-network&#34;&gt;Step 1 - collecting training data for the deep neural network&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/training_data_samples.png&#34; alt=&#34;dataset&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;This was mostly just me taking cropped screenshots of animals while playing the game, took about 40 screenshots of each animal.&lt;/li&gt;
-&lt;li&gt;The 20 screenshots of each animal were then augmented and got 500 samples of each.&lt;/li&gt;
-&lt;li&gt;The dataset is very small, but it works anyways for now&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;step-2---training-a-deep-learning-model-on-the-samples&#34;&gt;Step 2 - training a deep learning model on the samples&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/training_curve.png&#34; alt=&#34;dataset&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;The architecture was kept intentionally small so that it keeps a good response time on the live feed&lt;/li&gt;
-&lt;li&gt;The dataset had only 2000 images sized at 50*50, so training barely took any time&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;step-3---detecting-a-chicken-or-any-animal-for-that-matter-from-an-image&#34;&gt;Step 3 - detecting a chicken (or any animal for that matter) from an image&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/pre_barbecue.png&#34; alt=&#34;dataset&#34;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;This was done using a custom &lt;code&gt;detect_animal_numpy()&lt;/code&gt; function which iterates through the image with a certain kernel size and a stride size, and feeds each sample to the trained NN (nicknamed hunter)&lt;/li&gt;
-&lt;li&gt;A heatmap is then generated from the output of the NN which gives us a probability distribution over the image of a certain animal ( chicken, pig, or panda)&lt;/li&gt;
-&lt;li&gt;why use heatmaps instead of rectangles ? because they look cooler.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/barbecue.png&#34; alt=&#34;dataset&#34;&gt;&lt;/p&gt;
 </description>
     </item>
     
