@@ -137,13 +137,13 @@
   <div class="post-content">
 <p>The bridge that we&rsquo;ll have to build is between the videos and the annotations in the <a href="http://epic.gs.washington.edu/">EPIC dataset</a>, and for that we&rsquo;ll need to train a deep learning model that connects these two. It turned out that it wasn&rsquo;t as straighforward as throwing a bunch of tensors into a model.</p>
 <figure>
-    <img src="https://mayukhdeb.github.io/blog/post/images/july_5/raw_frames.png" width="50%"/> 
+    <img src="/post/images/july_5/raw_frames.png" width="50%"/> 
 </figure>
 
 <p>From the frames like the ones shown above, we&rsquo;ll  have to find the population of various lineages of cells within the embryo.</p>
 <p>The C. elegans embryo contains cells from various lineages which move on to become various body parts during adulthood, and the total population of each lineage depends primarily on time, but there are a few other biological factors as well. The plot below shows how the populations of each lineage varied with time for a single embryo.</p>
 <figure>
-    <img src="https://mayukhdeb.github.io/blog/post/images/july_5/lineage.png" width="60%"/> 
+    <img src="/post/images/july_5/lineage.png" width="60%"/> 
 </figure>
 
 <p>The first task was to <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/merging_video_data_with_annotations.ipynb">format the data</a> in a way that can be used to train a model to gain inferences. This mostly involved algorithms that determined the population of each lineage with time from the raw metadata.</p>
@@ -151,7 +151,7 @@
 <p>So now all that was left was to <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/estimate_cell_family_population.ipynb">train a deep learning model</a> which would map the frames to the populations. The prediction for each frame of the model is a 1 dimensional tensor which contains the populations of the lineages <code>['A', 'E', 'M', 'P', 'C', 'D', 'Z']</code> in that order.</p>
 <p>When trained on only 2 videos and about 480 frames, these are the results that were obtained:</p>
 <figure>
-    <img src="https://mayukhdeb.github.io/blog/post/images/july_5/preds.png" width="80%"/> 
+    <img src="/post/images/july_5/preds.png" width="80%"/> 
 </figure>
 
 

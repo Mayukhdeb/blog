@@ -7,7 +7,7 @@ min_version: 0.57.0
 contentdir: content
 layoutdir: layouts
 builddrafts: True
-canonifyurls: true
+canonifyurls: False
 publishDir: docs
 params:
     homeInfoParams:
@@ -19,11 +19,11 @@ menu:
   top:
     - name: Github
       pre: ''
-      weight: -100
+      weight: 1
       url: 'https://github.com/Mayukhdeb'
     - name: Twitter
       pre: ''
-      weight: -90
+      weight: 1
       url: 'https://twitter.com/mayukh091'
       
 
