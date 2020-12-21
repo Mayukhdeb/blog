@@ -32,7 +32,7 @@ Initially when the training starts, both the models are equally bad at their job
 
 ## The game of minimax
 
-{{< figure src="/post/images/july_26/minimax.png" width="50%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/july_26/minimax.png" width="50%">}}
 
 ### Let's break down the equation above part by part:
 

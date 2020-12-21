@@ -16,7 +16,7 @@ summary = "Google Summer of Code | Community bonding period week 3"
 Week 3 started off with some more improvements to the "skeletonization process", but soon took a turn towards data analysis. I downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.
 
 
- {{< figure src="/post/images/may_31/head_tail_time_series_data.png" width="100%">}}
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_31/head_tail_time_series_data.png" width="100%">}}
 
  As seen above, there are two distinct patterns that are observed in the head to tail distances of the "wild" strain and the "unc" strain of the worm. The wild type seems to be more noisy with deeper local minimas. While the changes in the "unc" type are more gradual and predictable. 
 
@@ -29,7 +29,7 @@ It is possible to generate a large amount of time series data from the videos th
 
 I already used a simple LSTM RNN on the time series data as a proof of concept, and here's how the predictions looked like:
 
- {{< figure src="/post/images/may_31/LSTM_sample_alpha_001.png" width="60%">}}
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_31/LSTM_sample_alpha_001.png" width="60%">}}
 
 The predictions made aren't absolutely perfect for now because:
 

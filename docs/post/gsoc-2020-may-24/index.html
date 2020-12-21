@@ -138,13 +138,13 @@
 <p>After week 1, the new priority was to find the right data on the internet. I started the week off by reading papers based on locomotion in the C. elegans worm. Surprisingly enough (or unsurprisingly, depending on how much you&rsquo;re into worms), most of the data was from the <a href="http://movement.openworm.org/">OpenWorm Movement Database</a>.</p>
 <p>Almost all the video data on the database is from the <a href="https://github.com/ver228/tierpsy-tracker">Tierpsy tracker</a>, which is an amazing worm tracking tool in itself. But there was a new hurdle now.</p>
 <figure>
-    <img src="/post/images/may_24/initial_image.png" width="60%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_24/initial_image.png" width="60%"/> 
 </figure>
 
 <p>The issue with the video data (as seen above) wThe issue with the video data (as seen above) was that the worms were &ldquo;partially segmented out&rdquo;. Which meant that the background was all blacked out except for a small &ldquo;padding area&rdquo; around the worm. This &ldquo;padding area&rdquo; was a good safety measure on the Tierpsy tracker&rsquo;s side, but was a minor hurdle  for someone who wanted to segment out just the worm from the image in order to gain inferences from behavioural dynamics.</p>
 <p>This hurdle was taken care of in 3 stages:</p>
 <figure>
-    <img src="/post/images/may_24/OW_movement_database_pipeline.png" width="100%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_24/OW_movement_database_pipeline.png" width="100%"/> 
 </figure>
 
 <ol>
@@ -160,16 +160,16 @@
 </ol>
 <p>Now the next objecive was to extract the head and tail, this was done  using corner detection with <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/feature_detection.html#goodfeaturestotrack"><code>cv2.goodFeaturesToTrack()</code></a> with <code>maxCorners = 2</code> to only capture the 2 most prominent corners.</p>
 <figure>
-    <img src="/post/images/may_24/head_and_tail.png" width="60%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_24/head_and_tail.png" width="60%"/> 
 </figure>
 
 <p>To complete the skeletonization, all that was needed now was to skeletonize the main body, and that was done with the very self explanatory function named <a href="https://scikit-image.org/docs/dev/auto_examples/edges/plot_skeleton.html"><code>skimage.morphology.skeletonize()</code></a>. Combined with two circles which signify the head and the tail, we get a clean skeleton which can now be used for analysis on a bigger scale with a large number of frames.</p>
 <p><figure>
-    <img src="/post/images/may_24/skeleton.png" width="60%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_24/skeleton.png" width="60%"/> 
 </figure>
 
 <figure>
-    <img src="/post/images/may_24/skeleton_long.png" width="60%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_24/skeleton_long.png" width="60%"/> 
 </figure>
 </p>
 

@@ -28,8 +28,8 @@ And after training the model for 8 epochs, the model was able to estimate the po
 We fed a whole timelapse of the embryogenesis of the C. elegans embryo into the trained model and plotted its predictions, and compared it with the real values as shown:
 
 
-{{< figure src="/post/images/july_19/pred.png" width="50%">}}
-{{< figure src="/post/images/july_19/pred_2.png" width="50%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/july_19/pred.png" width="50%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/july_19/pred_2.png" width="50%">}}
 
 ---
 ## [Py_elegans](https://github.com/devoworm/GSoC-2020/tree/master/Pre-trained%20Models%20(DevLearning)/py_elegans)

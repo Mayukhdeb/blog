@@ -53,7 +53,7 @@ As much as I don't want so sound like some nerd, I'm not productive unless I'm b
 `new_action = old_action - learning_rate*gradient`
 
 where:
-{{< figure src="/post/images/august_23/gradient.jpg" width="40%">}}
+{{< figure src="https://github.com/Mayukhdeb/blog/blob/master/content/post/images/august_23/gradient.jpg?raw=true" width="40%">}}
 
 
 The right amount of patience is like the adaptive learning rate that everyone needs. Too fast and you overshoot, too slow and you'll never reach the minima.

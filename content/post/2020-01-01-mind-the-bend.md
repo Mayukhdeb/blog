@@ -13,8 +13,8 @@ summary = "Making a car drive by itself using deep learning and some PyAutoGUI"
 +++
 
 
-![example](/post/images/example.gif)
-![pipeline](/post/images/pipeline.png)
+![example](https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/example.gif)
+![pipeline](https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/pipeline.png)
 
 The whole point of this project was to make a car stay on the road all by itself and defeat other players in a racing game called speed dreams.
 

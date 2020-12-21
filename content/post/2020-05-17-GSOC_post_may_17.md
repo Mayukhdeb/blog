@@ -23,7 +23,7 @@ The first weekly meeting with OpenWorm gave me a much better idea of the goals o
 
  The key to a good deep learning model is good data. If the data is clean, half the battle is won. This led to the the first [notebook](https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/worm_tracking_pipeline.ipynb) which builds a pipeline for tracking and segmenting the worms directly from video files. The pipeline works as follows:
 
-  {{< figure src="/post/images/may_17/may_17_visualization.png" height="900">}}
+  {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_17/may_17_visualization.png" height="900">}}
 
 
 1. The video file is first trimmed to shorten the clip to extract only a short subclip (this is optional).
@@ -33,19 +33,19 @@ The first weekly meeting with OpenWorm gave me a much better idea of the goals o
 3. The locations of the worms are determined by drawing padded rectangles around the contours of the thresholded image.
 
 
- {{< figure src="/post/images/may_17/rectangles.png" width="60%">}}
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_17/rectangles.png" width="60%">}}
 
 
 4. The original image is then cropped and segmented to remove all background except the worm(s) in the image. 
 
 
- {{< figure src="/post/images/may_17/segmented.png" width="60%">}}
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_17/segmented.png" width="60%">}}
 
 
 Here's a GIF to visualise the tracking on the live feed. 
 
 
- {{< figure src="/post/images/may_17/tracking.gif" width="80%">}}
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/may_17/tracking.gif" width="80%">}}
 
 
 Apart from all of this, I also read quite a few papers on the C.elegans worm. This was an effort towards getting more familiar with the underlying biological concepts surrounding the worm.

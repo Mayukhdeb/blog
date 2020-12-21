@@ -154,7 +154,7 @@
 <p>Interestingly enough, I faced this problem even after using the manual fix. But this time it was because of the <code>transforms.resize</code> function within the <code>torchvision.transforms</code>. The problem was traced down to the interpolation, the very fact that the default interpolation was set to <code>Image.BILINEAR</code> (default arg) was the reason why the pixel values were getting altered in the mask. This was fixed by setting <code>interpolation = Image.NEAREST</code>.</p>
 <p>After all of these transforms, the training images and masks came out to be as shown:</p>
 <figure>
-    <img src="/post/images/june_21/train_image.png" width="20%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/train_image.png" width="20%"/> 
 </figure>
 
 <hr>
@@ -174,28 +174,28 @@
 <h2 id="the-loss-function">The loss function<a hidden class="anchor" aria-hidden="true" href="#the-loss-function">#</a></h2>
 <p>The <a href="https://en.wikipedia.org/wiki/IOU"><strong>Intersection Over Union</strong></a> score (also known as Jaccard Index) is a statistic used for gauging the similarity and diversity of sample sets. It is defined as:</p>
 <p><figure>
-    <img src="/post/images/june_21/iou_score.png" width="30%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/iou_score.png" width="30%"/> 
 </figure>
 
 <figure>
-    <img src="/post/images/june_21/iou.png" width="30%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/iou.png" width="30%"/> 
 </figure>
 </p>
 <p><a href="https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient"><strong>Dice Coefficient</strong></a> can be seen as the percentage of overlap between the two sets, that is a number between 0 and 1. <code>DiceLoss()</code> can be mathematically defined as  <code>1 - dice_coefficient</code>:</p>
 <figure>
-    <img src="/post/images/june_21/diceloss.png" width="30%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/diceloss.png" width="30%"/> 
 </figure>
 
 <p>Where <code>|X| ∩ |Y|</code>  is the intersection where the prediction correctly overlaps the label in the 2D mask.</p>
 <h2 id="training-metrics-and-visualizing-the-outputs">Training metrics and visualizing the outputs<a hidden class="anchor" aria-hidden="true" href="#training-metrics-and-visualizing-the-outputs">#</a></h2>
 <p>The model could hit an IOU score of just above 0.7 after 24 epochs of training.</p>
 <figure>
-    <img src="/post/images/june_21/training_curve.png" width="30%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/training_curve.png" width="30%"/> 
 </figure>
 
 <p>And when combined with some thresholding on the predicted images, here are the predicted results:</p>
 <figure>
-    <img src="/post/images/june_21/seg_results.png" width="50%"/> 
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/seg_results.png" width="50%"/> 
 </figure>
 
 

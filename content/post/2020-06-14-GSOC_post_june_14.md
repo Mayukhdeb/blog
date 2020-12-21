@@ -25,11 +25,11 @@ The problem is that there's no labelled segmentation data, only raw images. But 
 
 1. Taking an original image and manually drawing over the desired parts which are to be extracted. I had to come up with a [simple drawing tool](https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20(DevLearning)/notebooks/embryo_segmentation/drawing_tool_for_manual_labelling.ipynb) which could be used to generate the training masks. 
 
-{{< figure src="/post/images/june_14/drawing.png" width="60%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_14/drawing.png" width="60%">}}
 
 2. Run both the original image and the mask through a heavy (but practical) [image augmentation pipeline](https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_segmentation/augmentation_prototyping.ipynb) (generate at least 50 images from one)
 
-{{< figure src="/post/images/june_14/augment.png" width="60%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_14/augment.png" width="60%">}}
 
 
 3. Repeat steps 1 and 2 for a few images to get a larger dataset to train on.
@@ -46,5 +46,5 @@ This is where I used some tools like:
 
 Even though 100% of the information from the 4D space could not be projected into the 2 principal components, it gave us a good idea on how cells with similar (or same) lineage ancestors lied closer to each other in the 2D space composed of the 2 principal components. 
 
-{{< figure src="/post/images/june_14/PCA.png" width="60%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_14/PCA.png" width="60%">}}
 

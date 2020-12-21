@@ -31,7 +31,7 @@ Interestingly enough, I faced this problem even after using the manual fix. But 
 
 After all of these transforms, the training images and masks came out to be as shown:
 
-{{< figure src="/post/images/june_21/train_image.png" width="20%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/train_image.png" width="20%">}}
 
 ---
 
@@ -49,12 +49,12 @@ The next step was to train the model on the images, and for our case, we used th
 
 The [**Intersection Over Union**](https://en.wikipedia.org/wiki/IOU) score (also known as Jaccard Index) is a statistic used for gauging the similarity and diversity of sample sets. It is defined as:
 
-{{< figure src="/post/images/june_21/iou_score.png" width="30%">}}
-{{< figure src="/post/images/june_21/iou.png" width="30%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/iou_score.png" width="30%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/iou.png" width="30%">}}
 
  [**Dice Coefficient**](https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient) can be seen as the percentage of overlap between the two sets, that is a number between 0 and 1. `DiceLoss()` can be mathematically defined as  `1 - dice_coefficient`:
 
-{{< figure src="/post/images/june_21/diceloss.png" width="30%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/diceloss.png" width="30%">}}
 
 Where `|X| ∩ |Y|`  is the intersection where the prediction correctly overlaps the label in the 2D mask. 
 
@@ -62,11 +62,11 @@ Where `|X| ∩ |Y|`  is the intersection where the prediction correctly overlaps
 
 The model could hit an IOU score of just above 0.7 after 24 epochs of training. 
 
-{{< figure src="/post/images/june_21/training_curve.png" width="30%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/training_curve.png" width="30%">}}
 
 And when combined with some thresholding on the predicted images, here are the predicted results:
 
-{{< figure src="/post/images/june_21/seg_results.png" width="50%">}}
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/june_21/seg_results.png" width="50%">}}
 
 
 
