@@ -13,6 +13,8 @@ params:
     homeInfoParams:
         Title: Hi, I'm Mayukh
         Content: I spend most of my time building new things with deep neural networks. Welcome to my blog.   
+    params:
+    defaultTheme: dark
 taxonomies:
   tag: tags
 menu:
