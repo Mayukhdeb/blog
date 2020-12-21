@@ -1,51 +1,149 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Adventures with augmentation &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Adventures with augmentation &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Adventures with augmentation | @mayukhdeb</title>
+
+<meta name="keywords" content="Deep learning, Image dataset, object detection, CNN, data augmentation" />
+<meta name="description" content="Exploring and experimenting with microscope imagery datasets.">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Adventures with augmentation" />
+<meta property="og:description" content="Exploring and experimenting with microscope imagery datasets." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/" />
+<meta property="article:published_time" content="2020-02-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-02-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Adventures with augmentation"/>
+<meta name="twitter:description" content="Exploring and experimenting with microscope imagery datasets."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Adventures with augmentation",
+  "name": "Adventures with augmentation",
+  "description": "Exploring and experimenting with microscope imagery datasets.",
+  "keywords": [
+    "Deep learning", "Image dataset", "object detection", "CNN", "data augmentation"
+  ],
+  "articleBody": "\nParallel CNNs work just as good as they look But why use them anyways ?  Because when two different architectures are trained on the same training set, they don’t have the same weaknesses (i.e different confusion matrices) This means that when both are combined, they tend to neutralise each other’s weaknesses, which gives us a boost in accuracy.  Class activation heatmaps on deep neural networks   Shows the regions of the image which gave the most activations for a certain label in a trained classification model\n  In simpler words, it tells us about the regions of the image which made the model decide that it belongs to a certain label “x”\n   And when the heatmap is superimposed upon the real image, it gives us an insight on how the CNN “looked” at the image  ",
+  "wordCount" : "133",
+  "inLanguage": "en",
+  "datePublished": "2020-02-01T00:00:00Z",
+  "dateModified": "2020-02-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/">Adventures with augmentation</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">Deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/image-dataset" rel="tag">Image dataset </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/object-detection" rel="tag">object detection </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/cnn" rel="tag">CNN </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/data-augmentation" rel="tag">data augmentation </a>
-              </span>
-          </div>
-          <div class="content-full"><p><a href="https://nbviewer.jupyter.org/github/Mayukhdeb/adventures-with-augmentation/tree/master/"><img src="https://camo.githubusercontent.com/bfeb5472ee3df9b7c63ea3b260dc0c679be90b97/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f72656e6465722d6e627669657765722d6f72616e67652e7376673f636f6c6f72423d66333736323626636f6c6f72413d346434643464" alt="Binder"></a></p>
-<h2 id="parallel-cnns-work-just-as-good-as-they-look">Parallel CNNs work just as good as they look</h2>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Adventures with augmentation
+    </h1>
+    <div class="post-meta">February 1, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<p><a href="https://nbviewer.jupyter.org/github/Mayukhdeb/adventures-with-augmentation/tree/master/"><img src="https://camo.githubusercontent.com/bfeb5472ee3df9b7c63ea3b260dc0c679be90b97/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f72656e6465722d6e627669657765722d6f72616e67652e7376673f636f6c6f72423d66333736323626636f6c6f72413d346434643464" alt="Binder"></a></p>
+<h2 id="parallel-cnns-work-just-as-good-as-they-look">Parallel CNNs work just as good as they look<a hidden class="anchor" aria-hidden="true" href="#parallel-cnns-work-just-as-good-as-they-look">#</a></h2>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/parallel_cnn.jpg" alt="parallel_cnns"></p>
-<h3 id="but-why-use-them-anyways-">But why use them anyways ?</h3>
+<h3 id="but-why-use-them-anyways-">But why use them anyways ?<a hidden class="anchor" aria-hidden="true" href="#but-why-use-them-anyways-">#</a></h3>
 <ul>
 <li>Because when two different architectures are trained on the same training set, they don&rsquo;t have the same weaknesses (i.e different confusion matrices)</li>
 <li>This means that when both are combined, they tend to neutralise each other&rsquo;s weaknesses, which gives us a boost in accuracy.</li>
 </ul>
-<h2 id="class-activation-heatmaps-on-deep-neural-networks">Class activation heatmaps on deep neural networks</h2>
+<h2 id="class-activation-heatmaps-on-deep-neural-networks">Class activation heatmaps on deep neural networks<a hidden class="anchor" aria-hidden="true" href="#class-activation-heatmaps-on-deep-neural-networks">#</a></h2>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/original_comma.png" alt="comma"></p>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/heatmap.png" alt="comma"></p>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/adventures-with-augmentation/master/sample_images/superimposed.png" alt="comma"></p>
@@ -63,23 +161,72 @@
 </ul>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/cnn/">CNN</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/data-augmentation/">data augmentation</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/object-detection/">object detection</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/image-dataset/">Image dataset</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

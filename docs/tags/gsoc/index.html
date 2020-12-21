@@ -1,128 +1,304 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" GSoC &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/tags/gsoc/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> GSoC &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>GSoC | @mayukhdeb</title>
+
+<meta name="keywords" content="" />
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/tags/gsoc/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://mayukhdeb.github.io/blog/tags/gsoc/index.xml">
+
+
+<meta property="og:title" content="GSoC" />
+<meta property="og:description" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/tags/gsoc/" />
+<meta property="og:updated_time" content="2020-08-23T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GSoC"/>
+<meta name="twitter:description" content=""/>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
+
+<body class="list">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main"> 
+<header class="page-header">
+  <h1>GSoC</h1>
+</header>
+
+
+
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Looking ahead
+    </h2>
   </header>
-<main> 
-  <section>
-    <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/">Looking ahead</a></h3>
-        <div class="tags">tags: &nbsp;
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc">GSoC </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm">OpenWorm </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/miscellaneous">Miscellaneous </a>
-        </div>
-    
-    <div class="content">
-      <p>Google Summer of Code | Coding period week 12 | Tangents included</p>
-    </div>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 12 | Tangents included...</p>
   </section>
-  <section>
-    <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/">And then there were tests</a></h3>
-        <div class="tags">tags: &nbsp;
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc">GSoC </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm">OpenWorm </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/travis">Travis </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/tests">Tests </a>
-        </div>
-    
-    <div class="content">
-      <p>Google Summer of Code | Coding period week 11</p>
-    </div>
+  <footer class="entry-footer">August 23, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Looking ahead" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      And then there were tests
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 11...</p>
   </section>
-  <section>
-    <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/">Publishing a PyPI package</a></h3>
-        <div class="tags">tags: &nbsp;
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc">GSoC </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm">OpenWorm </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/pypi">PyPI </a>
-        </div>
-    
-    <div class="content">
-      <p>Google Summer of Code | Coding period week 10</p>
-    </div>
+  <footer class="entry-footer">August 16, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to And then there were tests" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Publishing a PyPI package
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 10...</p>
   </section>
-  <section>
-    <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/">Hello DevoLearn</a></h3>
-        <div class="tags">tags: &nbsp;
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc">GSoC </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm">OpenWorm </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning">deep learning </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gan">GAN </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/computer-vision">computer vision </a>
-        </div>
-    
-    <div class="content">
-      <p>Google Summer of Code | Coding period week 9</p>
-    </div>
+  <footer class="entry-footer">August 9, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Publishing a PyPI package" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Hello DevoLearn
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 9...</p>
   </section>
-  <section>
-    <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/">Training a GAN</a></h3>
-        <div class="tags">tags: &nbsp;
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc">GSoC </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm">OpenWorm </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning">deep learning </a>
-            <a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gan">GAN </a>
-        </div>
-    
-    <div class="content">
-      <p>Google Summer of Code | Coding period week 8</p>
-    </div>
+  <footer class="entry-footer">August 2, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Hello DevoLearn" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Training a GAN
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 8...</p>
   </section>
-    
-<div class="pagination">
-  <nav role="pagination" class="post-list-pagination">
-      
-    <span class="post-list-pagination-item post-list-pagination-item-current">Page 1 of 3</span>
-    
-      <a href="https://mayukhdeb.github.io/blog/tags/gsoc/page/2/" class="post-list-pagination-item post-list-pagination-item-next">
-        &raquo;&nbsp;
-      </a>
-    
+  <footer class="entry-footer">July 26, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Training a GAN" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Finally the bridge works now
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 7...</p>
+  </section>
+  <footer class="entry-footer">July 19, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Finally the bridge works now" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-19/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Cleaning up the bridge
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 6...</p>
+  </section>
+  <footer class="entry-footer">July 12, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Cleaning up the bridge" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Building a bridge
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 5...</p>
+  </section>
+  <footer class="entry-footer">July 5, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Building a bridge" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      Training the segmentation model
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 3...</p>
+  </section>
+  <footer class="entry-footer">June 21, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to Training the segmentation model" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/"></a>
+</article>
+<article class="post-entry tag-entry"> 
+
+  <header class="entry-header">
+    <h2>
+      PCA and semantic segmentation
+    </h2>
+  </header>
+  <section class="entry-content">
+    <p>Google Summer of Code | Coding period week 2...</p>
+  </section>
+  <footer class="entry-footer">June 11, 2020
+</footer>
+  <a class="entry-link" aria-label="post link to PCA and semantic segmentation" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-june-14/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://mayukhdeb.github.io/tags/gsoc/page/2/">Next Page »</a>
   </nav>
-</div>
+</footer>
 
-</main>
-      <footer>
-      <div class="copyright"><p>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
 
 
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
 
-  </footer>
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
 
-<body>
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

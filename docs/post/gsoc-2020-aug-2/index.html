@@ -1,51 +1,149 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Hello DevoLearn &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Hello DevoLearn &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Hello DevoLearn | @mayukhdeb</title>
+
+<meta name="keywords" content="GSoC, OpenWorm, deep learning, GAN, computer vision" />
+<meta name="description" content="Google summer of code week 11">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Hello DevoLearn" />
+<meta property="og:description" content="Google summer of code week 11" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/" />
+<meta property="article:published_time" content="2020-08-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-02T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hello DevoLearn"/>
+<meta name="twitter:description" content="Google summer of code week 11"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Hello DevoLearn",
+  "name": "Hello DevoLearn",
+  "description": "Google Summer of Code | Coding period week 9",
+  "keywords": [
+    "GSoC", "OpenWorm", "deep learning", "GAN", "computer vision"
+  ],
+  "articleBody": "  Building a python library with the Pre-Trained models has been one of my secondary objectives for GSoC 2020, and it was about time that I got started with it. Devolearn is a python library that can be used to collect useful metadata from videos and images of C. elegans embryos with deep learning.\nHere’s a quick example with which one can get started with DevoLearn:\nInstallation pip install devolearn\nSegmenting the C. elegans embryo    Importing the model  from devolearn import embryo_segmentor segmentor = embryo_segmentor()  Running the model on an image and viewing the prediction  seg_pred = segmentor.predict(image_path = \"sample_data/images/seg_sample.jpg\") plt.imshow(seg_pred) plt.show()  Running the model on a video and saving the predictions into a folder  filenames = segmentor.predict_from_video(video_path = \"sample_data/videos/seg_sample.mov\", centroid_mode = False, save_folder = \"preds\") I won’t be including all of the examples here, because it’s already there on the README.md of the devolearn repo.\nAs you might be able to see, the primary focus of devolearn was ease of use, the user could be a complete beginner in python and still be able to use the deep learning models in devolearn for his/her research. All that he has to do is to know the filename of his images/videos which he wants to work on.\nOne can use the embryo_segmentor() to extract the centroids of the cells from a video and save the centroid co-ordinates into a CSV file which might look like this.\nDevolearn is open to any form of contributions/improvements from the open source community. The best place to start for someone who wants to contribute is the contributing.md file.\nI’ll be writing more on how devolearn works under the hood in the next few weeks.\n",
+  "wordCount" : "278",
+  "inLanguage": "en",
+  "datePublished": "2020-08-02T00:00:00Z",
+  "dateModified": "2020-08-02T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/">Hello DevoLearn</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gan" rel="tag">GAN </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/computer-vision" rel="tag">computer vision </a>
-              </span>
-          </div>
-          <div class="content-full"><figure>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Hello DevoLearn
+    </h1>
+    <div class="post-meta">August 2, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<figure>
     <img src="https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/banner_1.jpg" width="70%"/> 
 </figure>
 
 <p>Building a python library with the Pre-Trained models has been one of my secondary objectives for GSoC 2020, and it was about time that I got started with it. Devolearn is a python library that can be used to collect useful metadata from videos and images of C. elegans embryos with deep learning.</p>
 <p>Here&rsquo;s a quick example with which one can get started with DevoLearn:</p>
-<h2 id="installation">Installation</h2>
+<h2 id="installation">Installation<a hidden class="anchor" aria-hidden="true" href="#installation">#</a></h2>
 <p><code>pip install devolearn</code></p>
-<h3 id="segmenting-the-c-elegans-embryo">Segmenting the C. elegans embryo</h3>
+<h3 id="segmenting-the-c-elegans-embryo">Segmenting the C. elegans embryo<a hidden class="anchor" aria-hidden="true" href="#segmenting-the-c-elegans-embryo">#</a></h3>
 <figure>
     <img src="https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/pred_centroids.gif" width="50%"/> 
 </figure>
@@ -72,23 +170,72 @@ plt<span style="color:#f92672">.</span>show()
 <p>I&rsquo;ll be writing more on how devolearn works under the hood in the next few weeks.</p>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/gsoc/">GSoC</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/openworm/">OpenWorm</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/computer-vision/">Computer vision</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/gan/">GAN</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

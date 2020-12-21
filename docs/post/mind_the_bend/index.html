@@ -1,58 +1,156 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Mind the bend &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/mind_the_bend/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Mind the bend &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Mind the bend | @mayukhdeb</title>
+
+<meta name="keywords" content="Computer vision, Deep learning, Self driving car" />
+<meta name="description" content="training a car to drive by itself using deep learning">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/mind_the_bend/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Mind the bend" />
+<meta property="og:description" content="training a car to drive by itself using deep learning" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/mind_the_bend/" />
+<meta property="article:published_time" content="2020-01-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-01-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mind the bend"/>
+<meta name="twitter:description" content="training a car to drive by itself using deep learning"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Mind the bend",
+  "name": "Mind the bend",
+  "description": "Making a car drive by itself using deep learning and some PyAutoGUI",
+  "keywords": [
+    "Computer vision", "Deep learning", "Self driving car"
+  ],
+  "articleBody": "The whole point of this project was to make a car stay on the road all by itself and defeat other players in a racing game called speed dreams.\nCollection of training data  Rapidly takes screenshots of the game and saves them in a folder The label in this case is the x-co-ordinate of the mouse which is captured by pyautogui and is stored in the formatted filename of each collected image. Image fileame formatting is done as (x-value)_(unique_ID).png  Processing images  Converts all images to numpy arrays with a depth of 3 for R,G and B color channels The shape gets changed from [ width, height, depth ] to [ depth, width, height] for it to be of the right size for the CNN input channel Pairs them with the corresponding mouse x-coordinate as array [ [[[image]]] , [x-value] ] all of the generated pairs are then stacked into one numpy array with the help of np.vstack() and saved  Data preprocessing and augmentation  First things first, plotted the frequency distribution of each steering value hen Roughly doubled the amount of training data by generating mirror images of existing images and vstacking them with reversed steer value. Flattened the frequency distribution by making copies of random ramples of under-represented steering value data points Normalised the steering values by replacing the x-co-ordinates with steering values. In my case the “straight” steer value was at x = 400, for normalised_value = 400 - x_value   note : Right is negative steer value and left is positive\n Self driving  Rapidly taken screenshots are prerpocessed and fed to the trained CNN drunk_driver() drunk_driver() returns a steer value Returned value is taken care of by pyauogui which moves the mouse accordingly  ",
+  "wordCount" : "284",
+  "inLanguage": "en",
+  "datePublished": "2020-01-01T00:00:00Z",
+  "dateModified": "2020-01-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/mind_the_bend/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/mind_the_bend/">Mind the bend</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/computer-vision" rel="tag">Computer vision </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">Deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/self-driving-car" rel="tag">Self driving car </a>
-              </span>
-          </div>
-          <div class="content-full"><p><img src="https://mayukhdeb.github.io/blog/post/images/example.gif" alt="example">
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Mind the bend
+    </h1>
+    <div class="post-meta">January 1, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<p><img src="https://mayukhdeb.github.io/blog/post/images/example.gif" alt="example">
 <img src="https://mayukhdeb.github.io/blog/post/images/pipeline.png" alt="pipeline"></p>
 <p>The whole point of this project was to make a car stay on the road all by itself and defeat other players in a racing game called speed dreams.</p>
-<h2 id="collection-of-training-data">Collection of training data</h2>
+<h2 id="collection-of-training-data">Collection of training data<a hidden class="anchor" aria-hidden="true" href="#collection-of-training-data">#</a></h2>
 <ul>
 <li>Rapidly takes screenshots of the game and saves them in a folder</li>
 <li>The label in this case is the x-co-ordinate of the mouse which is captured by pyautogui and is stored in the formatted filename of each collected image. Image fileame formatting is done as  <code>(x-value)_(unique_ID).png</code></li>
 </ul>
-<h2 id="processing-images">Processing images</h2>
+<h2 id="processing-images">Processing images<a hidden class="anchor" aria-hidden="true" href="#processing-images">#</a></h2>
 <ul>
 <li>Converts all images to numpy arrays with a depth of 3 for R,G and B color channels</li>
 <li>The shape gets changed from  <code>[ width, height, depth ]</code> to <code>[ depth, width, height]</code> for it to be of the right size for the CNN input channel</li>
 <li>Pairs them with the corresponding mouse x-coordinate as array <code>[  [[[image]]]  ,  [x-value]   ]</code></li>
 <li>all of the generated pairs are then stacked into one numpy array with the help of np.vstack() and saved</li>
 </ul>
-<h2 id="data-preprocessing-and-augmentation">Data preprocessing and augmentation</h2>
+<h2 id="data-preprocessing-and-augmentation">Data preprocessing and augmentation<a hidden class="anchor" aria-hidden="true" href="#data-preprocessing-and-augmentation">#</a></h2>
 <ul>
 <li>First things first, plotted the frequency distribution of each steering value hen</li>
 <li>Roughly doubled the amount of training data by generating mirror images of existing images and vstacking them with reversed steer value.</li>
@@ -62,7 +160,7 @@
 <blockquote>
 <p>note :  Right is negative steer value and left is positive</p>
 </blockquote>
-<h2 id="self-driving">Self driving</h2>
+<h2 id="self-driving">Self driving<a hidden class="anchor" aria-hidden="true" href="#self-driving">#</a></h2>
 <ul>
 <li>Rapidly taken screenshots are prerpocessed and fed to the trained CNN drunk_driver()</li>
 <li><code>drunk_driver()</code> returns a steer value</li>
@@ -70,23 +168,70 @@
 </ul>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/computer-vision/">Computer vision</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/self-driving-car/">Self driving car</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

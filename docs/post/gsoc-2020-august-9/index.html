@@ -1,45 +1,143 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Publishing a PyPI package &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Publishing a PyPI package &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Publishing a PyPI package | @mayukhdeb</title>
+
+<meta name="keywords" content="GSoC, OpenWorm, PyPI" />
+<meta name="description" content="Google summer of code week 12">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Publishing a PyPI package" />
+<meta property="og:description" content="Google summer of code week 12" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/" />
+<meta property="article:published_time" content="2020-08-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-09T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Publishing a PyPI package"/>
+<meta name="twitter:description" content="Google summer of code week 12"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Publishing a PyPI package",
+  "name": "Publishing a PyPI package",
+  "description": "Google Summer of Code | Coding period week 10",
+  "keywords": [
+    "GSoC", "OpenWorm", "PyPI"
+  ],
+  "articleBody": "First off, this blog post is definitely not an official guide, if you’re looking for an official guide, have a look here.\nThis blog post is pretty specific to the PyPI package that I authored along with Bradly and Ujjwall.\nThe project structure:   Each of the classes under devolearn have their own folder which would contain all the utils required for that class including the model files.\nFor example, the folder embryo_generator_model would look like:\n├── embryo_generator_model ├── embryo_generator_model.py ├── embryo_generator.pt ├── __init__.py The repo structure for PyPI devolearn ├── LICENSE ├── README.md ├── devolearn │ ├── __init__.py │ ├── model_1 │ │ ├── model_1.py │ │ ├── model_1.pt │ │ ├── __init__.py │ ├── model_2 │ ├── model_2.py │ ├── model_2.pt │ ├── __init__.py │ ├── setup.py Generating a distribution archive Once the folder was structured, The next objective was to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.\nFor this I had to install the latest versions of setuptools and wheel with:\npython3 -m pip install --user --upgrade setuptools wheel Then we had to run the following command in the same directory as setup.py:\npython3 setup.py sdist bdist_wheel This command should output a lot of text and once completed should generate two files in the dist directory:\ndist/ devolearn-0.1.9.tar.gz devolearn-0.1.9-py3-none-any.whl Uploading the archive First, we’d have to upload the package to test.pypi.org, and for that we’d have to make an account. Then go to this url and create a new API token.\nThen we upload the package using the twine package:\npython3 -m pip install --user --upgrade twine And then:\npython3 -m twine upload --repository testpypi dist/* When prompted for a username, use __token__ and then enter the token value as the password;\nUploading distributions to https://test.pypi.org/legacy/ Enter your username: __token__ Enter your password: your_token_value The problem with package size In order to upload a package to test.pypi.org, it had to be under 100 mb, but devolearn was above 150 mb because of the model files. So the workaround was to not include the models in the MANIFEST.in file and downloading the models from GitHub directly using wget from within the package. The models would get downloaded when the user calls the model class for the first time.\nNote: MANIFEST.in is a file that can be used to specify the non .py files that you’d want to include in the python package to be uploaded, for example, I included the scaler.gz file in our manifest file.\nUploading to PyPI When you are ready to upload a real package to the Python Package Index you can do much the same as you did above,\npython3 -m twine upload dist/* Done and dusted This post was basically my own informal guide for uploading a package to PyPI. If you’ve read this far, you need to take a break from stalking me so hard.\n",
+  "wordCount" : "487",
+  "inLanguage": "en",
+  "datePublished": "2020-08-09T00:00:00Z",
+  "dateModified": "2020-08-09T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/">Publishing a PyPI package</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/pypi" rel="tag">PyPI </a>
-              </span>
-          </div>
-          <div class="content-full"><p>First off, this blog post is definitely not an official guide, if you&rsquo;re looking for an official guide, have a look <a href="https://packaging.python.org/tutorials/packaging-projects/">here</a>.</p>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Publishing a PyPI package
+    </h1>
+    <div class="post-meta">August 9, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<p>First off, this blog post is definitely not an official guide, if you&rsquo;re looking for an official guide, have a look <a href="https://packaging.python.org/tutorials/packaging-projects/">here</a>.</p>
 <p>This blog post is pretty specific to the PyPI package that I authored along with <a href="https://github.com/balicea">Bradly</a> and <a href="https://github.com/ujjwalll">Ujjwall</a>.</p>
-<h2 id="the-project-structure">The project structure:</h2>
+<h2 id="the-project-structure">The project structure:<a hidden class="anchor" aria-hidden="true" href="#the-project-structure">#</a></h2>
 <figure>
     <img src="https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/project_structure.jpg" width="80%"/> 
 </figure>
@@ -50,7 +148,7 @@
     ├── embryo_generator_model.py
     ├── embryo_generator.pt
     ├── __init__.py
-</code></pre><h2 id="the-repo-structure-for-pypi">The repo structure for PyPI</h2>
+</code></pre><h2 id="the-repo-structure-for-pypi">The repo structure for PyPI<a hidden class="anchor" aria-hidden="true" href="#the-repo-structure-for-pypi">#</a></h2>
 <pre><code>devolearn
 ├── LICENSE
 ├── README.md
@@ -67,7 +165,7 @@
 │
 ├── setup.py
 
-</code></pre><h2 id="generating-a-distribution-archive">Generating a distribution archive</h2>
+</code></pre><h2 id="generating-a-distribution-archive">Generating a distribution archive<a hidden class="anchor" aria-hidden="true" href="#generating-a-distribution-archive">#</a></h2>
 <p>Once the folder was structured, The next objective was to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.</p>
 <p>For this I had to install the latest versions of setuptools and wheel with:</p>
 <pre><code>python3 -m pip install --user --upgrade setuptools wheel
@@ -78,7 +176,7 @@
 <pre><code>dist/
     devolearn-0.1.9.tar.gz
     devolearn-0.1.9-py3-none-any.whl
-</code></pre><h2 id="uploading-the-archive">Uploading the archive</h2>
+</code></pre><h2 id="uploading-the-archive">Uploading the archive<a hidden class="anchor" aria-hidden="true" href="#uploading-the-archive">#</a></h2>
 <p>First, we&rsquo;d have to upload the package to test.pypi.org, and for that we&rsquo;d have to <a href="https://test.pypi.org/account/register/">make</a> an account. Then go to <a href="https://test.pypi.org/manage/account/#api-tokens">this url</a> and create a new API token.</p>
 <p>Then we upload the package using the twine package:</p>
 <pre><code>python3 -m pip install --user --upgrade twine
@@ -88,33 +186,80 @@
 <pre><code>Uploading distributions to https://test.pypi.org/legacy/
 Enter your username: __token__
 Enter your password: your_token_value
-</code></pre><h2 id="the-problem-with-package-size">The problem with package size</h2>
+</code></pre><h2 id="the-problem-with-package-size">The problem with package size<a hidden class="anchor" aria-hidden="true" href="#the-problem-with-package-size">#</a></h2>
 <p>In order  to upload a package to test.pypi.org, it had to be under 100 mb, but devolearn was above 150 mb because of the model files. So the workaround was to not include the models in the <code>MANIFEST.in</code> file and downloading the models from GitHub directly using <code>wget</code> from within the package. The models would get downloaded when the user calls the model class for the first time.</p>
 <p><strong>Note:</strong>  <code>MANIFEST.in</code> is a file that can be used to specify the <strong>non</strong> <code>.py</code> files that you&rsquo;d want to include in the python package to be uploaded, for example, I included the <code>scaler.gz</code> file in our manifest file.</p>
-<h2 id="uploading-to-pypi">Uploading to PyPI</h2>
+<h2 id="uploading-to-pypi">Uploading to PyPI<a hidden class="anchor" aria-hidden="true" href="#uploading-to-pypi">#</a></h2>
 <p>When you are ready to upload a real package to the Python Package Index you can do much the same as you did above,</p>
 <pre><code>python3 -m twine upload dist/*
-</code></pre><h2 id="done-and-dusted">Done and dusted</h2>
+</code></pre><h2 id="done-and-dusted">Done and dusted<a hidden class="anchor" aria-hidden="true" href="#done-and-dusted">#</a></h2>
 <p>This post was basically my own informal guide for uploading a package to PyPI. If you&rsquo;ve read this far, you need to take a break from stalking me so hard.</p>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/gsoc/">GSoC</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/openworm/">OpenWorm</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/pypi/">PyPI</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

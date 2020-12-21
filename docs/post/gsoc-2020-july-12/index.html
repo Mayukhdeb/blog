@@ -1,43 +1,141 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Cleaning up the bridge &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Cleaning up the bridge &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Cleaning up the bridge | @mayukhdeb</title>
+
+<meta name="keywords" content="GSoC, OpenWorm, data science" />
+<meta name="description" content="Google summer of code week 8">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Cleaning up the bridge" />
+<meta property="og:description" content="Google summer of code week 8" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/" />
+<meta property="article:published_time" content="2020-07-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-07-12T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cleaning up the bridge"/>
+<meta name="twitter:description" content="Google summer of code week 8"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cleaning up the bridge",
+  "name": "Cleaning up the bridge",
+  "description": "Google Summer of Code | Coding period week 6",
+  "keywords": [
+    "GSoC", "OpenWorm", "data science"
+  ],
+  "articleBody": "The videos from the EPIC dataset were not all clean and tidy, some of them had random black frames, and some even had random red lines/patches through the frame. These factors were highly unfavourable when it came to training a good deep learning model. This problem was solved in this notebook.\n    And as it turns out, these images were also acompanied with corrupt annotations, where the population went down to zero all of a sudden, even through the associated frames had well populated embryos. I called them the “cliffs”.\n    As it was seen above, some of the data points had cases where the population went down almost vertically all of a sudden. Upon further inspection, it was found that the frames associated with these drops were well populated with cells and definitely not as depicted by these “cliff curves”. So the next step was to remove them.\n  Now the only problem that remained was to remove the corrupt random frames with the patches. For this problem, I went on with ujjwal‘s aproach, which involved dropping the frames with the highest loss after a few epochs of training and the re-train on the “clean” frames.\n  The plot above shows the loss of each frame in the training set, with the red lines highlighting the top 10% frames with the highest loss after training.\nExpecting a much lower loss next week.\n",
+  "wordCount" : "229",
+  "inLanguage": "en",
+  "datePublished": "2020-07-12T00:00:00Z",
+  "dateModified": "2020-07-12T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/">Cleaning up the bridge</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/data-science" rel="tag">data science </a>
-              </span>
-          </div>
-          <div class="content-full"><p>The videos from the EPIC dataset were not all clean and tidy, some of them had random black frames, and some even had random red lines/patches through the frame. These factors were highly unfavourable when it came to training a good deep learning model. This problem was solved in <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/data_cleanup.ipynb">this notebook</a>.</p>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Cleaning up the bridge
+    </h1>
+    <div class="post-meta">July 12, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<p>The videos from the EPIC dataset were not all clean and tidy, some of them had random black frames, and some even had random red lines/patches through the frame. These factors were highly unfavourable when it came to training a good deep learning model. This problem was solved in <a href="https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/data_cleanup.ipynb">this notebook</a>.</p>
 <figure>
     <img src="https://mayukhdeb.github.io/blog/post/images/july_12/red_line.png" width="50%"/> 
 </figure>
@@ -60,7 +158,7 @@
     <img src="https://mayukhdeb.github.io/blog/post/images/july_12/without_cliffs.png" width="90%"/> 
 </figure>
 
-<p>Now the only problem that remained was to remove the corrupt random frames with the patches. For this problem, I went on with <a href="https://github.com/ujjwalll">ujjwal</a>&rsquo;s aproach, which involved dropping the frames with the highest loss after a few epochs of training and the re-train on the &ldquo;clean&rdquo; frames.</p>
+<p>Now the only problem that remained was to remove the corrupt random frames with the patches. For this problem, I went on with <a href="https://github.com/ujjwalll">ujjwal</a>&lsquo;s aproach, which involved dropping the frames with the highest loss after a few epochs of training and the re-train on the &ldquo;clean&rdquo; frames.</p>
 <figure>
     <img src="https://mayukhdeb.github.io/blog/post/images/july_12/lossy_frames.png" width="90%"/> 
 </figure>
@@ -69,23 +167,70 @@
 <p>Expecting a much lower loss next week.</p>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/gsoc/">GSoC</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/openworm/">OpenWorm</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/data-science/">data science</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

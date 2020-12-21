@@ -1,43 +1,141 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Exploring the Movement Database &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Exploring the Movement Database &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Exploring the Movement Database | @mayukhdeb</title>
+
+<meta name="keywords" content="GSoC, Computer vision, Deep learning, OpenWorm, Feature extraction" />
+<meta name="description" content="Google summer of code week 2">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Exploring the Movement Database" />
+<meta property="og:description" content="Google summer of code week 2" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/" />
+<meta property="article:published_time" content="2020-05-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-05-24T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Exploring the Movement Database"/>
+<meta name="twitter:description" content="Google summer of code week 2"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Exploring the Movement Database",
+  "name": "Exploring the Movement Database",
+  "description": "Google Summer of Code | Community bonding period week 2",
+  "keywords": [
+    "GSoC", "Computer vision", "Deep learning", "OpenWorm", "Feature extraction"
+  ],
+  "articleBody": "After week 1, the new priority was to find the right data on the internet. I started the week off by reading papers based on locomotion in the C. elegans worm. Surprisingly enough (or unsurprisingly, depending on how much you’re into worms), most of the data was from the OpenWorm Movement Database.\nAlmost all the video data on the database is from the Tierpsy tracker, which is an amazing worm tracking tool in itself. But there was a new hurdle now.\n  The issue with the video data (as seen above) wThe issue with the video data (as seen above) was that the worms were “partially segmented out”. Which meant that the background was all blacked out except for a small “padding area” around the worm. This “padding area” was a good safety measure on the Tierpsy tracker’s side, but was a minor hurdle for someone who wanted to segment out just the worm from the image in order to gain inferences from behavioural dynamics.\nThis hurdle was taken care of in 3 stages:\n    Stage 1: Extracting the “padding region” around the worm with cv2.threshold()\n  Stage 2: Removing the padding region by using cv2.bitwise_and() between the real and the thresholded image\n  Removing any extra noise (as seen on stage 2) with cv2.erode()\n  Now the next objecive was to extract the head and tail, this was done using corner detection with cv2.goodFeaturesToTrack() with maxCorners = 2 to only capture the 2 most prominent corners.\n  To complete the skeletonization, all that was needed now was to skeletonize the main body, and that was done with the very self explanatory function named skimage.morphology.skeletonize(). Combined with two circles which signify the head and the tail, we get a clean skeleton which can now be used for analysis on a bigger scale with a large number of frames.\n    ",
+  "wordCount" : "302",
+  "inLanguage": "en",
+  "datePublished": "2020-05-24T00:00:00Z",
+  "dateModified": "2020-05-24T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/">Exploring the Movement Database</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/gsoc" rel="tag">GSoC </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/computer-vision" rel="tag">Computer vision </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">Deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/openworm" rel="tag">OpenWorm </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/feature-extraction" rel="tag">Feature extraction </a>
-              </span>
-          </div>
-          <div class="content-full"><p>After week 1, the new priority was to find the right data on the internet. I started the week off by reading papers based on locomotion in the C. elegans worm. Surprisingly enough (or unsurprisingly, depending on how much you&rsquo;re into worms), most of the data was from the <a href="http://movement.openworm.org/">OpenWorm Movement Database</a>.</p>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Exploring the Movement Database
+    </h1>
+    <div class="post-meta">May 24, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<p>After week 1, the new priority was to find the right data on the internet. I started the week off by reading papers based on locomotion in the C. elegans worm. Surprisingly enough (or unsurprisingly, depending on how much you&rsquo;re into worms), most of the data was from the <a href="http://movement.openworm.org/">OpenWorm Movement Database</a>.</p>
 <p>Almost all the video data on the database is from the <a href="https://github.com/ver228/tierpsy-tracker">Tierpsy tracker</a>, which is an amazing worm tracking tool in itself. But there was a new hurdle now.</p>
 <figure>
     <img src="https://mayukhdeb.github.io/blog/post/images/may_24/initial_image.png" width="60%"/> 
@@ -76,23 +174,72 @@
 </p>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/gsoc/">GSoC</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/openworm/">OpenWorm</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/computer-vision/">Computer vision</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/feature-extraction/">Feature extraction</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-

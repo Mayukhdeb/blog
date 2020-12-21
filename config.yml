@@ -1,0 +1,29 @@
+baseURL: 'https://mayukhdeb.github.io/blog/'
+languageCode: en-us
+title: '@mayukhdeb'
+baseurl: ''
+theme: hugo-PaperMod
+min_version: 0.57.0
+contentdir: content
+layoutdir: layouts
+builddrafts: True
+canonifyurls: true
+publishDir: docs
+params:
+    homeInfoParams:
+        Title: Hi, I'm Mayukh
+        Content: I spend most of my time building new things with deep neural networks. Welcome to my blog.   
+taxonomies:
+  tag: tags
+menu:
+  top:
+    - name: Github
+      pre: ''
+      weight: -100
+      url: 'https://github.com/Mayukhdeb'
+    - name: Twitter
+      pre: ''
+      weight: -90
+      url: 'https://twitter.com/mayukh091'
+      
+

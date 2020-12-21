@@ -1,799 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-      <title>@mayukhdeb on @mayukhdeb </title>
-      <generator uri="https://gohugo.io">Hugo</generator>
+    <title>@mayukhdeb</title>
     <link>https://mayukhdeb.github.io/blog/</link>
+    <description>Recent content on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Sun, 23 Aug 2020 00:00:00 +0000</lastBuildDate>
     
+	<atom:link href="https://mayukhdeb.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
-    <updated>Sun, 23 Aug 2020 00:00:00 UTC</updated>
     
     <item>
       <title>Looking ahead</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/</link>
-      <pubDate>Sun, 23 Aug 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/</guid>
-      <description>&lt;h2 id=&#34;gsoc-stuff&#34;&gt;GSoC stuff&lt;/h2&gt;
-&lt;p&gt;If you&amp;rsquo;re someone who&amp;rsquo;s here because of GSoC related things, here&amp;rsquo;s some stuff I wish I knew before starting out:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;First, remember that you &lt;strong&gt;will&lt;/strong&gt; have to go out of your comfort zone when building stuff.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Your mentor is your best friend through all the odds.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The better you know the objective of the org, the better your proposal will be. Dig around and find out the approximate thought process that went behind the formation of the project if possible.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Make sure you&amp;rsquo;re ready to learn new things. In my case, I had to learn a lot of things on the fly.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The experience I gained from my personal projects in the past helped me the most.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;On writing proposals:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;Proposals should not be about what you know, it should be about what you plan to build with what you know.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Pictures/visualizations &amp;gt; words&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;If possible, show them that you&amp;rsquo;ve done something similar to the project before.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Less jargon, more reasoning.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Show them how exactly is your approach better than the average approach. If your approach has some downfalls, mention them as well. This would mean that you know what you&amp;rsquo;re doing.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Original projects that actually work &amp;gt;  courses. This specifically applies to deep learning related GSoC projects like the one I did.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;miscellaneous&#34;&gt;Miscellaneous&lt;/h2&gt;
-&lt;p&gt;It&amp;rsquo;s been the most productive 3 months I&amp;rsquo;ve ever had in my life. When I say productivity, I do not mean pushing code. Productivity is when I&amp;rsquo;m learning and applying new things, not when I&amp;rsquo;m just doing something I&amp;rsquo;ve done before. If I&amp;rsquo;m not making mistakes, I&amp;rsquo;m not learning new things.&lt;/p&gt;
-&lt;p&gt;As much as I don&amp;rsquo;t want so sound like some nerd, I&amp;rsquo;m not productive unless I&amp;rsquo;m backpropagating on my own mistakes. The best way to do that is to first calculate the loss by reflecting on the mistake and analysing where I went wrong.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;new_action = old_action - learning_rate*gradient&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;where:
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/august_23/gradient.jpg&#34; width=&#34;40%&#34;/&gt; 
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;The right amount of patience is like the adaptive learning rate that everyone needs. Too fast and you overshoot, too slow and you&amp;rsquo;ll never reach the minima.&lt;/p&gt;
-&lt;p&gt;Thank you for reading this far.&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;“It is better to fail in originality than to succeed in imitation.”&lt;/p&gt;
-&lt;p&gt;&amp;ndash; Herman Melville&lt;/p&gt;
-&lt;hr&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 12 | Tangents included</description>
     </item>
     
     <item>
       <title>And then there were tests</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/</link>
-      <pubDate>Sun, 16 Aug 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 16 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/</guid>
-      <description>&lt;p&gt;Setting up &lt;a href=&#34;https://github.com/DevoLearn/devolearn/blob/master/devolearn/tests/test.py&#34;&gt;unit tests for devolearn&lt;/a&gt; was actually the first time that I was ever touching those testing libraries. While setting up the tests, &lt;a href=&#34;https://realpython.com/python-testing/&#34;&gt;this&lt;/a&gt; came to be the most useful resource I found.&lt;/p&gt;
-&lt;h2 id=&#34;why-do-we-even-need-tests-&#34;&gt;Why do we even need tests ?&lt;/h2&gt;
-&lt;p&gt;It is safe to assume that one day more contributors would come to &lt;a href=&#34;https://github.com/DevoLearn/devolearn&#34;&gt;devolearn&lt;/a&gt;. When a future contributor makes a pull request, these tests would make sure that the pull requests are not breaking the code, and the tests would work as an early warning system if a pull request does break the code.&lt;/p&gt;
-&lt;p&gt;In our case, we used &lt;a href=&#34;https://travis-ci.org/&#34;&gt;travis CI&lt;/a&gt; to run our tests online after each push/pull request. For this we had to set up a &lt;code&gt;.travis.yml&lt;/code&gt; file on the same diirectory as the &lt;code&gt;setup.py&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;A &lt;code&gt;.travis.yml&lt;/code&gt; file looks like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;language: python
-python:
-  - &amp;quot;3.7&amp;quot;
-  - &amp;quot;3.8&amp;quot;
-
-dist: bionic
-
-install: 
-  - pip install .
-  - pip install -r requirements.txt
-script:  
-  - python setup.py test 
-
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I will break down the file bit by bit:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;language: python&lt;/code&gt; : Because we&amp;rsquo;ll be running the tests on python.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;python:&lt;/code&gt; This section specifies the versions of python on which we&amp;rsquo;ll be running the tests.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;install:&lt;/code&gt; Specifies the terminal commands one would need to run in order to install the required libraries.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;script:&lt;/code&gt; Specifies the terminal command(s) needed to run the test(s).&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;On top of that, I had to add this to the &lt;code&gt;setup()&lt;/code&gt; function in &lt;code&gt;setup.py&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;test_suite=&#39;nose.collector&#39;,
-tests_require=[&#39;nose&#39;]
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And as for the test functions themselves, the were pretty easy to set up. It was as simple as calling all the functions within a subclass of &lt;code&gt;unittest.TestCase&lt;/code&gt;. One of the tests in the devolearn unit tests looks like as follows:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;centroid_df = segmentor.predict_from_video(&amp;lt;args&amp;gt;)
-
-self.assertTrue(isinstance(centroid_df, pd.DataFrame), &amp;quot;should be a pandas.DataFrame&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The snippet above makes sure that the object returned from the function &lt;code&gt;predict_from_video()&lt;/code&gt; is a &lt;code&gt;pandas.DataFrame&lt;/code&gt;. If something ever breaks in between, then this test would fail with the message in the 2nd arg of &lt;code&gt;self.assertTrue&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;After about an hour worth of errors and debugging, I was finally able to make this &lt;a href=&#34;https://api.travis-ci.org/DevoLearn/devolearn.svg?branch=master&amp;amp;status=passed&#34;&gt;weird flex&lt;/a&gt; on the readme.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 11</description>
     </item>
     
     <item>
       <title>Publishing a PyPI package</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/</link>
-      <pubDate>Sun, 09 Aug 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 09 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/</guid>
-      <description>&lt;p&gt;First off, this blog post is definitely not an official guide, if you&amp;rsquo;re looking for an official guide, have a look &lt;a href=&#34;https://packaging.python.org/tutorials/packaging-projects/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This blog post is pretty specific to the PyPI package that I authored along with &lt;a href=&#34;https://github.com/balicea&#34;&gt;Bradly&lt;/a&gt; and &lt;a href=&#34;https://github.com/ujjwalll&#34;&gt;Ujjwall&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;the-project-structure&#34;&gt;The project structure:&lt;/h2&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/project_structure.jpg&#34; width=&#34;80%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Each of the classes under &lt;code&gt;devolearn&lt;/code&gt; have their own folder which would contain all the utils required for that class including the model files.&lt;/p&gt;
-&lt;p&gt;For example, the folder &lt;code&gt;embryo_generator_model&lt;/code&gt; would look like:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;├── embryo_generator_model
-    ├── embryo_generator_model.py
-    ├── embryo_generator.pt
-    ├── __init__.py
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;the-repo-structure-for-pypi&#34;&gt;The repo structure for PyPI&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;devolearn
-├── LICENSE
-├── README.md
-├── devolearn
-│   ├── __init__.py
-│   ├── model_1
-│   │    ├── model_1.py
-│   │    ├── model_1.pt
-│   │    ├── __init__.py
-│   ├── model_2
-│         ├── model_2.py
-│         ├── model_2.pt
-│         ├── __init__.py
-│
-├── setup.py
-
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;generating-a-distribution-archive&#34;&gt;Generating a distribution archive&lt;/h2&gt;
-&lt;p&gt;Once the folder was structured, The next objective was to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.&lt;/p&gt;
-&lt;p&gt;For this I had to install the latest versions of setuptools and wheel with:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;python3 -m pip install --user --upgrade setuptools wheel
-
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then we had to run the following command  in the same directory as &lt;code&gt;setup.py&lt;/code&gt;:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;python3 setup.py sdist bdist_wheel
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This command should output a lot of text and once completed should generate two files in the dist directory:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;dist/
-    devolearn-0.1.9.tar.gz
-    devolearn-0.1.9-py3-none-any.whl
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;uploading-the-archive&#34;&gt;Uploading the archive&lt;/h2&gt;
-&lt;p&gt;First, we&amp;rsquo;d have to upload the package to test.pypi.org, and for that we&amp;rsquo;d have to &lt;a href=&#34;https://test.pypi.org/account/register/&#34;&gt;make&lt;/a&gt; an account. Then go to &lt;a href=&#34;https://test.pypi.org/manage/account/#api-tokens&#34;&gt;this url&lt;/a&gt; and create a new API token.&lt;/p&gt;
-&lt;p&gt;Then we upload the package using the twine package:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;python3 -m pip install --user --upgrade twine
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And then:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;python3 -m twine upload --repository testpypi dist/*
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When prompted for a username, use &lt;code&gt;__token__&lt;/code&gt; and then enter the token value as the password;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;Uploading distributions to https://test.pypi.org/legacy/
-Enter your username: __token__
-Enter your password: your_token_value
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;the-problem-with-package-size&#34;&gt;The problem with package size&lt;/h2&gt;
-&lt;p&gt;In order  to upload a package to test.pypi.org, it had to be under 100 mb, but devolearn was above 150 mb because of the model files. So the workaround was to not include the models in the &lt;code&gt;MANIFEST.in&lt;/code&gt; file and downloading the models from GitHub directly using &lt;code&gt;wget&lt;/code&gt; from within the package. The models would get downloaded when the user calls the model class for the first time.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt;  &lt;code&gt;MANIFEST.in&lt;/code&gt; is a file that can be used to specify the &lt;strong&gt;non&lt;/strong&gt; &lt;code&gt;.py&lt;/code&gt; files that you&amp;rsquo;d want to include in the python package to be uploaded, for example, I included the &lt;code&gt;scaler.gz&lt;/code&gt; file in our manifest file.&lt;/p&gt;
-&lt;h2 id=&#34;uploading-to-pypi&#34;&gt;Uploading to PyPI&lt;/h2&gt;
-&lt;p&gt;When you are ready to upload a real package to the Python Package Index you can do much the same as you did above,&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;python3 -m twine upload dist/*
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;done-and-dusted&#34;&gt;Done and dusted&lt;/h2&gt;
-&lt;p&gt;This post was basically my own informal guide for uploading a package to PyPI. If you&amp;rsquo;ve read this far, you need to take a break from stalking me so hard.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 10</description>
     </item>
     
     <item>
       <title>Hello DevoLearn</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/</link>
-      <pubDate>Sun, 02 Aug 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 02 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/</guid>
-      <description>&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/banner_1.jpg&#34; width=&#34;70%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Building a python library with the Pre-Trained models has been one of my secondary objectives for GSoC 2020, and it was about time that I got started with it. Devolearn is a python library that can be used to collect useful metadata from videos and images of C. elegans embryos with deep learning.&lt;/p&gt;
-&lt;p&gt;Here&amp;rsquo;s a quick example with which one can get started with DevoLearn:&lt;/p&gt;
-&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;pip install devolearn&lt;/code&gt;&lt;/p&gt;
-&lt;h3 id=&#34;segmenting-the-c-elegans-embryo&#34;&gt;Segmenting the C. elegans embryo&lt;/h3&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/DevoLearn/devolearn/master/images/pred_centroids.gif&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Importing the model&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; devolearn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; embryo_segmentor
-segmentor &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; embryo_segmentor()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;Running the model on an image and viewing the prediction&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;seg_pred &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; segmentor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;predict(image_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sample_data/images/seg_sample.jpg&amp;#34;&lt;/span&gt;)
-plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;imshow(seg_pred)
-plt&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;show()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;Running the model on a video and saving the predictions into a folder&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;filenames &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; segmentor&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;predict_from_video(video_path &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;sample_data/videos/seg_sample.mov&amp;#34;&lt;/span&gt;, centroid_mode &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; False, save_folder &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;preds&amp;#34;&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;I won&amp;rsquo;t be including all of the examples here, because it&amp;rsquo;s already there on the &lt;a href=&#34;https://github.com/DevoLearn/devolearn/blob/master/README.md&#34;&gt;README.md&lt;/a&gt; of the devolearn repo.&lt;/p&gt;
-&lt;p&gt;As you might be able to see, the primary focus of devolearn was ease of use, the user could be a complete beginner in python and still be able to use the deep learning models in devolearn for his/her research. All that he has to do is to know the filename of his images/videos which he wants to work on.&lt;/p&gt;
-&lt;p&gt;One can use the  &lt;code&gt;embryo_segmentor()&lt;/code&gt; to extract the centroids of the cells from a video and save the centroid co-ordinates into a CSV file which might look like &lt;a href=&#34;https://github.com/DevoLearn/data-science-demos/blob/master/Networks/c_elegans_centroids.csv&#34;&gt;this&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Devolearn is open to any form of contributions/improvements from the open source community. The best place to start for someone who wants to contribute is the &lt;a href=&#34;https://github.com/DevoLearn/devolearn/blob/master/.github/contributing.md&#34;&gt;contributing.md&lt;/a&gt; file.&lt;/p&gt;
-&lt;p&gt;I&amp;rsquo;ll be writing more on how devolearn works under the hood in the next few weeks.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 9</description>
     </item>
     
     <item>
       <title>Training a GAN</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/</link>
-      <pubDate>Sun, 26 Jul 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 26 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/</guid>
-      <description>&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/generated_embryos_3.gif&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Training a GAN is an act of balance where we have to balance the generator and the discriminator in a game of losses and probabilities.&lt;/p&gt;
-&lt;h2 id=&#34;the-generator&#34;&gt;The generator:&lt;/h2&gt;
-&lt;p&gt;The generator, when properly trained, takes in random noise as input and returns a sample which would look very similar to the ones from the training distribution. What we&amp;rsquo;re doing here is basically mapping points a high dimensional distribution to the training samples.&lt;/p&gt;
-&lt;p&gt;While training, the generator&amp;rsquo;s main objective is to &lt;strong&gt;try to fool the discriminator&lt;/strong&gt; by generating real looking images.&lt;/p&gt;
-&lt;h2 id=&#34;the-discriminator&#34;&gt;The discriminator:&lt;/h2&gt;
-&lt;p&gt;The discriminator, when properly trained, would be able to take in an image as an input and return a probability as to whether the image is real or generated. This is more of a classification problem.&lt;/p&gt;
-&lt;p&gt;While training, the discriminator&amp;rsquo;s main objective is to &lt;strong&gt;distinguish between real and fake images&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Initially when the training starts, both the models are equally bad at their jobs, but in the end pf training, the ideal scenario would be when the generator generators images in-distinguishable from the training set. While the discriminator takes in thatgenerated image and returns a probability of 0.5.&lt;/p&gt;
-&lt;h2 id=&#34;the-game-of-minimax&#34;&gt;The game of minimax&lt;/h2&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_26/minimax.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;h3 id=&#34;lets-break-down-the-equation-above-part-by-part&#34;&gt;Let&amp;rsquo;s break down the equation above part by part:&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;x&lt;/code&gt; is the real data&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;z&lt;/code&gt; is the latent vector i.e random noise. It can also be seen as a point in the latent space with n dimensions.  For example, &lt;code&gt;torch.randn(64, 1, 1)&lt;/code&gt; is a point in the 64 dimensional space.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;D(x)&lt;/code&gt; is the probability of the original image being real according  to the discriminator.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;G(z)&lt;/code&gt; is the generated image with noise &lt;code&gt;z&lt;/code&gt; as input.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;D(G(z))&lt;/code&gt; is the probability of the generated image being real according to the discriminator.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;E&lt;/code&gt; represents the expected value function, the expected value is also known as the expectation, mathematical expectation, mean, average, or first moment.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;so-whats-going-on-during-training-&#34;&gt;So what&amp;rsquo;s going on during training ?&lt;/h3&gt;
-&lt;p&gt;The discriminator wants to &lt;strong&gt;maximize &lt;code&gt;D(x)&lt;/code&gt; and minimize &lt;code&gt;D(G(z))&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;The generator wants to &lt;strong&gt;maximize &lt;code&gt;D(G(z))&lt;/code&gt;&lt;/strong&gt; so that the discriminator gets fooled into believing that the generated image is real.&lt;/p&gt;
-&lt;p&gt;The key factor to maintaining a balance between the 2 model&amp;rsquo;s capabilities is to choose the right loss landscape.&lt;/p&gt;
-&lt;h2 id=&#34;the-training-loop&#34;&gt;The training loop:&lt;/h2&gt;
-&lt;h3 id=&#34;1-update-discriminator--maximize-logdx--log1---dgz&#34;&gt;1. Update discriminator : maximize &lt;code&gt;log(D(x)) + log(1 - D(G(z)))&lt;/code&gt;&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.1 Backprop the discriminator after feeding real images with labels as 1 (sometimes people also use noisy labels with &lt;code&gt;1 ± noise&lt;/code&gt;) (trying to make &lt;code&gt;D(x)&lt;/code&gt; tend towards 1)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.2 Generate fake images (&lt;code&gt;G(z)&lt;/code&gt;) with the generator with random noise &lt;code&gt;z&lt;/code&gt; as input.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.2 Backprop the discriminator after feeding fake images with labels as 0 (sometimes people also use noisy labels with &lt;code&gt;0 ± noise&lt;/code&gt;)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Note: the real and the fake batches were not mixed, first we fed the real batch, and then the fake batch.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&#34;2-update-generator-maximize-logdgz&#34;&gt;2. Update generator: maximize &lt;code&gt;log(D(G(z)))&lt;/code&gt;&lt;/h3&gt;
-&lt;blockquote&gt;
-&lt;p&gt;2.1 Use the discriminator&amp;rsquo;s output on the fake images to calculate a loss with respect to 1. Since the generator&amp;rsquo;s job is to try to make the discriminator return a 1 on fake images, the closer &lt;code&gt;criterion(discriminator_output, one)&lt;/code&gt; is to zero, the better the situation is for the generator.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;If you&amp;rsquo;re more into code than human sentences, here&amp;rsquo;s a snippet&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;label&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;fill_(real_label) &lt;span style=&#34;color:#75715e&#34;&gt;# perform another forward pass of all-fake batch through D&lt;/span&gt;
-output &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; netD(fake_images)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;view(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
-&lt;span style=&#34;color:#75715e&#34;&gt;# Calculate G&amp;#39;s loss based on this output&lt;/span&gt;
-errG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; criterion(output, label)
-&lt;span style=&#34;color:#75715e&#34;&gt;# Calculate gradients for G&lt;/span&gt;
-errG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;backward()
-D_G_z2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; output&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;mean()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;item()
-&lt;span style=&#34;color:#75715e&#34;&gt;# Update G&lt;/span&gt;
-optimizerG&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;step()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If you made it this far, here&amp;rsquo;s a gif of another model trying to make predictions on the generated images:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/model_vs_GAN.gif&#34; width=&#34;70%&#34;/&gt; 
-&lt;/figure&gt;
-
-</description>
+      <description>Google Summer of Code | Coding period week 8</description>
     </item>
     
     <item>
       <title>Finally the bridge works now</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-19/</link>
-      <pubDate>Sun, 19 Jul 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 19 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-19/</guid>
-      <description>&lt;h2 id=&#34;the-bridge-works-now&#34;&gt;The bridge works now&lt;/h2&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/resnet_preds_with_input.gif&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;So, after cleaning up the data last week, I started training the model again from scratch. This time I included all the bells and whistles like &lt;code&gt;ReduceLROnPlateau&lt;/code&gt; and image augmentation with &lt;code&gt;albumentations&lt;/code&gt;. Check out  &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/estimate_cell_family_population.ipynb&#34;&gt;this notebook&lt;/a&gt; for the code.&lt;/p&gt;
-&lt;p&gt;All the values of the populations were yet again normalised to values between -1 and 1. The &lt;code&gt;ResNet18&lt;/code&gt; was customized to a smaller last layer (7 in our case, because 7 lineages of cells).&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/devoworm/GSoC-2020/master/Pre-trained%20Models%20%28DevLearning%29/images/resnet18_pipeline.jpg&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;And after training the model for 8 epochs, the model was able to estimate the populations pretty well. So much so that it was almost at par with the accuracy of the real data.&lt;/p&gt;
-&lt;p&gt;We fed a whole timelapse of the embryogenesis of the C. elegans embryo into the trained model and plotted its predictions, and compared it with the real values as shown:&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_19/pred.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_19/pred_2.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;py_eleganshttpsgithubcomdevowormgsoc-2020treemasterpre-trained20models20devlearningpy_elegans&#34;&gt;&lt;a href=&#34;https://github.com/devoworm/GSoC-2020/tree/master/Pre-trained%20Models%20(DevLearning)/py_elegans&#34;&gt;Py_elegans&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;Apart from all of this, I also started working  on a python library, which would make these deep learning models I&amp;rsquo;ve been training more accessible to the commmunity through a high level framework. For now it&amp;rsquo;s temporarily named &amp;ldquo;py_elegans&amp;rdquo;.&lt;/p&gt;
-&lt;p&gt;In this framework, loading up a pretrained model would be as easy as&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;from pyelegans import lineage_population_model&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;and predictions can be made using:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;pred = model.predict(image_path = &amp;quot;sample.png&amp;quot;)&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;More updates on this next week.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 7</description>
     </item>
     
     <item>
       <title>Cleaning up the bridge</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/</link>
-      <pubDate>Sun, 12 Jul 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 12 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/</guid>
-      <description>&lt;p&gt;The videos from the EPIC dataset were not all clean and tidy, some of them had random black frames, and some even had random red lines/patches through the frame. These factors were highly unfavourable when it came to training a good deep learning model. This problem was solved in &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/data_cleanup.ipynb&#34;&gt;this notebook&lt;/a&gt;.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/red_line.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/red_patch.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;And as it turns out, these images were also acompanied with corrupt annotations, where the population went down to zero all of a sudden, even through the associated frames had well populated embryos. I called them the &amp;ldquo;cliffs&amp;rdquo;.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/with_cliffs.png&#34; width=&#34;90%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/cliffs.png&#34; width=&#34;90%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;As it was seen above, some of the data points had cases where the population went down almost vertically all of a sudden. Upon further inspection, it was found that the frames associated with these drops were well populated with cells and definitely not as depicted by these &amp;ldquo;cliff curves&amp;rdquo;. So the next step was to remove them.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/without_cliffs.png&#34; width=&#34;90%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Now the only problem that remained was to remove the corrupt random frames with the patches. For this problem, I went on with &lt;a href=&#34;https://github.com/ujjwalll&#34;&gt;ujjwal&lt;/a&gt;&amp;rsquo;s aproach, which involved dropping the frames with the highest loss after a few epochs of training and the re-train on the &amp;ldquo;clean&amp;rdquo; frames.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_12/lossy_frames.png&#34; width=&#34;90%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;The plot above shows the loss of each frame in the training set, with the red lines highlighting the top 10% frames with the highest loss after training.&lt;/p&gt;
-&lt;p&gt;Expecting a much lower loss next week.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 6</description>
     </item>
     
     <item>
       <title>Building a bridge</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/</link>
-      <pubDate>Sun, 05 Jul 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 05 Jul 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-july-5/</guid>
-      <description>&lt;p&gt;The bridge that we&amp;rsquo;ll have to build is between the videos and the annotations in the &lt;a href=&#34;http://epic.gs.washington.edu/&#34;&gt;EPIC dataset&lt;/a&gt;, and for that we&amp;rsquo;ll need to train a deep learning model that connects these two. It turned out that it wasn&amp;rsquo;t as straighforward as throwing a bunch of tensors into a model.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_5/raw_frames.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;From the frames like the ones shown above, we&amp;rsquo;ll  have to find the population of various lineages of cells within the embryo.&lt;/p&gt;
-&lt;p&gt;The C. elegans embryo contains cells from various lineages which move on to become various body parts during adulthood, and the total population of each lineage depends primarily on time, but there are a few other biological factors as well. The plot below shows how the populations of each lineage varied with time for a single embryo.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_5/lineage.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;The first task was to &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/merging_video_data_with_annotations.ipynb&#34;&gt;format the data&lt;/a&gt; in a way that can be used to train a model to gain inferences. This mostly involved algorithms that determined the population of each lineage with time from the raw metadata.&lt;/p&gt;
-&lt;p&gt;The second problem was with mapping the video with the annotations. The issue was that there were about 130 or so time instances per video, but there were around 40 frames. So I had to write another algorithm that distrubutes these 240 frames on the 130 time instances.&lt;/p&gt;
-&lt;p&gt;So now all that was left was to &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/video_analysis/estimate_cell_family_population.ipynb&#34;&gt;train a deep learning model&lt;/a&gt; which would map the frames to the populations. The prediction for each frame of the model is a 1 dimensional tensor which contains the populations of the lineages &lt;code&gt;[&#39;A&#39;, &#39;E&#39;, &#39;M&#39;, &#39;P&#39;, &#39;C&#39;, &#39;D&#39;, &#39;Z&#39;]&lt;/code&gt; in that order.&lt;/p&gt;
-&lt;p&gt;When trained on only 2 videos and about 480 frames, these are the results that were obtained:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/july_5/preds.png&#34; width=&#34;80%&#34;/&gt; 
-&lt;/figure&gt;
-
-</description>
+      <description>Google Summer of Code | Coding period week 5</description>
     </item>
     
     <item>
       <title>Training the segmentation model</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/</link>
-      <pubDate>Sun, 21 Jun 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-21/</guid>
-      <description>&lt;p&gt;The objective of week 3 was to train the model initially on a dummy dataset(for prototyping) and then on a larger dataset. Check out &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_segmentation/train_segmentation_model.ipynb&#34;&gt;this notebook&lt;/a&gt; if you want to have a better look.&lt;/p&gt;
-&lt;p&gt;The three primary conponents of our training pipeline were:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://pytorch.org/&#34;&gt;PyTorch&lt;/a&gt; for building, training and deploying the models.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/albumentations-team/albumentations&#34;&gt;albumentations&lt;/a&gt; for building the image augmentation pipeline. It was important for us to make sure that the image and the mask went through the same exact set of transforms whenever they&amp;rsquo;re loaded into the batch, and this was possible in this library.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/qubvel/segmentation_models.pytorch&#34;&gt;segmentation-models-pytorch&lt;/a&gt; is a high level API to build models for multi class (or binary) image segmentation.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;the-issue-with-interpolation&#34;&gt;The issue with interpolation&lt;/h2&gt;
-&lt;p&gt;The problem with the image loading class was that the pixel values were getting altered due to the resizing interpolations. This was fixed (or so I thought) with a manual override with &lt;code&gt;mask[mask != 0] = 255&lt;/code&gt;. It converted all the non zero values to 255 forcefully, just like it was before going through the augmentative transforms.&lt;/p&gt;
-&lt;p&gt;Interestingly enough, I faced this problem even after using the manual fix. But this time it was because of the &lt;code&gt;transforms.resize&lt;/code&gt; function within the &lt;code&gt;torchvision.transforms&lt;/code&gt;. The problem was traced down to the interpolation, the very fact that the default interpolation was set to &lt;code&gt;Image.BILINEAR&lt;/code&gt; (default arg) was the reason why the pixel values were getting altered in the mask. This was fixed by setting &lt;code&gt;interpolation = Image.NEAREST&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;After all of these transforms, the training images and masks came out to be as shown:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/train_image.png&#34; width=&#34;20%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;hr&gt;
-&lt;h2 id=&#34;the-model&#34;&gt;The model&lt;/h2&gt;
-&lt;p&gt;The next step was to train the model on the images, and for our case, we used the &lt;a href=&#34;https://supervise.ly/explore/models/res-net-18-image-net-2717/overview&#34;&gt;pre-trained ResNet18&lt;/a&gt; as the encoder. Some of the other parameters used are as follows:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;ACTIVATION = &#39;sigmoid&#39;&lt;/code&gt; clamps the output pixel values between &lt;code&gt;[0.,1.]&lt;/code&gt;, which are ideal for calculating a loss with respect to a mask whose pixel values also are within the same range.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;DEVICE = &#39;cuda&#39;&lt;/code&gt; moves the model to the GPU for training.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;in_channels = 1&lt;/code&gt; means the model takes grayscale images as input.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;the-loss-function&#34;&gt;The loss function&lt;/h2&gt;
-&lt;p&gt;The &lt;a href=&#34;https://en.wikipedia.org/wiki/IOU&#34;&gt;&lt;strong&gt;Intersection Over Union&lt;/strong&gt;&lt;/a&gt; score (also known as Jaccard Index) is a statistic used for gauging the similarity and diversity of sample sets. It is defined as:&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/iou_score.png&#34; width=&#34;30%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/iou.png&#34; width=&#34;30%&#34;/&gt; 
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient&#34;&gt;&lt;strong&gt;Dice Coefficient&lt;/strong&gt;&lt;/a&gt; can be seen as the percentage of overlap between the two sets, that is a number between 0 and 1. &lt;code&gt;DiceLoss()&lt;/code&gt; can be mathematically defined as  &lt;code&gt;1 - dice_coefficient&lt;/code&gt;:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/diceloss.png&#34; width=&#34;30%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Where &lt;code&gt;|X| ∩ |Y|&lt;/code&gt;  is the intersection where the prediction correctly overlaps the label in the 2D mask.&lt;/p&gt;
-&lt;h2 id=&#34;training-metrics-and-visualizing-the-outputs&#34;&gt;Training metrics and visualizing the outputs&lt;/h2&gt;
-&lt;p&gt;The model could hit an IOU score of just above 0.7 after 24 epochs of training.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/training_curve.png&#34; width=&#34;30%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;And when combined with some thresholding on the predicted images, here are the predicted results:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_21/seg_results.png&#34; width=&#34;50%&#34;/&gt; 
-&lt;/figure&gt;
-
-</description>
+      <description>Google Summer of Code | Coding period week 3</description>
     </item>
     
     <item>
       <title>PCA and semantic segmentation</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-14/</link>
-      <pubDate>Thu, 11 Jun 2020 00:00:00 UTC</pubDate>
+      <pubDate>Thu, 11 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-14/</guid>
-      <description>&lt;p&gt;Week 2 has been the most satisfying week in GSoC yet, with a lot of things getting done. Let&amp;rsquo;s have a look at them one at a time:&lt;/p&gt;
-&lt;h2 id=&#34;starting-out-with-semantic-segmentationhttpsnbviewerjupyterorggithubdevowormgsoc-2020treemasterpre-trained20models2028devlearning29notebooksembryo_segmentation&#34;&gt;&lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/tree/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_segmentation/&#34;&gt;Starting out with semantic segmentation&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;This is one of the primary objectives of my GSoC project, and it&amp;rsquo;s about time that I started working on it.&lt;/p&gt;
-&lt;p&gt;The primary data source would be the &lt;a href=&#34;https://www.wormimage.org/&#34;&gt;WormImage Database&lt;/a&gt;, and the objective is to train a model which can segment out the nuclei from the  image of an embryo of the C. elegans worm.&lt;/p&gt;
-&lt;p&gt;The problem is that there&amp;rsquo;s no labelled segmentation data, only raw images. But I&amp;rsquo;ve been trying to figure out a way through it, which involves:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Taking an original image and manually drawing over the desired parts which are to be extracted. I had to come up with a &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20(DevLearning)/notebooks/embryo_segmentation/drawing_tool_for_manual_labelling.ipynb&#34;&gt;simple drawing tool&lt;/a&gt; which could be used to generate the training masks.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_14/drawing.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;Run both the original image and the mask through a heavy (but practical) &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_segmentation/augmentation_prototyping.ipynb&#34;&gt;image augmentation pipeline&lt;/a&gt; (generate at least 50 images from one)&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_14/augment.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;ol start=&#34;3&#34;&gt;
-&lt;li&gt;Repeat steps 1 and 2 for a few images to get a larger dataset to train on.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I already did steps 1 and 2 on one such image of an embryo and generated a few augmented samples as seen above.&lt;/p&gt;
-&lt;h2 id=&#34;principal-component-analysis-on-embryo-metadatahttpsnbviewerjupyterorggithubdevowormgsoc-2020blobmasterpre-trained20models2028devlearning29notebooksembryo_analysisprincipal_component_analysisipynb&#34;&gt;&lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/principal_component_analysis.ipynb&#34;&gt;Principal component analysis on embryo metadata&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;This is where I used some tools like:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;StandardScaler().fit_transform(x)&lt;/code&gt; standardizes the features by removing the mean and scaling them to unit variance. In simpler words, it will transform the data such that its distribution will have a mean value 0 and standard deviation of 1.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;sklearn.decomposition.PCA(n_components = 2)&lt;/code&gt; helped in decomposing the 4 dimensional data ( &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;, &lt;code&gt;size&lt;/code&gt; and &lt;code&gt;time&lt;/code&gt;) into a 2 dimensional space while conserving as much information as possible.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Even though 100% of the information from the 4D space could not be projected into the 2 principal components, it gave us a good idea on how cells with similar (or same) lineage ancestors lied closer to each other in the 2D space composed of the 2 principal components.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_14/PCA.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-</description>
+      <description>Google Summer of Code | Coding period week 2</description>
     </item>
     
     <item>
       <title>The &#34;EPIC&#34; dataset</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-7/</link>
-      <pubDate>Sat, 06 Jun 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sat, 06 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-june-7/</guid>
-      <description>&lt;h2 id=&#34;exploring-the-metadatahttpsnbviewerjupyterorggithubdevowormgsoc-2020blobmasterpre-trained20models2028devlearning29notebooksembryo_analysismetadata_explorationipynb&#34;&gt;&lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/metadata_exploration.ipynb&#34;&gt;Exploring the metadata&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;So, the week started with me shifting my focus from movement analysis to developmental biology. Which made me stumble upon the &lt;a href=&#34;http://epic.gs.washington.edu/&#34;&gt;EPIC dataset&lt;/a&gt;. The website contained a lot of videos capturing the process of embryogenesis in the C. elegans embryo.  The best part was that each video was accompanied with time tagged metadata with columns like:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;x&lt;/code&gt; and &lt;code&gt;y&lt;/code&gt; co-ordinates of the cell&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Cell name (more on that below)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Time value of when the data point was captured.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Plotting the movements of some of the cells gave an interesting insight on how a certain type of a dwells in a certain part of the embryo.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_7/movement_vis.png&#34; width=&#34;40%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;h2 id=&#34;deep-learning-on-the-metadatahttpsnbviewerjupyterorggithubdevowormgsoc-2020blobmasterpre-trained20models2028devlearning29notebooksembryo_analysisdeep_learning_on_metadataipynb&#34;&gt;&lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/embryo_analysis/deep_learning_on_metadata.ipynb&#34;&gt;Deep learning on the metadata&lt;/a&gt;&lt;/h2&gt;
-&lt;p&gt;The first objective was to make sense of what the cell names meant, and the diagram shown below summed it up pretty well.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_7/lineage_diagram.jpg&#34; width=&#34;40%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;But there was a new problem now, it was that there were more than 700 unique cell names with a highly unbalanced distribution through the dataset.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_7/compact_cellname_explain.png&#34; width=&#34;40%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;The solution was to &amp;ldquo;shorten&amp;rdquo; the cell names to only the first few characters. This would give us info about the cell&amp;rsquo;s lineage (or the name of the cell itself, depending on the value of &lt;code&gt;time&lt;/code&gt;) and not necessarily it&amp;rsquo;s precise name. This shortened &lt;code&gt;compact_cellname&lt;/code&gt; would now be used as a label for the deep learning model.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_7/pie.png&#34; width=&#34;30%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;This reduced the number of labels to 32, but there was still a lot of imbalance (as seen above), which was taken care of by the &lt;a href=&#34;https://imbalanced-learn.readthedocs.io/en/stable/generated/imblearn.over_sampling.RandomOverSampler.html&#34;&gt;&lt;code&gt;RandomOverSampler()&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;The next step was to train a model on the data, and with the help of an adaptive learning rate which only reduced when the loss plateaued (check - &lt;a href=&#34;https://pytorch.org/docs/stable/optim.html#torch.optim.lr_scheduler.ReduceLROnPlateau&#34;&gt;&lt;code&gt;ReduceLROnPlateau()&lt;/code&gt;&lt;/a&gt;), the simple 5 layer model reached a a 90% accuracy after 30 epochs of training.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_7/lr.png&#34; width=&#34;40%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/june_7/training_curve.png&#34; width=&#34;40%&#34;/&gt; 
-&lt;/figure&gt;
-&lt;/p&gt;
-&lt;p&gt;The model can obviously be improved in the coming weeks with more data and a better architecture.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Coding period week 1</description>
     </item>
     
     <item>
       <title>Finding patterns</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</link>
-      <pubDate>Sun, 31 May 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 31 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-31/</guid>
-      <description>&lt;p&gt;Week 3 started off with some more improvements to the &amp;ldquo;skeletonization process&amp;rdquo;, but soon took a turn towards data analysis. I downloaded some videos from the movement database to the runtime and saved CSV files containing the distances between the head and tail of the worm in form of a time-series.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/head_tail_time_series_data.png&#34; width=&#34;100%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;As seen above, there are two distinct patterns that are observed in the head to tail distances of the &amp;ldquo;wild&amp;rdquo; strain and the &amp;ldquo;unc&amp;rdquo; strain of the worm. The wild type seems to be more noisy with deeper local minimas. While the changes in the &amp;ldquo;unc&amp;rdquo; type are more gradual and predictable.&lt;/p&gt;
-&lt;p&gt;It is possible to generate a large amount of time series data from the videos that are available on the Movement database. This time series data can be used for 2 possible purposes:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;First would be to use an LSTM to predict the future sequence of values, a good enough LSTM would be able to find the underlying patterns through the noise.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Another possibility would be to use the LSTM to classify the worm&amp;rsquo;s strain based on the time series data.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;I already used a simple LSTM RNN on the time series data as a proof of concept, and here&amp;rsquo;s how the predictions looked like:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_31/LSTM_sample_alpha_001.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;The predictions made aren&amp;rsquo;t absolutely perfect for now because:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;The dummy model is too small, but it still manages to predict the first quarter of test zone.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The amount of data used to train the model is relatively low for faster prototyping.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Trying to achieve at least one of these goals would be the goal of the next week.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Community bonding period week 3</description>
     </item>
     
     <item>
       <title>Exploring the Movement Database</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/</link>
-      <pubDate>Sun, 24 May 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 24 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-24/</guid>
-      <description>&lt;p&gt;After week 1, the new priority was to find the right data on the internet. I started the week off by reading papers based on locomotion in the C. elegans worm. Surprisingly enough (or unsurprisingly, depending on how much you&amp;rsquo;re into worms), most of the data was from the &lt;a href=&#34;http://movement.openworm.org/&#34;&gt;OpenWorm Movement Database&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Almost all the video data on the database is from the &lt;a href=&#34;https://github.com/ver228/tierpsy-tracker&#34;&gt;Tierpsy tracker&lt;/a&gt;, which is an amazing worm tracking tool in itself. But there was a new hurdle now.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/initial_image.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;The issue with the video data (as seen above) wThe issue with the video data (as seen above) was that the worms were &amp;ldquo;partially segmented out&amp;rdquo;. Which meant that the background was all blacked out except for a small &amp;ldquo;padding area&amp;rdquo; around the worm. This &amp;ldquo;padding area&amp;rdquo; was a good safety measure on the Tierpsy tracker&amp;rsquo;s side, but was a minor hurdle  for someone who wanted to segment out just the worm from the image in order to gain inferences from behavioural dynamics.&lt;/p&gt;
-&lt;p&gt;This hurdle was taken care of in 3 stages:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/OW_movement_database_pipeline.png&#34; width=&#34;100%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;Stage 1: Extracting the &amp;ldquo;padding region&amp;rdquo; around the worm with &lt;a href=&#34;https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html&#34;&gt;&lt;code&gt;cv2.threshold()&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Stage 2: Removing the padding region by using &lt;a href=&#34;https://docs.opencv.org/master/d0/d86/tutorial_py_image_arithmetics.html&#34;&gt;&lt;code&gt;cv2.bitwise_and()&lt;/code&gt;&lt;/a&gt; between the real and the thresholded image&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Removing any extra noise (as seen on stage 2) with &lt;a href=&#34;https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html&#34;&gt;&lt;code&gt;cv2.erode()&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Now the next objecive was to extract the head and tail, this was done  using corner detection with &lt;a href=&#34;https://docs.opencv.org/2.4/modules/imgproc/doc/feature_detection.html#goodfeaturestotrack&#34;&gt;&lt;code&gt;cv2.goodFeaturesToTrack()&lt;/code&gt;&lt;/a&gt; with &lt;code&gt;maxCorners = 2&lt;/code&gt; to only capture the 2 most prominent corners.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/head_and_tail.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;To complete the skeletonization, all that was needed now was to skeletonize the main body, and that was done with the very self explanatory function named &lt;a href=&#34;https://scikit-image.org/docs/dev/auto_examples/edges/plot_skeleton.html&#34;&gt;&lt;code&gt;skimage.morphology.skeletonize()&lt;/code&gt;&lt;/a&gt;. Combined with two circles which signify the head and the tail, we get a clean skeleton which can now be used for analysis on a bigger scale with a large number of frames.&lt;/p&gt;
-&lt;p&gt;&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/skeleton.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_24/skeleton_long.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Community bonding period week 2</description>
     </item>
     
     <item>
       <title>Hello Openworm</title>
       <link>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-17/</link>
-      <pubDate>Sun, 17 May 2020 00:00:00 UTC</pubDate>
+      <pubDate>Sun, 17 May 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/gsoc-2020-may-17/</guid>
-      <description>&lt;p&gt;Ten weeks of proposal writing and 3 personal (but very beloved) deep learning projects later, I was selected for the only project I worked towards for GSoC, which was &lt;a href=&#34;https://summerofcode.withgoogle.com/projects/#6078813261266944&#34;&gt;Pre-trained models for developmental neuroscience&lt;/a&gt; under &lt;a href=&#34;https://www.incf.org/&#34;&gt;INCF&lt;/a&gt;. And things have been better than ever since then.&lt;/p&gt;
-&lt;p&gt;The first week was mostly me getting to know more about the OpenWorm community and what are they striving to do. I got to meet &lt;a href=&#34;https://github.com/balicea&#34;&gt;Dr. Bradley Alicea&lt;/a&gt;, &lt;a href=&#34;https://github.com/nvinayvarma189&#34;&gt;Vinay Varma&lt;/a&gt; and &lt;a href=&#34;https://github.com/ujjwalll&#34;&gt;Ujjwal Singh&lt;/a&gt;. They gave me a warm welcome into the community.&lt;/p&gt;
-&lt;p&gt;I started setting up the environment right after the results were out, and cleaned up one of my &lt;a href=&#34;https://github.com/Mayukhdeb/adventures-with-augmentation&#34;&gt;older repos&lt;/a&gt; which would act as a quick reference through the span of this project.&lt;/p&gt;
-&lt;p&gt;The first weekly meeting with OpenWorm gave me a much better idea of the goals of this project.&lt;/p&gt;
-&lt;p&gt;The key to a good deep learning model is good data. If the data is clean, half the battle is won. This led to the the first &lt;a href=&#34;https://nbviewer.jupyter.org/github/devoworm/GSoC-2020/blob/master/Pre-trained%20Models%20%28DevLearning%29/notebooks/worm_tracking_pipeline.ipynb&#34;&gt;notebook&lt;/a&gt; which builds a pipeline for tracking and segmenting the worms directly from video files. The pipeline works as follows:&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/may_17_visualization.png&#34; height=&#34;900&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;The video file is first trimmed to shorten the clip to extract only a short subclip (this is optional).&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;All the frames from the subclip are extracted from the video using &lt;a href=&#34;https://zulko.github.io/moviepy/ref/ffmpeg.html&#34;&gt;ffmpeg&lt;/a&gt; and saved into a folder in a numerical sequence of filenames.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;The locations of the worms are determined by drawing padded rectangles around the contours of the thresholded image.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/rectangles.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;The original image is then cropped and segmented to remove all background except the worm(s) in the image.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/segmented.png&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Here&amp;rsquo;s a GIF to visualise the tracking on the live feed.&lt;/p&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://mayukhdeb.github.io/blog/post/images/may_17/tracking.gif&#34; width=&#34;80%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;p&gt;Apart from all of this, I also read quite a few papers on the C.elegans worm. This was an effort towards getting more familiar with the underlying biological concepts surrounding the worm.&lt;/p&gt;
-</description>
+      <description>Google Summer of Code | Community bonding period week 1</description>
     </item>
     
     <item>
       <title>Deep chicken saviour</title>
       <link>https://mayukhdeb.github.io/blog/post/deep-chicken-saviour/</link>
-      <pubDate>Wed, 01 Apr 2020 00:00:00 UTC</pubDate>
+      <pubDate>Wed, 01 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/post/deep-chicken-saviour/</guid>
-      <description>&lt;h2 id=&#34;before&#34;&gt;Before:&lt;/h2&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/no_FGSM.gif&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;h2 id=&#34;after&#34;&gt;After:&lt;/h2&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/FGSM.gif&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;h2 id=&#34;adversarial-blocks-generated-by-negative-epsilon-fgsm-to-confuse-the-traned-deep-neural-network&#34;&gt;Adversarial blocks generated by negative epsilon FGSM to confuse the traned deep neural network&lt;/h2&gt;
-&lt;p&gt;These blocks are made by starting out with a dark grey image and then backpropagating on the image with the pre trained network with a negative epsilon in order to minimise loss for the target class, a more negative epsilon will not necessarily give a better result. But it&amp;rsquo;s a bell curve instead, and the epsilon is optimized by looking for the local target class probability maxima in the domain [&lt;code&gt;lower_limit&lt;/code&gt;, &lt;code&gt;0&lt;/code&gt;)&lt;/p&gt;
-&lt;p&gt;These adversarial blocks can be generated for any animal class.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/patch_to_block.png&#34; alt=&#34;patch_to_block&#34;&gt;&lt;/p&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;figure&gt;
-    &lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/adv_block.gif&#34; width=&#34;60%&#34;/&gt; 
-&lt;/figure&gt;
-
-&lt;h2 id=&#34;fast-gradient-sign-method-chart_with_upwards_trend&#34;&gt;Fast Gradient Sign Method :chart_with_upwards_trend:&lt;/h2&gt;
-&lt;!-- raw HTML omitted --&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sign(data_gradients)&lt;/code&gt; gives the element wise signs of the data gradient&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;epsilon&lt;/code&gt; defines the &amp;ldquo;strength&amp;rdquo; of the perturbation of the image&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In a nutshell, instead of &lt;strong&gt;optimizing the model to reduce the loss&lt;/strong&gt;, we&amp;rsquo;re &lt;strong&gt;un-optimizing the input image to maximise loss&lt;/strong&gt;.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;This works primarily because of the piecewise linear nature of deep neural networks. For example, look at ReLU or at maxout functions, they&amp;rsquo;re all piecewise linear. Even a carefully tuned sigmoid has an approximate linear nature when taken piecewise.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;With varying values of epsilon, we will see an approximately linear relationship between &amp;ldquo;confidence&amp;rdquo; and epsilon.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;negative-epsilon-fgsm&#34;&gt;Negative epsilon FGSM&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;this can be used to turn one animal into another specific animal for the deep neural network&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/negative_eps_FGSM.png&#34; alt=&#34;no_FGSM&#34;&gt;&lt;/p&gt;
-&lt;h2 id=&#34;how-are-the-images-optimized-using-the-same-fgsm-&#34;&gt;How are the images &amp;ldquo;optimized&amp;rdquo; using the same FGSM ?&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;The key here is to understand how FGSM actually worked.
-In FGSM, we were tampering with the pixels which has a &lt;em&gt;positive&lt;/em&gt; gradient and added a certain value &lt;code&gt;gradient * epsilon&lt;/code&gt; to each of those pixels. This made the image deviate further and further away from the class it actually belongs to and thus maximising loss in the process. Note that this was done with a &lt;strong&gt;positive epsilon&lt;/strong&gt; value&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;But for our current objective, we will try to &amp;ldquo;optimize&amp;rdquo; the image to a different class. This can be done by:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Doing a forward pass with an image of class &lt;code&gt;x&lt;/code&gt; and with a label of &lt;code&gt;y&lt;/code&gt;. Where &lt;code&gt;y&lt;/code&gt; is the class to which we want to convert our image to.&lt;/li&gt;
-&lt;li&gt;Performing a backpropagation on the network and extracting the gradients on the input image.&lt;/li&gt;
-&lt;li&gt;Now instead of trying to maximise loss using the FGSM, we&amp;rsquo;ll reduce the loss with a &lt;strong&gt;negative epsilon&lt;/strong&gt; FGSM.&lt;/li&gt;
-&lt;li&gt;This will help reduce the loss of the image with respect to the target class &lt;code&gt;y&lt;/code&gt;, and with a sufficiently  negative epsilon value, the image gets mis-classified as the target class.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;If you didn&amp;rsquo;t read the boring stuff above, just remember that&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;A &lt;strong&gt;positive epsilon&lt;/strong&gt; value will &lt;strong&gt;un-optimize&lt;/strong&gt; the image&lt;/li&gt;
-&lt;li&gt;A &lt;strong&gt;negative epsilon&lt;/strong&gt; value will &lt;strong&gt;optimize&lt;/strong&gt; the image for the given label class&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;generating-adversarial-patches-from-black-images&#34;&gt;Generating adversarial patches from black images&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-saviour/master/images/adversarial_patches.png&#34; alt=&#34;no_FGSM&#34;&gt;&lt;/p&gt;
-</description>
+      <description>Adversarial attacks as a contermeasure against deep-chicken-terminator</description>
+    </item>
+    
+    <item>
+      <title>Deep chicken terminator</title>
+      <link>https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/</guid>
+      <description>Tracking wildlife in minecraft using small and light CNNs and trying to kill them</description>
+    </item>
+    
+    <item>
+      <title>Adventures with augmentation</title>
+      <link>https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/</link>
+      <pubDate>Sat, 01 Feb 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/adventures-with-augmentation/</guid>
+      <description>Exploring and experimenting with microscope imagery datasets.</description>
+    </item>
+    
+    <item>
+      <title>Mind the bend</title>
+      <link>https://mayukhdeb.github.io/blog/post/mind_the_bend/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/mind_the_bend/</guid>
+      <description>Making a car drive by itself using deep learning and some PyAutoGUI</description>
     </item>
     
   </channel>

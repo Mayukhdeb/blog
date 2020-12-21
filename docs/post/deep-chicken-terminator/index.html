@@ -1,58 +1,156 @@
 <!DOCTYPE html>
-<html lang="en-us">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta property="og:title" content=" Deep chicken terminator &middot;  @mayukhdeb" />
-  <meta property="og:site_name" content="@mayukhdeb" />
-  <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/" />
-  <meta name="theme" content="darksimplicity">
-  <meta name="generator" content="Hugo 0.74.3" />
-  
-  
-  <base href="https://mayukhdeb.github.io/blog/">
-  <title> Deep chicken terminator &middot;  @mayukhdeb</title>
-  <link rel="stylesheet" href="https://mayukhdeb.github.io/blog/css/style.min.css">
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Deep chicken terminator | @mayukhdeb</title>
+
+<meta name="keywords" content="Deep learning, object tracking, object detection, CNN, data augmentation, heatmaps" />
+<meta name="description" content="Tracking wildlife in minecraft using small and light CNNs and trying to kill them">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Deep chicken terminator" />
+<meta property="og:description" content="Tracking wildlife in minecraft using small and light CNNs and trying to kill them" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/" />
+<meta property="article:published_time" content="2020-03-01T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Deep chicken terminator"/>
+<meta name="twitter:description" content="Tracking wildlife in minecraft using small and light CNNs and trying to kill them"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Deep chicken terminator",
+  "name": "Deep chicken terminator",
+  "description": "Tracking wildlife in minecraft using small and light CNNs and trying to kill them",
+  "keywords": [
+    "Deep learning", "object tracking", "object detection", "CNN", "data augmentation", "heatmaps"
+  ],
+  "articleBody": "deep-chicken-terminator deep learning to track (and possibly kill) chicken in minecraft\nStep 1 - collecting training data for the deep neural network  This was mostly just me taking cropped screenshots of animals while playing the game, took about 40 screenshots of each animal. The 20 screenshots of each animal were then augmented and got 500 samples of each. The dataset is very small, but it works anyways for now  Step 2 - training a deep learning model on the samples  The architecture was kept intentionally small so that it keeps a good response time on the live feed The dataset had only 2000 images sized at 50*50, so training barely took any time  Step 3 - detecting a chicken (or any animal for that matter) from an image  This was done using a custom detect_animal_numpy() function which iterates through the image with a certain kernel size and a stride size, and feeds each sample to the trained NN (nicknamed hunter) A heatmap is then generated from the output of the NN which gives us a probability distribution over the image of a certain animal ( chicken, pig, or panda) why use heatmaps instead of rectangles ? because they look cooler.  ",
+  "wordCount" : "200",
+  "inLanguage": "en",
+  "datePublished": "2020-03-01T00:00:00Z",
+  "dateModified": "2020-03-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
 
 </head>
-<body>
-  <header>
-      <nav role="top-nav">
-          <ul class="navbar-list">
-            
-            <li class="navbar-item"><a class="navbar-link" href="https://github.com/Mayukhdeb">Github</a></li>
-            <li class="navbar-item"><a class="navbar-link" href="https://twitter.com/mayukh091">Twitter</a></li>
-          </ul>
-      </nav>
-      <br />
-      <h1><a href="https://mayukhdeb.github.io/blog/" class="title">@mayukhdeb</a>
-        
-      </h1>
-  </header>
-  <main>
-      <article itemscope itemtype="http://schema.org/Blog">
-        <h3><a class="post-title-link" href="https://mayukhdeb.github.io/blog/post/deep-chicken-terminator/">Deep chicken terminator</a></h3>
-        
-            <div class="tags">tags: &nbsp;
-              <span itemprop="keywords"><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/deep-learning" rel="tag">Deep learning </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/object-tracking" rel="tag">object tracking </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/object-detection" rel="tag">object detection </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/cnn" rel="tag">CNN </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/data-augmentation" rel="tag">data augmentation </a><a class="tag-link" href="https://mayukhdeb.github.io/blog/tags/heatmaps" rel="tag">heatmaps </a>
-              </span>
-          </div>
-          <div class="content-full"><h1 id="deep-chicken-terminator">deep-chicken-terminator</h1>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Deep chicken terminator
+    </h1>
+    <div class="post-meta">March 1, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h1 id="deep-chicken-terminator">deep-chicken-terminator<a hidden class="anchor" aria-hidden="true" href="#deep-chicken-terminator">#</a></h1>
 <p>deep learning to track (and possibly kill)  chicken in minecraft</p>
-<h2 id="step-1---collecting-training-data-for-the-deep-neural-network">Step 1 - collecting training data for the deep neural network</h2>
+<h2 id="step-1---collecting-training-data-for-the-deep-neural-network">Step 1 - collecting training data for the deep neural network<a hidden class="anchor" aria-hidden="true" href="#step-1---collecting-training-data-for-the-deep-neural-network">#</a></h2>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/training_data_samples.png" alt="dataset"></p>
 <ul>
 <li>This was mostly just me taking cropped screenshots of animals while playing the game, took about 40 screenshots of each animal.</li>
 <li>The 20 screenshots of each animal were then augmented and got 500 samples of each.</li>
 <li>The dataset is very small, but it works anyways for now</li>
 </ul>
-<h2 id="step-2---training-a-deep-learning-model-on-the-samples">Step 2 - training a deep learning model on the samples</h2>
+<h2 id="step-2---training-a-deep-learning-model-on-the-samples">Step 2 - training a deep learning model on the samples<a hidden class="anchor" aria-hidden="true" href="#step-2---training-a-deep-learning-model-on-the-samples">#</a></h2>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/training_curve.png" alt="dataset"></p>
 <ul>
 <li>The architecture was kept intentionally small so that it keeps a good response time on the live feed</li>
 <li>The dataset had only 2000 images sized at 50*50, so training barely took any time</li>
 </ul>
-<h2 id="step-3---detecting-a-chicken-or-any-animal-for-that-matter-from-an-image">Step 3 - detecting a chicken (or any animal for that matter) from an image</h2>
+<h2 id="step-3---detecting-a-chicken-or-any-animal-for-that-matter-from-an-image">Step 3 - detecting a chicken (or any animal for that matter) from an image<a hidden class="anchor" aria-hidden="true" href="#step-3---detecting-a-chicken-or-any-animal-for-that-matter-from-an-image">#</a></h2>
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/pre_barbecue.png" alt="dataset"></p>
 <ul>
 <li>This was done using a custom <code>detect_animal_numpy()</code> function which iterates through the image with a certain kernel size and a stride size, and feeds each sample to the trained NN (nicknamed hunter)</li>
@@ -62,23 +160,73 @@
 <p><img src="https://raw.githubusercontent.com/Mayukhdeb/deep-chicken-terminator/master/sample_images/barbecue.png" alt="dataset"></p>
 
 </div>
-      </article>
-  </main>
-  <footer>
-      <div class="copyright"><p>
-
-&copy; 2020. 
-
-@mayukhdeb. All rights reserved. 
-
-</div>    
-
-
-
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/cnn/">CNN</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/data-augmentation/">data augmentation</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/heatmaps/">heatmaps</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/object-detection/">object detection</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/object-tracking/">object tracking</a></li>
+    </ul>
   </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2020 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
 
-<body>
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
 </body>
 
 </html>
-
