@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kaggle on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/kaggle/</link>
+    <description>Recent content in kaggle on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 23 Oct 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/kaggle/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lessons from Kaggle</title>
+      <link>https://mayukhdeb.github.io/blog/post/kaggle-moa/</link>
+      <pubDate>Fri, 23 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/kaggle-moa/</guid>
+      <description>How I approached my first kaggle competition, with a tragic ending</description>
+    </item>
+    
+  </channel>
+</rss>

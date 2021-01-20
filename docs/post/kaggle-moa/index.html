@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Lessons from Kaggle | @mayukhdeb</title>
+
+<meta name="keywords" content="kaggle" />
+<meta name="description" content="This rollercoaster called Kaggle">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/kaggle-moa/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Lessons from Kaggle" />
+<meta property="og:description" content="This rollercoaster called Kaggle" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/kaggle-moa/" />
+<meta property="article:published_time" content="2020-10-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-10-23T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Lessons from Kaggle"/>
+<meta name="twitter:description" content="This rollercoaster called Kaggle"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Lessons from Kaggle",
+  "name": "Lessons from Kaggle",
+  "description": "How I approached my first kaggle competition, with a tragic ending",
+  "keywords": [
+    "kaggle"
+  ],
+  "articleBody": "How it went Kaggle has been an emotional rollercoaster, I started out with this competition casually because I was bored, but soon I realised that it’s a lot of fun to watch my rank go up slowly. Before I knew it, it became a dopamine cycle.\nThere was this constant compulsion throughout the day to “hold and improve” my LB score. Which made me forget that fact that I had assignments.\nThe peak was when we got to #22 on LB, but that’s where the good things ended. The next day, I got a call from my teachers in college regarding the fact that I was lagging a lot of assignments. On top of that, we also had our exams approaching.\nSo I had to leave the competition there, only to come back 2 weeks later to see our rank below bronze.\nLessons learned:  If you’re a beginner, read through the public notebooks and understand what exactly is happening. Just blindly copying them won’t help at all. After a certain threshold, blending/ensembling was the only way forward. Good data pre-processing is underrated Start early, and work on the problem regularly until the competition ends (unlike me)  This flowchart is a quick summary of our approach Our approach in detail: Preprocessing  Some of the columns in the dataset were not numbers, so we had to map those values to numbers between 0. and 1. We started off by using VarianceThreshold on the columns to determine the columns with the highest variance on all of the train/test features. This gave us 785 columns out of 875. Created Folds in the dataset and set the last fold as the “holdout set” which would not be used for training, but would be only used for blending. Since the problem was a multi label probability prediction problem, we had to use MultilabelStratifiedKFold [1].  Building model(s)   We went for the simple shallow NN approach and build 2 pytorch NNs:\n Model() had an input size of 785, to be trained on the features with a high variance Model_2() had an input size of 875, to be trained on all of the 875 features.    Both the model’s forward functions worked as follows:\ndef forward(x): \"\"\" layer 1 \"\"\" x1 = layer1(x) x1_out = relu(x1) \"\"\" layer 2 \"\"\" x2 = layer2(x1_out) x2_out = relu(x2 + x1) ## notice the addition here  \"\"\" layer 3 (actually it's layer 2 again) \"\"\" x3 = layer2(x2_out) ## repeated layer2 forward pass x3_out = relu(x1 + x2 + x3) ## notice the addition here  \"\"\" output \"\"\" x_result = relu(layer3(x3_out)) return x_result This approach was inspired by the idea of residual layers as a means of reducing overfitting, but we kind of accidentally repeated the layer2 forward pass. Surprisingly enough, it worked better than the usual residual layer approach. I’m yet to find an explanation for why it works better than the usual residual layers.\n please feel free to get in touch if you know the answer, I really want to know why it worked.\n   Hyperparameter optimization We optimized the learning rate and the lr decay rate with optuna, with 3 epochs for each fold in each trial. For both the models, the ideal learning came to be around 4e-3 with a decay factor of 0.1 with a patience of 7.\nTraining We had to use 2 loss functions within the training loop:he training data were not 100% correct. Which means there’s a high risk of the model learning wrong feature-label mappings while training. And this might lead to highly confident wrong predictions on the test.\nLog loss is known to highly penalize confident wrong predictions, so even one single higly confident wrong prediction could make a deifference in the LB score. The solution to this was label smoothing.\n  With label smoothing, the decrease in loss for False positives (FP) outweights the increase in loss for true negatives (TN). Same goes for TP and FN.\nA smoothing factor of 0.2 in LabelSmoothingCrossEntropy() meant the prediction would be clipped at [0.1, 0.9]\nThe rest of the things that helped in training are:\n  ReduceLROnPlateau reduced the learning rate by a factor of 0.1 whenever the loss plateaued.\n  Weight decay helped in regularization by adding the squared sum of weights multiplied by a decay_factor to the loss function.\n Hence the new loss looked like:  regularized_loss = log_loss + decay_factor*(sum_of_squared_weights) Note: Both the models were trained on the same exact set of folds.\n  K fold cross validation was used to train a total of 20 models, each of which were saved for inference/blending later on.\n  Blending Blending [2] here means finding the weighted average of n predictions from n models where the weights are optimized in order to minimize the loss on the holdout set. This was done in the following steps:\n  Loading all the trained models and generating their predictions on the holdout features.\n  Build a class blend() that stores all of the predictions on the holdout set. It should also contain a predict() function that generates a weighted average of the stored predictions with the weights as the argument.\nclass blend(): def __init__(self, preds): self.preds = preds def predict(self, weights): \"\"\" calculate weighted average here \"\"\" return weighted_average   Initialize an optuna study [3] that minimizes the log loss of the predictions by varying the weights. Optionally, one could also threshold the weights such that any weight that is less than 0.1 becomes 0 to ignore the “weak” models.\n  Use the same optimized weights and generate the final submissions.\n  References:\n[1] MultiLabelStratifiedKfold\n[2] Kaggle ensembling guide\n[3] Optuna docs\n",
+  "wordCount" : "924",
+  "inLanguage": "en",
+  "datePublished": "2020-10-23T00:00:00Z",
+  "dateModified": "2020-10-23T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/kaggle-moa/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class=" dark">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Lessons from Kaggle
+    </h1>
+    <div class="post-meta">October 23, 2020
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h2 id="how-it-went">How it went<a hidden class="anchor" aria-hidden="true" href="#how-it-went">#</a></h2>
+<p>Kaggle has been an emotional rollercoaster, I started out with <a href="https://www.kaggle.com/c/lish-moa/">this competition</a> casually because I was bored, but soon I realised that it&rsquo;s a lot of fun to watch my rank go up slowly. Before I knew it, it became a dopamine cycle.</p>
+<p>There was this constant compulsion throughout the day to &ldquo;hold and improve&rdquo; my LB score. Which made me forget that fact that I had assignments.</p>
+<p>The peak was when we got to #22 on LB, but that&rsquo;s where the good things ended. The next day, I got a call from my teachers in college regarding the fact that I was lagging a lot of assignments. On top of that, we also had our exams approaching.</p>
+<p>So I had to leave the competition there, only to come back 2 weeks later to see our rank below bronze.</p>
+<h2 id="lessons-learned">Lessons learned:<a hidden class="anchor" aria-hidden="true" href="#lessons-learned">#</a></h2>
+<ul>
+<li>If you&rsquo;re a beginner, read through the public notebooks and understand what exactly is happening. Just blindly copying them won&rsquo;t help at all.</li>
+<li>After a certain threshold, blending/ensembling was the only way forward.</li>
+<li>Good data pre-processing is underrated</li>
+<li>Start early, and work on the problem regularly until the competition ends (unlike me)</li>
+</ul>
+<h2 id="this-flowchart-is-a-quick-summary-of-our-approachhttpsgithubcommayukhdebblogblobmastercontentpostimages2021_jan_20approachjpg"><a href="https://github.com/Mayukhdeb/blog/blob/master/content/post/images/2021_jan_20/approach.jpg">This flowchart is a quick summary of our approach</a><a hidden class="anchor" aria-hidden="true" href="#this-flowchart-is-a-quick-summary-of-our-approachhttpsgithubcommayukhdebblogblobmastercontentpostimages2021_jan_20approachjpg">#</a></h2>
+<h2 id="our-approach-in-detail">Our approach in detail:<a hidden class="anchor" aria-hidden="true" href="#our-approach-in-detail">#</a></h2>
+<h3 id="preprocessing">Preprocessing<a hidden class="anchor" aria-hidden="true" href="#preprocessing">#</a></h3>
+<ul>
+<li>Some of the columns in the dataset were not numbers, so we had to map those values to numbers between <code>0.</code> and <code>1.</code></li>
+<li>We started off by using <code>VarianceThreshold</code> on the columns to determine the columns with the highest variance on all of the train/test features. This gave us 785 columns out of 875.</li>
+<li>Created Folds in the dataset and set the last fold as the &ldquo;holdout set&rdquo; which would not be used for training, but would be only used for blending. Since the problem was a multi label probability prediction problem, we had to use <code>MultilabelStratifiedKFold</code> [1].</li>
+</ul>
+<h3 id="building-models">Building model(s)<a hidden class="anchor" aria-hidden="true" href="#building-models">#</a></h3>
+<ul>
+<li>
+<p>We went for the simple shallow NN approach and build 2 pytorch NNs:</p>
+<ul>
+<li><code>Model()</code> had an input size of <code>785</code>, to be trained on the features with a high variance</li>
+<li><code>Model_2()</code> had an input size of <code>875</code>, to be trained on all of the 875 features.</li>
+</ul>
+</li>
+<li>
+<p>Both the model&rsquo;s forward functions worked as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(x):
+
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    layer 1
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    x1 <span style="color:#f92672">=</span>  layer1(x)   
+    x1_out <span style="color:#f92672">=</span> relu(x1)
+
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    layer 2
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    x2 <span style="color:#f92672">=</span> layer2(x1_out)
+    x2_out <span style="color:#f92672">=</span> relu(x2 <span style="color:#f92672">+</span> x1)  <span style="color:#75715e">## notice the addition here </span>
+
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    layer 3 (actually it&#39;s layer 2 again)
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    x3 <span style="color:#f92672">=</span> layer2(x2_out)          <span style="color:#75715e">## repeated layer2 forward pass</span>
+    x3_out <span style="color:#f92672">=</span> relu(x1 <span style="color:#f92672">+</span> x2 <span style="color:#f92672">+</span> x3)  <span style="color:#75715e">## notice the addition here </span>
+
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    output
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    x_result <span style="color:#f92672">=</span> relu(layer3(x3_out))
+
+    <span style="color:#66d9ef">return</span> x_result
+</code></pre></div><p>This approach was inspired by the idea of residual layers as a means of reducing overfitting, but we kind of accidentally repeated the <code>layer2</code> forward pass. Surprisingly enough, it worked better than the usual residual layer approach. I&rsquo;m yet to find an explanation for why it works better than the usual residual layers.</p>
+<blockquote>
+<p>please feel free to <a href="https://twitter.com/mayukh091">get in touch</a> if you know the answer, I really want to know why it worked.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="hyperparameter-optimization">Hyperparameter optimization<a hidden class="anchor" aria-hidden="true" href="#hyperparameter-optimization">#</a></h3>
+<p>We optimized the learning rate and the lr decay rate with optuna, with 3 epochs for each fold in each trial. For both the models, the ideal learning came to be around <code>4e-3</code> with a decay factor of <code>0.1</code> with a patience of <code>7</code>.</p>
+<h3 id="training">Training<a hidden class="anchor" aria-hidden="true" href="#training">#</a></h3>
+<p>We had to use 2 loss functions within the training loop:he training data were <strong>not 100% correct</strong>. Which means there&rsquo;s a high risk of the model learning wrong feature-label mappings while training. And this might lead to highly confident wrong predictions on the test.</p>
+<p>Log loss is known to highly penalize confident wrong predictions, so even one single higly confident wrong prediction could make a deifference in the LB score. The solution to this was <strong>label smoothing</strong>.</p>
+<figure>
+    <img src="https://github.com/Mayukhdeb/blog/blob/master/content/post/images/2021_jan_20/plot-log-loss.png?raw=true" width="40%"/> 
+</figure>
+
+<p>With label smoothing, the decrease in loss for False positives (FP) outweights the increase in loss for true negatives (TN). Same goes for TP and FN.</p>
+<p>A smoothing factor of <code>0.2</code> in <code>LabelSmoothingCrossEntropy()</code> meant the prediction would be clipped at <code>[0.1, 0.9]</code></p>
+<p>The rest of the things that helped in training are:</p>
+<ul>
+<li>
+<p><code>ReduceLROnPlateau</code> reduced the learning rate  by a factor of 0.1 whenever the loss plateaued.</p>
+</li>
+<li>
+<p><strong>Weight decay</strong> helped in regularization by adding the squared sum of weights multiplied by a <code>decay_factor</code> to the loss function.</p>
+<ul>
+<li>Hence the new loss looked like:</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">regularized_loss <span style="color:#f92672">=</span> log_loss <span style="color:#f92672">+</span> decay_factor<span style="color:#f92672">*</span>(sum_of_squared_weights)
+</code></pre></div><p><strong>Note</strong>: Both the models were trained on the same exact set of folds.</p>
+</li>
+<li>
+<p><strong>K fold cross validation</strong> was used to train a total of 20 models, each of which were saved for inference/blending later on.</p>
+</li>
+</ul>
+<h3 id="blending">Blending<a hidden class="anchor" aria-hidden="true" href="#blending">#</a></h3>
+<p>Blending [2] here means finding the weighted average of <code>n</code> predictions from <code>n</code> models where the weights are optimized in order to minimize the loss on the holdout set. This was done in the following steps:</p>
+<ol>
+<li>
+<p>Loading all the trained models and generating their predictions on the holdout features.</p>
+</li>
+<li>
+<p>Build a class <code>blend()</code> that stores all of the predictions on the holdout set. It should also contain a <code>predict()</code> function that generates a weighted average of the stored predictions with the weights as the argument.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">blend</span>():
+    <span style="color:#66d9ef">def</span> __init__(self, preds):
+        self<span style="color:#f92672">.</span>preds <span style="color:#f92672">=</span> preds
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">predict</span>(self, weights):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        calculate weighted average here
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">return</span> weighted_average
+</code></pre></div></li>
+<li>
+<p>Initialize an optuna study [3] that minimizes the log loss of the predictions by varying the weights. Optionally, one could also threshold the weights such that any weight that is less than <code>0.1</code> becomes <code>0</code> to ignore the &ldquo;weak&rdquo; models.</p>
+</li>
+<li>
+<p>Use the same optimized weights and generate the final submissions.</p>
+</li>
+</ol>
+<p>References:</p>
+<p>[1] <a href="https://github.com/trent-b/iterative-stratification">MultiLabelStratifiedKfold</a></p>
+<p>[2] <a href="https://mlwave.com/kaggbe-ensembling-guide/">Kaggle ensembling guide</a></p>
+<p>[3] <a href="https://optuna.readthedocs.io/en/stable/">Optuna docs</a></p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/kaggle/">kaggle</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2021 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
