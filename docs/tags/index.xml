@@ -6,10 +6,28 @@
     <description>Recent content in Tags on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 23 Oct 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Miscellaneous</title>
+      <link>https://mayukhdeb.github.io/blog/tags/miscellaneous/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/miscellaneous/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tangents</title>
+      <link>https://mayukhdeb.github.io/blog/tags/tangents/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/tags/tangents/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>kaggle</title>
@@ -26,15 +44,6 @@
       <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
       
       <guid>https://mayukhdeb.github.io/blog/tags/gsoc/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Miscellaneous</title>
-      <link>https://mayukhdeb.github.io/blog/tags/miscellaneous/</link>
-      <pubDate>Sun, 23 Aug 2020 00:00:00 +0000</pubDate>
-      
-      <guid>https://mayukhdeb.github.io/blog/tags/miscellaneous/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tangents on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/tangents/</link>
+    <description>Recent content in tangents on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 May 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/tangents/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Making the perfect boiled egg</title>
+      <link>https://mayukhdeb.github.io/blog/post/perfect-boiled-egg/</link>
+      <pubDate>Wed, 05 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/perfect-boiled-egg/</guid>
+      <description>Your guide to making that perfect boiled egg</description>
+    </item>
+    
+  </channel>
+</rss>
