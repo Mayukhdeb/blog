@@ -6,10 +6,19 @@
     <description>Recent content in Deep learning on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 02 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 24 May 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A Few Months With Feature Visualization</title>
+      <link>https://mayukhdeb.github.io/blog/post/feature-vis/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/feature-vis/</guid>
+      <description>Learning to reverse engineer CNNs and other stuff</description>
+    </item>
     
     <item>
       <title>Hello DevoLearn</title>

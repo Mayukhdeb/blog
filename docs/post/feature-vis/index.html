@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>A Few Months With Feature Visualization | @mayukhdeb</title>
+
+<meta name="keywords" content="deep-learning" />
+<meta name="description" content="Learning to reverse engineer CNNs and other stuff">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/feature-vis/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="A Few Months With Feature Visualization" />
+<meta property="og:description" content="Learning to reverse engineer CNNs and other stuff" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/feature-vis/" />
+<meta property="article:published_time" content="2021-05-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-05-24T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A Few Months With Feature Visualization"/>
+<meta name="twitter:description" content="Learning to reverse engineer CNNs and other stuff"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "A Few Months With Feature Visualization",
+  "name": "A Few Months With Feature Visualization",
+  "description": "Learning to reverse engineer CNNs and other stuff",
+  "keywords": [
+    "deep-learning"
+  ],
+  "articleBody": "What on earth is feature visualization ? Just like how we train neural networks on images, feature visualization works by training “images” to achieve objectives generally associated with neural networks.\nOne of the primary goals has been to try and train images to activate certain parts of CNNs to gain an understanding of how they work or more precisely: “what they’re looking for”.\nTraining images ? Yes, just like any other NN out there, images are also a bunch of numbers. So they can be “trained” through gradient descent algorithms.\nIsn’t training images to activate features the same as generating adversarial examples with fancy objectives ? In the early days of feature visualization, people tried a wide variety of approaches to make the feature visualizations to not look like adversarial examples.\nThe problem was not with the training process, neither was it with the models themselves. But it was in the way we handled our trainable images.\nIf we simply “train” an image with someting like torch.optim.Adam (say), then all that we’d get is a bunch of high frequency noise which does achieve the objective of activating the desired parts of the neural net, but it has no “visual information” for human eyes to percieve and understand.\nThe problem with the vanilla approach is that they’re do not contain any information interpretable by human eyes.\nFixing the “gradient descent/ascent” approach I’ll list my favourite ones below (not in any order):\n  DeepDreams: In simple words deepdream does the following: “if it looks like a monkey, make it look more like a monkey.”\n  Using GANs as an image parameter: This process gave natural looking images, but is not recommended because it depends a lot on the GAN that we’re using. A GAN trained on birds would not be able to visualize a class dog.\n  FFT parameterization: This is the state-of the art approach as of now. Instead of telling the trainable image to “change this single pixel to red”, it tells “change this small area of pixels to red”. This has led to much more natural looking patterns/visualiations.\n  The FFT parameterization approach is my favourite because it makes the trainable image think in terms of waves/blobs instead of pixels.\nWe humans don’t draw by making millions of small dots on the paper, instead we use brushes to “fill spaces” with colors. FFT image parameterization is an attempt at doing just that, but in computers.\nI might add more stuff into this blog post from time to time :)\n",
+  "wordCount" : "416",
+  "inLanguage": "en",
+  "datePublished": "2021-05-24T00:00:00Z",
+  "dateModified": "2021-05-24T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/feature-vis/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class=" dark">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      A Few Months With Feature Visualization
+    </h1>
+    <div class="post-meta">May 24, 2021
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h2 id="what-on-earth-is-feature-visualization-">What on earth is feature visualization ?<a hidden class="anchor" aria-hidden="true" href="#what-on-earth-is-feature-visualization-">#</a></h2>
+<p>Just like how we train neural networks on images, feature visualization works by training &ldquo;images&rdquo; to achieve objectives generally associated with neural networks.</p>
+<p>One of the primary goals has been to try and train images to activate certain parts of CNNs to gain an understanding of how they work or more precisely: &ldquo;what they&rsquo;re looking for&rdquo;.</p>
+<h2 id="training-images-">Training images ?<a hidden class="anchor" aria-hidden="true" href="#training-images-">#</a></h2>
+<p>Yes, just like any other NN out there, images are also a bunch of numbers. So they can be &ldquo;trained&rdquo; through gradient descent algorithms.</p>
+<h4 id="isnt-training-images-to-activate-features-the-same-as-generating-adversarial-examples-with-fancy-objectives-">Isn&rsquo;t training images to activate features the same as generating adversarial examples with fancy objectives ?<a hidden class="anchor" aria-hidden="true" href="#isnt-training-images-to-activate-features-the-same-as-generating-adversarial-examples-with-fancy-objectives-">#</a></h4>
+<p>In the early days of feature visualization, people tried a wide variety of approaches to make the feature visualizations to <strong>not</strong> look like adversarial examples.</p>
+<p>The problem was not with the training process, neither was it with the models themselves. But it was in the way we handled our trainable images.</p>
+<p>If we simply &ldquo;train&rdquo; an image with someting like <code>torch.optim.Adam</code> (say), then all that we&rsquo;d get is a bunch of high frequency noise which does achieve the objective of activating the desired parts of the neural net, but it has no &ldquo;visual information&rdquo; for human eyes to percieve and understand.</p>
+<p>The problem with the vanilla approach is that they&rsquo;re do not contain any information interpretable by human eyes.</p>
+<h2 id="fixing-the-gradient-descentascent-approach">Fixing the &ldquo;gradient descent/ascent&rdquo; approach<a hidden class="anchor" aria-hidden="true" href="#fixing-the-gradient-descentascent-approach">#</a></h2>
+<p>I&rsquo;ll list my favourite ones below (not in any order):</p>
+<ul>
+<li>
+<p><strong>DeepDreams</strong>: In simple words deepdream does the following: &ldquo;if it looks like a monkey, make it look more like a monkey.&rdquo;</p>
+</li>
+<li>
+<p><strong>Using GANs as an image parameter</strong>: This process gave natural looking images, but is not recommended because it depends a lot on the GAN that we&rsquo;re using. A GAN trained on birds would not be able to visualize a class <code>dog</code>.</p>
+</li>
+<li>
+<p><strong>FFT parameterization</strong>: This is the state-of the art approach as of now. Instead of telling the trainable image to &ldquo;change this single pixel to red&rdquo;, it tells &ldquo;change this small area of pixels to red&rdquo;. This has led to much more natural looking patterns/visualiations.</p>
+</li>
+</ul>
+<p>The FFT parameterization approach is my favourite because it makes the trainable image think in terms of waves/blobs instead of pixels.</p>
+<p>We humans don&rsquo;t draw by making millions of small dots on the paper, instead we use brushes to &ldquo;fill spaces&rdquo; with colors. FFT image parameterization is an attempt at doing just that, but in computers.</p>
+<p>I might add more stuff into this blog post from time to time :)</p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2021 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
