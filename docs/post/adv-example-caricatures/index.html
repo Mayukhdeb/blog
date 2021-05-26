@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Visualizing adversarial examples with caricatures | @mayukhdeb</title>
+
+<meta name="keywords" content="deep-learning, feature-vis" />
+<meta name="description" content="Breaking down adversarial examples with carictaures">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/adv-example-caricatures/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Visualizing adversarial examples with caricatures" />
+<meta property="og:description" content="Breaking down adversarial examples with carictaures" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/adv-example-caricatures/" />
+<meta property="article:published_time" content="2021-05-26T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-05-26T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Visualizing adversarial examples with caricatures"/>
+<meta name="twitter:description" content="Breaking down adversarial examples with carictaures"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Visualizing adversarial examples with caricatures",
+  "name": "Visualizing adversarial examples with caricatures",
+  "description": "Breaking down adversarial examples with carictaures",
+  "keywords": [
+    "deep-learning", "feature-vis"
+  ],
+  "articleBody": "Two important terms: “adversarial examples” and “caricatures” 1. Adversarial examples In simple words, an adversarial example is an image which has been engineered to “fool” a neural network, while being visually indifferent from that of a natural image to the human eyes.\nThe simplest way to do this is to use the FGSM algorithm: which is basically “training” the image to maximize or minimize the activations of a certain class within the neural network.\nAdversarial examples are proof that even though deep neural nets seem non linear, their linear nature at a smaller scale (y = wx + b) can be very easily exploited.\nTo know more about adversarial examples, you might out to check this out.\n2. Caricatures Ever seen cartoons of famous people drawn in a way to exaggerate their features (eyes, nose, etc) ? They’re called caricatures.\nThey’re an exaggerated version of what one sees.\nHow are caricatures relevant here ?\nImagine a 2 layer neural net with 2 layers P and Q\nSo the model looks like:\nclass model(nn.Module): def __init__(self, p, q): self.P = p ## p and q are imaginary layers self.Q = q def forward(self, x): ''' x_p is an encoded version of x ''' x_p = self.P.forward(x) x_q = self.Q.forward(x_p) return x_q So now let us ask this question:\nIs there a way to reconstruct the input image given a layer encoding x_p ?\nThe answer is yes, let me explain:\nFirst let us feed an input image X_original into the model, and save the encoded version as X_original_encoded.\nNow let us prepare a trainable image parameter and call it X_trainable.\nAfter feeding X_trainable into the model, we get an encoded version of it called: X_trainable_encoded\nSince X_trainable and X_original are not the same,X_original_encoded and X_trainable_encoded are also not the same.\nWhich means we can simply make them more similar by minimizing the loss between X_trainable_encoded and X_original_encoded.\nSo which loss function should be used ? ?\nInitially I went for the MSELoss, but that did not provide much insight about the layer itself.\nThen after some very interesting discussion with Ludwig from Distill Slack, I went for cosine similarity.\nWhat on earth is cosine similarity now ?\nImagine you’re looking up at the sky during a solar eclipse.\nyou – moon — sun\nHow far is the moon from the sun ? very far\nTherefore, the MSE loss between the position of the sun and the moon is very high.\nBut how far do they look to the humans on earth ? very close, sometimes even on top of each other\nHence, the cosine similarity between their positions (with respect to earth as the origin) is high i.e 1.\nGiven 2 points, cosine similarity is calculated as the cosine of the angle between them w.r.t the origin.\nIf the angle between 2 points is high, then the similarity is low: cos(59) = 0.559\nIf the angle between 2 points is low, their similarity is high: cos(10) = 0.9848\nI really don’t like to use fancy mathematical terms, so if you’re that kind of a person I’ll link you to this article.\nThat was quite astronomical tangent, now let’s get back to caricatures\n(to be continued)\n",
+  "wordCount" : "534",
+  "inLanguage": "en",
+  "datePublished": "2021-05-26T00:00:00Z",
+  "dateModified": "2021-05-26T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/adv-example-caricatures/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class=" dark">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Visualizing adversarial examples with caricatures
+    </h1>
+    <div class="post-meta">May 26, 2021
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h2 id="two-important-terms-adversarial-examples-and-caricatures">Two important terms: &ldquo;adversarial examples&rdquo; and &ldquo;caricatures&rdquo;<a hidden class="anchor" aria-hidden="true" href="#two-important-terms-adversarial-examples-and-caricatures">#</a></h2>
+<h3 id="1-adversarial-examples">1. Adversarial examples<a hidden class="anchor" aria-hidden="true" href="#1-adversarial-examples">#</a></h3>
+<p>In simple words, an adversarial example is an image which has been engineered to &ldquo;fool&rdquo; a neural network, while being visually indifferent from that of a natural image to the human eyes.</p>
+<p>The simplest way to do this is to use the FGSM algorithm: which is basically &ldquo;training&rdquo; the image to maximize or minimize the activations of a certain class within the neural network.</p>
+<p>Adversarial examples are proof that even though deep neural nets seem non linear, their linear nature at a smaller scale (<code>y = wx + b</code>) can be very easily exploited.</p>
+<p>To know more about adversarial examples, you might out to <a href="https://www.youtube.com/watch?v=CIfsB_EYsVI&amp;ab_channel=StanfordUniversitySchoolofEngineering">check this out</a>.</p>
+<h3 id="2-caricatures">2. Caricatures<a hidden class="anchor" aria-hidden="true" href="#2-caricatures">#</a></h3>
+<p>Ever seen cartoons of famous people drawn in a way to exaggerate their features (eyes, nose, etc) ? They&rsquo;re called caricatures.</p>
+<p>They&rsquo;re an exaggerated version of what one sees.</p>
+<p><strong>How are caricatures relevant here ?</strong></p>
+<p>Imagine a 2 layer neural net with 2 layers <code>P</code> and <code>Q</code></p>
+<p>So the model looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">model</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#66d9ef">def</span> __init__(self, p, q):
+        self<span style="color:#f92672">.</span>P <span style="color:#f92672">=</span> p  <span style="color:#75715e">## p and q are imaginary layers</span>
+        self<span style="color:#f92672">.</span>Q <span style="color:#f92672">=</span> q
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        x_p is an encoded version of x
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        x_p <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>P<span style="color:#f92672">.</span>forward(x)
+        x_q <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>Q<span style="color:#f92672">.</span>forward(x_p)
+
+        <span style="color:#66d9ef">return</span> x_q
+</code></pre></div><p>So now let us ask this question:</p>
+<p><strong>Is there a way to reconstruct the input image given a layer encoding <code>x_p</code> ?</strong></p>
+<p>The answer is yes, let me explain:</p>
+<p>First let us feed an input image <code>X_original</code> into the model, and save the encoded version as <code>X_original_encoded</code>.</p>
+<p>Now let us prepare a trainable image parameter and call it <code>X_trainable</code>.</p>
+<p>After feeding <code>X_trainable</code> into the model, we get an encoded version of it called: <code>X_trainable_encoded</code></p>
+<p>Since <code>X_trainable</code> and <code>X_original</code> are not the same,<code>X_original_encoded</code> and  <code>X_trainable_encoded</code> are also not the same.</p>
+<p>Which means we can simply make them more similar by minimizing the loss between <code>X_trainable_encoded</code> and <code>X_original_encoded</code>.</p>
+<p><strong>So which loss function should be used ?</strong> ?</p>
+<p>Initially I went for the MSELoss, but that did not provide much insight about the layer itself.</p>
+<p>Then after some very interesting discussion with Ludwig from Distill Slack, I went for cosine similarity.</p>
+<p><strong>What on earth is cosine similarity now ?</strong></p>
+<p>Imagine you&rsquo;re looking up at the sky during a solar eclipse.</p>
+<p>you  &ndash;  moon  &mdash; sun</p>
+<p>How far is the moon from the sun ? <em>very far</em></p>
+<p>Therefore, the MSE loss between the position of the sun and the moon is very high.</p>
+<p>But how far do they <em>look</em> to the humans on earth ? <em>very close, sometimes even on top of each other</em></p>
+<p>Hence, the cosine similarity between their positions (with respect to earth as the origin) is high i.e 1.</p>
+<p>Given 2 points, cosine similarity is calculated as the cosine of the angle between them w.r.t the origin.</p>
+<p>If the angle between 2 points is high, then the similarity is low: <code>cos(59) = 0.559</code></p>
+<p>If the angle between 2 points is low, their similarity is high: <code>cos(10) = 0.9848</code></p>
+<p>I really don&rsquo;t like to use fancy mathematical terms, so if you&rsquo;re that kind of a person <a href="https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity">I&rsquo;ll link you to this article</a>.</p>
+<p><strong>That was quite astronomical tangent, now let&rsquo;s get back to caricatures</strong></p>
+<p>(to be continued)</p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/feature-vis/">feature-vis</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2021 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
