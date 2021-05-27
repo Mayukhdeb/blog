@@ -94,8 +94,62 @@ If the angle between 2 points is high, then the similarity is low: `cos(59) = 0.
 
 If the angle between 2 points is low, their similarity is high: `cos(10) = 0.9848`
 
-I really don't like to use fancy mathematical terms, so if you're that kind of a person [I'll link you to this article](https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity).
+I really don't like to use fancy mathematical terms to explain things, so if you're that kind of a person [I'll link you to this article](https://deepai.org/machine-learning-glossary-and-terms/cosine-similarity).
 
-**That was quite astronomical tangent, now let's get back to caricatures**
+**That was quite an astronomical tangent, now let's get back to caricatures**
+
+So our objective was to maximize the cosine similarity between `X_trainable_encoded` and `X_original_encoded` in an iterative manner. 
+
+This is how it looks like:
+
+```python
+
+dreamy_boi = torch_dreams.dreamer(model)  ## wrapper over a pytorch model
+
+for i in range(iters):
+    
+    X_trainable_encoded = dreamy_boi.get_snapshot(
+        input_tensor = X_trainable, 
+        layers = [model.P]
+    )[0]  ##[0] because it returns a list
+
+    loss = -(cosine_similarity(X_trainable_encoded, X_original_encoded))
+
+    loss.backward() ## calculate gradients 
+    X_trainable.optimizer.step()  ## update values
+    
+```
+
+Notice the minus sign in the `loss`, that's because we're minimizing the loss i.e maximizing cosine similarity. 
+
+**There's one more problem left now, caricatures are supposed to "exaggerate" an image right ?**
+
+Cosine similarity looks like: 
+
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_may_26/cossim.jpg" width="50%">}}
+
+ Now in order to "exaggerate", we can optimize both the cosine similarity and the dot product. 
+ 
+This is how the usual loss function looks like: 
+
+```
+loss = -(cosine_similarity(X_trainable_encoded, X_original_encoded))
+```
+
+ {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_may_26/cossim.gif" width="50%">}}
+
+
+ And this is how the new "exaggerated" objective looks like: 
+
+
+```
+exaggerated_loss =  -(cosine_similarity(X_trainable_encoded, X_original_encoded)*(X_trainable_encoded* X_original_encoded)**power_factor)
+```
+
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_may_26/cossim_mse.gif" width="50%">}}
+
+
+Note that `V` is the encoded version of the trainable image and `U` is the encoded version of the original image. Notice how in the 2nd version, `V` tends to move further away from the origin, that's where the "exaggeration" is. 
+
 
 (to be continued)
