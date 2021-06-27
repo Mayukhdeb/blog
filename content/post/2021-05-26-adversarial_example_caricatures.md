@@ -12,6 +12,12 @@ summary = "Breaking down adversarial examples with carictaures"
 
 +++
 
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_may_26/caricatures_adv.jpg" width="90%">}}
+
+## Summary
+
+**Caricatures** are a way to visualize an exaggerated version of what a layer within a neural network "sees". They can be used as a way to visualize how each layer "reacts" to adversarial examples.
+
 ## Two important terms: "adversarial examples" and "caricatures"
 
 ### 1. Adversarial examples
@@ -82,9 +88,7 @@ you  --  moon  --- sun
 
 How far is the moon from the sun ? *very far*
 
-Therefore, the MSE loss between the position of the sun and the moon is very high.
-
-But how far do they *look* to the humans on earth ? *very close, sometimes even on top of each other*
+Therefore, the MSE loss between the position of the sun and the moon is very high. But how far do they *look* to the humans on earth ? *very close, sometimes even on top of each other* 
 
 Hence, the cosine similarity between their positions (with respect to earth as the origin) is high i.e 1. 
 
@@ -151,5 +155,18 @@ exaggerated_loss =  -(cosine_similarity(X_trainable_encoded, X_original_encoded)
 
 Note that `V` is the encoded version of the trainable image and `U` is the encoded version of the original image. Notice how in the 2nd version, `V` tends to move further away from the origin, that's where the "exaggeration" is. 
 
+---
 
-(to be continued)
+**I skipped the weird section above, just tell me what did you mean by caricatures here**
+
+Caricatures here are an exaggerated version of what a layer of the model "sees". You can consider them as a way to see a more extreme version of what the model saw in an input image.
+
+## Now back to adversarial examples
+
+Let's see what happens when we feed an adversarial image of an elephant which is meant to be misclassified as a potted plant. 
+
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_may_26/caricatures_adv.jpg" width="90%">}}
+
+Interesting to see how the layers "see" leaves instead of elephants to a higher extent in some layers than in others. This now raises the question of trying to find ways to look for "culprit layers" within the model which are "guilty".
+
+I just wrote this blog post as a way to document my findings while doing these experiments. If you do feel like discussing these ideas further with me, just drop an email: [mayukhmainak2000@gmail.com](mailto:mayukhmainak2000@gmail.com)
