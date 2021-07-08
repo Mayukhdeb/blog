@@ -39,7 +39,7 @@ def do_something(config):
     # do something here
     return something
 
-eden_block.(
+eden_block.host(
     port= 5656,
     max_num_workers= 4  ## max 4 threads
 )
