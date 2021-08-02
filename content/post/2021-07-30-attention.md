@@ -15,7 +15,7 @@ summary = "Teaching myself about the attention mechanism in vision models"
 
 ## Intro
 
-I like to see the rise of attention to be a next step after moving from linear layers to convolutions for vision tasks. 
+I like to see the rise of attention to be the next step after moving from linear layers to convolutions for vision tasks. 
 
 Linear layers did not do a great job at capturing spatial (2D) information, this was solved by convolutions. But the problem that remained was that convolutions is that they still are very far from the way we humans perceive images. 
 
@@ -220,10 +220,10 @@ When convolutional layers started getting used for vision, did we completely dit
 
 ## Resources 
 
-- https://arxiv.org/pdf/1804.02391.pdf
-- https://github.com/SaoYan/LearnToPayAttention
-- https://deepai.org/machine-learning-glossary-and-terms/softmax-layer
-- https://discuss.pytorch.org/t/attention-in-image-classification/80147/3
-- https://youtu.be/OyFJWRnt_AY
+- Learn to pay attention (paper): https://arxiv.org/pdf/1804.02391.pdf
+- Implementation of the paper: https://github.com/SaoYan/LearnToPayAttention
+- Softmax layer explained: https://deepai.org/machine-learning-glossary-and-terms/softmax-layer
+- Implementation of self attention layer for vision: https://discuss.pytorch.org/t/attention-in-image-classification/80147/3
+- Great lecture on the topic: https://youtu.be/OyFJWRnt_AY
 - Bonus link: https://youtu.be/T78nq62aQgM
 
