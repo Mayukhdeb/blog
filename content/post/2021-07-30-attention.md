@@ -49,60 +49,11 @@ The attention mechanism does just this, but in a more fuzzy/probabilistic way.
 
 There are 3 steps involved: 
 
-1. A query `q` is assigned, which is then compared to the keys `k`
-2. The key `k_i` that matched query `q` is then selected
+1. A query (`query`) is assigned, which is then compared to the keys (`keys`)
+2. The key `k_i` that matched query (`query`) is then selected
 3. An output value `v_i`  (which is the same as `database[k_i]`) is returned 
 
 This is how the pseudocode might look like: 
-
-```python
-def attention(q,k,v):
-    """
-    q: query
-    k: keys
-    v: values
-    warning: this is just a simple dummy example with lists, its not vectorized
-    """
-
-    """
-    initiating default zero values for output: 
-    [0,0,0,0,0...]
-    """
-    out_values = [0 for i in range(len(k))]
-
-    for i in range(len(k)): 
-     
-        """
-        checking if our query matches one of the keys
-        """
-        if q == k[i]:
-
-            """
-            if a query matched a key, then put the corresponding value into the output
-            """
-            out_values[i] = v[i]
-    return out_values
-```
-
-Let's take an example:
-
-```python
-q = 1
-k = [0,1,2]
-v = [8,3,4]
-
-attention(q,k,v)
-```
-
-returns: 
-
-```python
->>> [0, 3, 0]
-```
-
-If you paid attention so far (pun intended), then you'd realise that this process is not differentiable. Which is why this is **not** how it's done. 
-
-We can better summarise the process seen above as: 
 
 ```python
 class Attention():
@@ -120,7 +71,7 @@ class Attention():
 
 ```
 
-Here we replaced the initial function with a much more flexible class wrapper which can support many different types of functions to check if a query matches a key. Lets try to see how the initial function looks like in this new approach: 
+Now let's make a super simple attention layer with a binary similarity function:
 
 ```python
 def my_similarity_function(query, key): 
@@ -143,11 +94,112 @@ this would show the same result:
 ```
 [0.0, 3.0, 0.0]
 ```
+If you paid attention so far (pun intended), then you'd realise that this similarity function is not differentiable. Hence we cannot use it to backpropagate and update the parameters. 
+
+**So which similarity function should we use to make the process differentiable ?**
+
+There are some functions we can consider for a more "continuous" measure of similarity: 
+* The dot product or a scaled dot product
+* Additive similarity
+
+What you saw so far was not a real attention layer, it was just a caveman version of the real thing. It's about time that we move on to learn the real thing now :)
 
 
-## [To-do] Let's take a closer look
+## Let's take a closer look
 
-[under construction]
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_july_30/attention_summary.png" width="80%">}}
+
+Here's a quick breakdown of the diagram shown above: 
+
+- **Similarity function**: Given a query `q` and a set of keys `[k0, k1, k2, k3]`, the similarity function calculates the similarity between the query `q` and each of the keys as `[s0, s1, s2, s3]`. Ideally, if `q` is very similar/equal to a key (say `k3`), then the corresponding similarity value tends to be `1.`, and if they're not at all similar then the similarity should be close to `0.`. 
+
+- **Softmax**: Intuitively speaking, the softmax function converts the given values into a probability distribution.
+
+- **Multiplying with values**: Here we multiply the outputs from the attention layer with the values and obtain the desired outputs. You can think of this as multiplying the values with a "mask" so that the model can focus more on certain parts of the values. 
+
+
+## How can we use it in vision models ? 
+
+Let's first have a look at the code, and then we'll see how everything works: 
+
+```python
+import torch.nn as nn
+import torch 
+
+class SelfAttention(nn.Module):
+    """ Self attention Layer"""
+    def __init__(self,in_dim,activation):
+        super(SelfAttention,self).__init__()
+        self.chanel_in = in_dim
+        self.activation = activation
+        
+        self.query_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim//8 , kernel_size= 1)
+        self.key_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim//8 , kernel_size= 1)
+        self.value_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim , kernel_size= 1)
+        self.gamma = nn.Parameter(torch.zeros(1))
+
+        self.softmax  = nn.Softmax(dim=-1) #
+
+    def forward(self,x):
+        """
+            inputs :
+                x : input feature maps( B X C X W X H)
+            returns :
+                out : self attention value + input feature 
+                attention: B X N X N (N is Width*Height)
+        """
+        m_batchsize,C,width ,height = x.size()
+
+        """
+        generating query
+        """
+        proj_query  = self.query_conv(x)
+        proj_query = proj_query.view(m_batchsize,-1,width*height).permute(0,2,1) # B X CX(N)
+
+
+        """
+        generating key
+        """
+        proj_key =  self.key_conv(x).view(m_batchsize,-1,width*height) # B X C x (*W*H)
+
+        """
+        getting similarity scores with dot product
+        """
+        similarity_scores =  torch.bmm(proj_query,proj_key) # transpose check
+
+        """
+        passing similarity scores through a softmax layer
+        """
+        attention = self.softmax(similarity_scores) # BX (N) X (N) 
+
+        """
+        generating values
+        """
+        proj_value = self.value_conv(x).view(m_batchsize,-1,width*height) # B X C X N
+
+        """
+        obtain outputs by multiplying values with attention scores
+        """
+        out = torch.bmm(proj_value,attention.permute(0,2,1) )
+
+        """
+        reshape to original shape [N, C, H, W]
+        """
+        out = out.view(m_batchsize,C,width,height)
+        
+        """
+        multiplying outputs by a learnable parameter gamma and adding the input itself
+            - the multiplication most probably is done to scale the outputs 
+            - the input itself is added in so that it works sort of like a residual layer
+        """
+        out = self.gamma*out + x
+        
+        return {
+            'output': out,
+            'attention': attention
+        }
+```
+
 
 ## so are we breaking up with `conv2d`?
 
@@ -155,7 +207,9 @@ When convolutional layers started getting used for vision, did we completely dit
 
 ## Resources 
 
+- https://arxiv.org/pdf/1804.02391.pdf
 - https://github.com/SaoYan/LearnToPayAttention
+- https://deepai.org/machine-learning-glossary-and-terms/softmax-layer
 - https://discuss.pytorch.org/t/attention-in-image-classification/80147/3
 - https://youtu.be/OyFJWRnt_AY
 - Bonus link: https://youtu.be/T78nq62aQgM
