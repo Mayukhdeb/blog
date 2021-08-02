@@ -37,7 +37,7 @@ There are primarily 2 types of attention in vision models:
 
 {{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_july_30/hard_vs_soft_attention_samoyed.png" width="40%">}}
 
-In our case, we'll stick with soft attention, because it is differentiable (unlike hard attention which is equivalent to cropping). 
+In our case, we'll stick with soft attention.
 
 ## How does it work ? 
 
@@ -120,19 +120,18 @@ Here's a quick breakdown of the diagram shown above:
 
 ## How can we use it in vision models ? 
 
-Let's first have a look at the code, and then we'll see how everything works: 
+I've made comments on almost every line on the forward pass to explain whats going on in there, try to find which line corresponds to which part of the diagram in the last section).
 
 ```python
-import torch.nn as nn
 import torch 
+import torch.nn as nn
 
 class SelfAttention(nn.Module):
     """ Self attention Layer"""
     def __init__(self,in_dim,activation):
         super(SelfAttention,self).__init__()
+
         self.chanel_in = in_dim
-        self.activation = activation
-        
         self.query_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim//8 , kernel_size= 1)
         self.key_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim//8 , kernel_size= 1)
         self.value_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim , kernel_size= 1)
@@ -143,44 +142,44 @@ class SelfAttention(nn.Module):
     def forward(self,x):
         """
             inputs :
-                x : input feature maps( B X C X W X H)
+                x : input feature maps( B X C X H X W)
             returns :
                 out : self attention value + input feature 
-                attention: B X N X N (N is Width*Height)
+                attention: B X N X N (N is height*width)
         """
-        m_batchsize,C,width ,height = x.size()
+        m_batchsize,C,height ,width = x.size()
 
         """
         generating query
         """
         proj_query  = self.query_conv(x)
-        proj_query = proj_query.view(m_batchsize,-1,width*height).permute(0,2,1) # B X CX(N)
+        proj_query = proj_query.view(m_batchsize,-1,height*width).permute(0,2,1) # B X C X (H*W)
 
 
         """
         generating key
         """
-        proj_key =  self.key_conv(x).view(m_batchsize,-1,width*height) # B X C x (*W*H)
+        proj_key =  self.key_conv(x).view(m_batchsize,-1,height*width) # B X C X (H*W)
 
         """
         getting similarity scores with dot product
         """
-        similarity_scores =  torch.bmm(proj_query,proj_key) # transpose check
+        similarity_scores =  torch.bmm(proj_query,proj_key) # matrix multiplication
 
         """
         passing similarity scores through a softmax layer
         """
-        attention = self.softmax(similarity_scores) # BX (N) X (N) 
+        attention = self.softmax(similarity_scores) # B X (H*W) X (H*W) 
 
         """
         generating values
         """
-        proj_value = self.value_conv(x).view(m_batchsize,-1,width*height) # B X C X N
+        proj_value = self.value_conv(x).view(m_batchsize,-1,width*height) # B X C X (H*W)
 
         """
         obtain outputs by multiplying values with attention scores
         """
-        out = torch.bmm(proj_value,attention.permute(0,2,1) )
+        out = torch.bmm(proj_value,attention.permute(0,2,1))
 
         """
         reshape to original shape [N, C, H, W]
@@ -200,10 +199,24 @@ class SelfAttention(nn.Module):
         }
 ```
 
+Let's take a look at the attributes within the class wrapper first: 
 
-## so are we breaking up with `conv2d`?
+* `self.chanel_in`: refers to the number of channels in the input tensor of shape `[N, C, H, W]` where `C` refers to the number of channels. 
 
-When convolutional layers started getting used for vision, did we completely ditch linear layers ? No. Same goes here. `conv2d` is here to stay, but it might not be as dominant in vision as it used to be. 
+* `self.gamma`: it is a learnable parameter which is multiplied to the attention output to perform some sort of a scaling operation.
+
+* `self.query_conv`: defines the convolution layer which is to be used to obtain the query value from the input tensor `x`.
+
+* `self.key_conv`: defines the convolution layer which is to be used to obtain the key value from the input tensor `x`
+
+* `self.value_conv`: defines the convolution layer which is to be used to obtain the "values" from the input tensor `x`
+
+> Note that unlike our dummy example, the query, keys and values here are not pre defined. The model instead "learns" to obtain them from the input `x` using `self.query_conv`, `self.key_conv` and `self.value_conv`
+
+
+## So are we breaking up with `conv2d`?
+
+When convolutional layers started getting used for vision, did we completely ditch linear layers ? No. Same goes here. `conv2d` is here to stay, but it might not be as dominant in SOTA vision models as they used to be. 
 
 ## Resources 
 
@@ -213,6 +226,4 @@ When convolutional layers started getting used for vision, did we completely dit
 - https://discuss.pytorch.org/t/attention-in-image-classification/80147/3
 - https://youtu.be/OyFJWRnt_AY
 - Bonus link: https://youtu.be/T78nq62aQgM
-
-
 

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>What on earth is attention | @mayukhdeb</title>
+
+<meta name="keywords" content="deep-learning" />
+<meta name="description" content="Teaching myself about the attention mechanism in vision models">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/what-on-earth-is-attention/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="What on earth is attention" />
+<meta property="og:description" content="Teaching myself about the attention mechanism in vision models" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/what-on-earth-is-attention/" />
+<meta property="article:published_time" content="2021-07-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-07-30T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="What on earth is attention"/>
+<meta name="twitter:description" content="Teaching myself about the attention mechanism in vision models"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "What on earth is attention",
+  "name": "What on earth is attention",
+  "description": "Teaching myself about the attention mechanism in vision models",
+  "keywords": [
+    "deep-learning"
+  ],
+  "articleBody": " Warning: I encourage you to not read this if you’re looking for super formal jargon. I might’ve used some loose terms within this post which are just to build an intuition.\n Intro I like to see the rise of attention to be a next step after moving from linear layers to convolutions for vision tasks.\nLinear layers did not do a great job at capturing spatial (2D) information, this was solved by convolutions. But the problem that remained was that convolutions is that they still are very far from the way we humans perceive images.\nWhen trying to identify a dog from an image, the human does not look at every part of the image equally. Instead humans tend to focus on certain features like tails, fur, noses, etc.\nOn the contrary, convolutions tend to look at every part of an image and give them “equal” importance. Which is not ideal.\nWhy do we need it ? When training a model, we dont necessarily want a model to give equal importance to every part of an image (thats what conv2d does). One way of accomplishing this is through trainable attention mechanisms.\nWhat is trainable attention ?\nA trainable attention mechanism is trained while the network is trained, and is supposed to help the network to focus on key elements of the image.\nThere are primarily 2 types of attention in vision models:\n hard attention soft attention    In our case, we’ll stick with soft attention.\nHow does it work ? At the heart of it is the aptly named “Attention mechanism”. It can be thought of a form of an approximation of a SELECT from a database.\nIt mimics the retrieval of a value v given a query q and a key k.\nThe attention mechanism does just this, but in a more fuzzy/probabilistic way.\nThere are 3 steps involved:\n A query (query) is assigned, which is then compared to the keys (keys) The key k_i that matched query (query) is then selected An output value v_i (which is the same as database[k_i]) is returned  This is how the pseudocode might look like:\nclass Attention(): def __init__(self, similarity_fn): self.similarity_fn = similarity_fn def forward(self, query, keys, values): output = [] for i in range(len(keys)): output.append(self.similarity_fn(query, keys[i]) * values[i]) return output Now let’s make a super simple attention layer with a binary similarity function:\ndef my_similarity_function(query, key): if query == key: return 1. else: return 0. a = Attention(similarity_fn = my_similarity_function) q = 1 k = [0,1,2] v = [8,3,4] print(a.forward(query = q, keys = k, values = v)) this would show the same result:\n[0.0, 3.0, 0.0] If you paid attention so far (pun intended), then you’d realise that this similarity function is not differentiable. Hence we cannot use it to backpropagate and update the parameters.\nSo which similarity function should we use to make the process differentiable ?\nThere are some functions we can consider for a more “continuous” measure of similarity:\n The dot product or a scaled dot product Additive similarity  What you saw so far was not a real attention layer, it was just a caveman version of the real thing. It’s about time that we move on to learn the real thing now :)\nLet’s take a closer look   Here’s a quick breakdown of the diagram shown above:\n  Similarity function: Given a query q and a set of keys [k0, k1, k2, k3], the similarity function calculates the similarity between the query q and each of the keys as [s0, s1, s2, s3]. Ideally, if q is very similar/equal to a key (say k3), then the corresponding similarity value tends to be 1., and if they’re not at all similar then the similarity should be close to 0..\n  Softmax: Intuitively speaking, the softmax function converts the given values into a probability distribution.\n  Multiplying with values: Here we multiply the outputs from the attention layer with the values and obtain the desired outputs. You can think of this as multiplying the values with a “mask” so that the model can focus more on certain parts of the values.\n  How can we use it in vision models ? I’ve made comments on almost every line on the forward pass to explain whats going on in there, try to find which line corresponds to which part of the diagram in the last section).\nimport torch import torch.nn as nn class SelfAttention(nn.Module): \"\"\" Self attention Layer\"\"\" def __init__(self,in_dim,activation): super(SelfAttention,self).__init__() self.chanel_in = in_dim self.query_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim//8 , kernel_size= 1) self.key_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim//8 , kernel_size= 1) self.value_conv = nn.Conv2d(in_channels = in_dim , out_channels = in_dim , kernel_size= 1) self.gamma = nn.Parameter(torch.zeros(1)) self.softmax = nn.Softmax(dim=-1) # def forward(self,x): \"\"\" inputs : x : input feature maps( B X C X H X W) returns : out : self attention value + input feature attention: B X N X N (N is height*width) \"\"\" m_batchsize,C,height ,width = x.size() \"\"\" generating query \"\"\" proj_query = self.query_conv(x) proj_query = proj_query.view(m_batchsize,-1,height*width).permute(0,2,1) # B X C X (H*W) \"\"\" generating key \"\"\" proj_key = self.key_conv(x).view(m_batchsize,-1,height*width) # B X C X (H*W) \"\"\" getting similarity scores with dot product \"\"\" similarity_scores = torch.bmm(proj_query,proj_key) # matrix multiplication \"\"\" passing similarity scores through a softmax layer \"\"\" attention = self.softmax(similarity_scores) # B X (H*W) X (H*W)  \"\"\" generating values \"\"\" proj_value = self.value_conv(x).view(m_batchsize,-1,width*height) # B X C X (H*W) \"\"\" obtain outputs by multiplying values with attention scores \"\"\" out = torch.bmm(proj_value,attention.permute(0,2,1)) \"\"\" reshape to original shape [N, C, H, W] \"\"\" out = out.view(m_batchsize,C,width,height) \"\"\" multiplying outputs by a learnable parameter gamma and adding the input itself - the multiplication most probably is done to scale the outputs - the input itself is added in so that it works sort of like a residual layer \"\"\" out = self.gamma*out + x return { 'output': out, 'attention': attention } Let’s take a look at the attributes within the class wrapper first:\n  self.chanel_in: refers to the number of channels in the input tensor of shape [N, C, H, W] where C refers to the number of channels.\n  self.gamma: it is a learnable parameter which is multiplied to the attention output to perform some sort of a scaling operation.\n  self.query_conv: defines the convolution layer which is to be used to obtain the query value from the input tensor x.\n  self.key_conv: defines the convolution layer which is to be used to obtain the key value from the input tensor x\n  self.value_conv: defines the convolution layer which is to be used to obtain the “values” from the input tensor x\n   Note that unlike our dummy example, the query, keys and values here are not pre defined. The model instead “learns” to obtain them from the input x using self.query_conv, self.key_conv and self.value_conv\n So are we breaking up with conv2d? When convolutional layers started getting used for vision, did we completely ditch linear layers ? No. Same goes here. conv2d is here to stay, but it might not be as dominant in SOTA vision models as they used to be.\nResources  https://arxiv.org/pdf/1804.02391.pdf https://github.com/SaoYan/LearnToPayAttention https://deepai.org/machine-learning-glossary-and-terms/softmax-layer https://discuss.pytorch.org/t/attention-in-image-classification/80147/3 https://youtu.be/OyFJWRnt_AY Bonus link: https://youtu.be/T78nq62aQgM  ",
+  "wordCount" : "1183",
+  "inLanguage": "en",
+  "datePublished": "2021-07-30T00:00:00Z",
+  "dateModified": "2021-07-30T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/what-on-earth-is-attention/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class=" dark">
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      What on earth is attention
+    </h1>
+    <div class="post-meta">July 30, 2021
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<blockquote>
+<p><strong>Warning</strong>: I encourage you to not read this if you&rsquo;re looking for super formal jargon. I might&rsquo;ve used some loose terms within this post which are just to build an intuition.</p>
+</blockquote>
+<h2 id="intro">Intro<a hidden class="anchor" aria-hidden="true" href="#intro">#</a></h2>
+<p>I like to see the rise of attention to be a next step after moving from linear layers to convolutions for vision tasks.</p>
+<p>Linear layers did not do a great job at capturing spatial (2D) information, this was solved by convolutions. But the problem that remained was that convolutions is that they still are very far from the way we humans perceive images.</p>
+<p>When trying to identify a dog from an image, the human does not look at every part of the image equally. Instead humans tend to focus on certain features like tails, fur, noses, etc.</p>
+<p>On the contrary, convolutions tend to look at every part of an image and give them &ldquo;equal&rdquo; importance. Which is not ideal.</p>
+<h2 id="why-do-we-need-it-">Why do we need it ?<a hidden class="anchor" aria-hidden="true" href="#why-do-we-need-it-">#</a></h2>
+<p>When training a model, we dont necessarily want a model to give equal importance to every part of an image (thats what <code>conv2d</code> does). One way of accomplishing this is through trainable attention mechanisms.</p>
+<p><strong>What is trainable attention ?</strong></p>
+<p>A <em>trainable attention</em> mechanism is trained while the network is trained, and is supposed to help the network to focus on key elements of the image.</p>
+<p>There are primarily 2 types of attention in vision models:</p>
+<ul>
+<li>hard attention</li>
+<li>soft attention</li>
+</ul>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_july_30/hard_vs_soft_attention_samoyed.png" width="40%"/> 
+</figure>
+
+<p>In our case, we&rsquo;ll stick with soft attention.</p>
+<h2 id="how-does-it-work-">How does it work ?<a hidden class="anchor" aria-hidden="true" href="#how-does-it-work-">#</a></h2>
+<p>At the heart of it is the aptly named &ldquo;Attention mechanism&rdquo;. It can be thought of a form of an approximation of a <a href="https://youtu.be/OyFJWRnt_AY?t=707"><code>SELECT</code></a> from a database.</p>
+<p>It mimics the retrieval of a value <code>v</code> given a query <code>q</code> and a key <code>k</code>.</p>
+<p>The attention mechanism does just this, but in a more fuzzy/probabilistic way.</p>
+<p>There are 3 steps involved:</p>
+<ol>
+<li>A query (<code>query</code>) is assigned, which is then compared to the keys (<code>keys</code>)</li>
+<li>The key <code>k_i</code> that matched query (<code>query</code>) is then selected</li>
+<li>An output value <code>v_i</code>  (which is the same as <code>database[k_i]</code>) is returned</li>
+</ol>
+<p>This is how the pseudocode might look like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Attention</span>():
+    <span style="color:#66d9ef">def</span> __init__(self, similarity_fn):
+        self<span style="color:#f92672">.</span>similarity_fn <span style="color:#f92672">=</span> similarity_fn
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, query, keys, values):
+
+        output <span style="color:#f92672">=</span> []
+
+        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(keys)): 
+            output<span style="color:#f92672">.</span>append(self<span style="color:#f92672">.</span>similarity_fn(query, keys[i]) <span style="color:#f92672">*</span> values[i])
+
+        <span style="color:#66d9ef">return</span> output
+
+</code></pre></div><p>Now let&rsquo;s make a super simple attention layer with a binary similarity function:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_similarity_function</span>(query, key): 
+    <span style="color:#66d9ef">if</span> query <span style="color:#f92672">==</span> key: 
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1.</span>
+    <span style="color:#66d9ef">else</span>:
+        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0.</span> 
+
+a <span style="color:#f92672">=</span> Attention(similarity_fn <span style="color:#f92672">=</span> my_similarity_function)
+
+q <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+k <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>]
+v <span style="color:#f92672">=</span> [<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>]
+
+<span style="color:#66d9ef">print</span>(a<span style="color:#f92672">.</span>forward(query <span style="color:#f92672">=</span> q, keys <span style="color:#f92672">=</span> k, values <span style="color:#f92672">=</span> v))
+</code></pre></div><p>this would show the same result:</p>
+<pre><code>[0.0, 3.0, 0.0]
+</code></pre><p>If you paid attention so far (pun intended), then you&rsquo;d realise that this similarity function is not differentiable. Hence we cannot use it to backpropagate and update the parameters.</p>
+<p><strong>So which similarity function should we use to make the process differentiable ?</strong></p>
+<p>There are some functions we can consider for a more &ldquo;continuous&rdquo; measure of similarity:</p>
+<ul>
+<li>The dot product or a scaled dot product</li>
+<li>Additive similarity</li>
+</ul>
+<p>What you saw so far was not a real attention layer, it was just a caveman version of the real thing. It&rsquo;s about time that we move on to learn the real thing now :)</p>
+<h2 id="lets-take-a-closer-look">Let&rsquo;s take a closer look<a hidden class="anchor" aria-hidden="true" href="#lets-take-a-closer-look">#</a></h2>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_july_30/attention_summary.png" width="80%"/> 
+</figure>
+
+<p>Here&rsquo;s a quick breakdown of the diagram shown above:</p>
+<ul>
+<li>
+<p><strong>Similarity function</strong>: Given a query <code>q</code> and a set of keys <code>[k0, k1, k2, k3]</code>, the similarity function calculates the similarity between the query <code>q</code> and each of the keys as <code>[s0, s1, s2, s3]</code>. Ideally, if <code>q</code> is very similar/equal to a key (say <code>k3</code>), then the corresponding similarity value tends to be <code>1.</code>, and if they&rsquo;re not at all similar then the similarity should be close to <code>0.</code>.</p>
+</li>
+<li>
+<p><strong>Softmax</strong>: Intuitively speaking, the softmax function converts the given values into a probability distribution.</p>
+</li>
+<li>
+<p><strong>Multiplying with values</strong>: Here we multiply the outputs from the attention layer with the values and obtain the desired outputs. You can think of this as multiplying the values with a &ldquo;mask&rdquo; so that the model can focus more on certain parts of the values.</p>
+</li>
+</ul>
+<h2 id="how-can-we-use-it-in-vision-models-">How can we use it in vision models ?<a hidden class="anchor" aria-hidden="true" href="#how-can-we-use-it-in-vision-models-">#</a></h2>
+<p>I&rsquo;ve made comments on almost every line on the forward pass to explain whats going on in there, try to find which line corresponds to which part of the diagram in the last section).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch 
+<span style="color:#f92672">import</span> torch.nn <span style="color:#f92672">as</span> nn
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SelfAttention</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#e6db74">&#34;&#34;&#34; Self attention Layer&#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">def</span> __init__(self,in_dim,activation):
+        super(SelfAttention,self)<span style="color:#f92672">.</span>__init__()
+
+        self<span style="color:#f92672">.</span>chanel_in <span style="color:#f92672">=</span> in_dim
+        self<span style="color:#f92672">.</span>query_conv <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(in_channels <span style="color:#f92672">=</span> in_dim , out_channels <span style="color:#f92672">=</span> in_dim<span style="color:#f92672">//</span><span style="color:#ae81ff">8</span> , kernel_size<span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+        self<span style="color:#f92672">.</span>key_conv <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(in_channels <span style="color:#f92672">=</span> in_dim , out_channels <span style="color:#f92672">=</span> in_dim<span style="color:#f92672">//</span><span style="color:#ae81ff">8</span> , kernel_size<span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+        self<span style="color:#f92672">.</span>value_conv <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Conv2d(in_channels <span style="color:#f92672">=</span> in_dim , out_channels <span style="color:#f92672">=</span> in_dim , kernel_size<span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+        self<span style="color:#f92672">.</span>gamma <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Parameter(torch<span style="color:#f92672">.</span>zeros(<span style="color:#ae81ff">1</span>))
+
+        self<span style="color:#f92672">.</span>softmax  <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Softmax(dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e">#</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self,x):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">            inputs :
+</span><span style="color:#e6db74">                x : input feature maps( B X C X H X W)
+</span><span style="color:#e6db74">            returns :
+</span><span style="color:#e6db74">                out : self attention value + input feature 
+</span><span style="color:#e6db74">                attention: B X N X N (N is height*width)
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        m_batchsize,C,height ,width <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>size()
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        generating query
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        proj_query  <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>query_conv(x)
+        proj_query <span style="color:#f92672">=</span> proj_query<span style="color:#f92672">.</span>view(m_batchsize,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,height<span style="color:#f92672">*</span>width)<span style="color:#f92672">.</span>permute(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>) <span style="color:#75715e"># B X C X (H*W)</span>
+
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        generating key
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        proj_key <span style="color:#f92672">=</span>  self<span style="color:#f92672">.</span>key_conv(x)<span style="color:#f92672">.</span>view(m_batchsize,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,height<span style="color:#f92672">*</span>width) <span style="color:#75715e"># B X C X (H*W)</span>
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        getting similarity scores with dot product
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        similarity_scores <span style="color:#f92672">=</span>  torch<span style="color:#f92672">.</span>bmm(proj_query,proj_key) <span style="color:#75715e"># matrix multiplication</span>
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        passing similarity scores through a softmax layer
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        attention <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>softmax(similarity_scores) <span style="color:#75715e"># B X (H*W) X (H*W) </span>
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        generating values
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        proj_value <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>value_conv(x)<span style="color:#f92672">.</span>view(m_batchsize,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,width<span style="color:#f92672">*</span>height) <span style="color:#75715e"># B X C X (H*W)</span>
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        obtain outputs by multiplying values with attention scores
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        out <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>bmm(proj_value,attention<span style="color:#f92672">.</span>permute(<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>))
+
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        reshape to original shape [N, C, H, W]
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        out <span style="color:#f92672">=</span> out<span style="color:#f92672">.</span>view(m_batchsize,C,width,height)
+        
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        multiplying outputs by a learnable parameter gamma and adding the input itself
+</span><span style="color:#e6db74">            - the multiplication most probably is done to scale the outputs 
+</span><span style="color:#e6db74">            - the input itself is added in so that it works sort of like a residual layer
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        out <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>gamma<span style="color:#f92672">*</span>out <span style="color:#f92672">+</span> x
+        
+        <span style="color:#66d9ef">return</span> {
+            <span style="color:#e6db74">&#39;output&#39;</span>: out,
+            <span style="color:#e6db74">&#39;attention&#39;</span>: attention
+        }
+</code></pre></div><p>Let&rsquo;s take a look at the attributes within the class wrapper first:</p>
+<ul>
+<li>
+<p><code>self.chanel_in</code>: refers to the number of channels in the input tensor of shape <code>[N, C, H, W]</code> where <code>C</code> refers to the number of channels.</p>
+</li>
+<li>
+<p><code>self.gamma</code>: it is a learnable parameter which is multiplied to the attention output to perform some sort of a scaling operation.</p>
+</li>
+<li>
+<p><code>self.query_conv</code>: defines the convolution layer which is to be used to obtain the query value from the input tensor <code>x</code>.</p>
+</li>
+<li>
+<p><code>self.key_conv</code>: defines the convolution layer which is to be used to obtain the key value from the input tensor <code>x</code></p>
+</li>
+<li>
+<p><code>self.value_conv</code>: defines the convolution layer which is to be used to obtain the &ldquo;values&rdquo; from the input tensor <code>x</code></p>
+</li>
+</ul>
+<blockquote>
+<p>Note that unlike our dummy example, the query, keys and values here are not pre defined. The model instead &ldquo;learns&rdquo; to obtain them from the input <code>x</code> using <code>self.query_conv</code>, <code>self.key_conv</code> and <code>self.value_conv</code></p>
+</blockquote>
+<h2 id="so-are-we-breaking-up-with-conv2d">So are we breaking up with <code>conv2d</code>?<a hidden class="anchor" aria-hidden="true" href="#so-are-we-breaking-up-with-conv2d">#</a></h2>
+<p>When convolutional layers started getting used for vision, did we completely ditch linear layers ? No. Same goes here. <code>conv2d</code> is here to stay, but it might not be as dominant in SOTA vision models as they used to be.</p>
+<h2 id="resources">Resources<a hidden class="anchor" aria-hidden="true" href="#resources">#</a></h2>
+<ul>
+<li><a href="https://arxiv.org/pdf/1804.02391.pdf">https://arxiv.org/pdf/1804.02391.pdf</a></li>
+<li><a href="https://github.com/SaoYan/LearnToPayAttention">https://github.com/SaoYan/LearnToPayAttention</a></li>
+<li><a href="https://deepai.org/machine-learning-glossary-and-terms/softmax-layer">https://deepai.org/machine-learning-glossary-and-terms/softmax-layer</a></li>
+<li><a href="https://discuss.pytorch.org/t/attention-in-image-classification/80147/3">https://discuss.pytorch.org/t/attention-in-image-classification/80147/3</a></li>
+<li><a href="https://youtu.be/OyFJWRnt_AY">https://youtu.be/OyFJWRnt_AY</a></li>
+<li>Bonus link: <a href="https://youtu.be/T78nq62aQgM">https://youtu.be/T78nq62aQgM</a></li>
+</ul>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2021 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
