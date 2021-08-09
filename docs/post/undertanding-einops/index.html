@@ -8,7 +8,7 @@
 <title>My own little guide to einops | @mayukhdeb</title>
 
 <meta name="keywords" content="deep-learning" />
-<meta name="description" content="Why do feel like I&rsquo;ll have to come back to this post many times">
+<meta name="description" content="einpops">
 <meta name="author" content="">
 <link rel="canonical" href="https://mayukhdeb.github.io/blog/post/undertanding-einops/" />
 <link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
@@ -25,14 +25,14 @@
 
 
 <meta property="og:title" content="My own little guide to einops" />
-<meta property="og:description" content="Why do feel like I&rsquo;ll have to come back to this post many times" />
+<meta property="og:description" content="einpops" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/undertanding-einops/" />
-<meta property="article:published_time" content="2021-07-30T00:00:00+00:00" />
-<meta property="article:modified_time" content="2021-07-30T00:00:00+00:00" />
+<meta property="article:published_time" content="2020-08-10T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-08-10T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="My own little guide to einops"/>
-<meta name="twitter:description" content="Why do feel like I&rsquo;ll have to come back to this post many times"/>
+<meta name="twitter:description" content="einpops"/>
 
 <script type="application/ld+json">
 {
@@ -44,11 +44,11 @@
   "keywords": [
     "deep-learning"
   ],
-  "articleBody": "Ein-what ? In a nutshell einops is a library that will help us get rid of those weird tensor operations which didnt make sense until we printed the shapes after each line, or added multiple comments to describe whats going on.\nInstead, einops will help us to make our tensor operations much more intuitive and readable.\nx = x.reshape(x.size(0), -1) ## [B,C,H,W] becomes [B, C*H*W] becomes\nrearrange(x, 'b c h w - b (c h w)') Which is pretty neat if you ask me :)\nSome useful ops Repeat from einops import repeat output_tensor = repeat(input_tensor, 'h w - h w c', c=3) You can set c to have any value as per your wish.\nRearranging axes from einops import rearrange x = rearrange(x, 'c h w - h w c') In pytorch from einops.layers.torch import Rearrange model = Sequential( Conv2d(3, 6, kernel_size=5), MaxPool2d(kernel_size=2), Conv2d(6, 16, kernel_size=5), MaxPool2d(kernel_size=2), # flattening Rearrange('b c h w - b (c h w)'), ## this is where the magic is Linear(16*5*5, 120), ReLU(), Linear(120, 10), ) Going wild with reshapes The best part about einops is how intuitive it is to reshape tensors without worrying about getting the dims wrong:\nThis is how you can concat all images in a batch along the height axis:\nimport torch from einops.layers.torch import Rearrange x = torch.randn(1, 3, 100, 100) x = Rearrange(ims, 'b h w c - (b h) w c').numpy() plt.imshow(x) Now in order to do the same thing along width, all that we have to do is:\nx = Rearrange(ims, 'b h w c - h (b w) c').numpy() I’ll add more stuff to this post after further explorations :)\n",
-  "wordCount" : "276",
+  "articleBody": "Ein-what ? In a nutshell einops is a library that will help us get rid of those weird tensor operations which didnt make sense until we printed the shapes after each line, or added multiple comments to describe whats going on.\nInstead, einops will help us to make our tensor operations much more intuitive and readable.\nx = x.reshape(x.size(0), -1) ## [B,C,H,W] becomes [B, C*H*W] becomes\nrearrange(x, 'b c h w - b (c h w)') Which is pretty neat if you ask me :)\nSome useful ops Repeat Repeats a tensor over a give (or new) dim\nfrom einops import repeat output_tensor = repeat(input_tensor, 'h w - h w c', c=3) You can set c to have any value as per your wish.\nRearranging axes Goodbye np.moveaxis or x.permute/x.transpose\nfrom einops import rearrange x = rearrange(x, 'c h w - h w c') In pytorch from einops.layers.torch import Rearrange model = Sequential( Conv2d(3, 6, kernel_size=5), MaxPool2d(kernel_size=2), Conv2d(6, 16, kernel_size=5), MaxPool2d(kernel_size=2), # flattening Rearrange('b c h w - b (c h w)'), ## this is where the magic is Linear(16*5*5, 120), ReLU(), Linear(120, 10), ) Going wild with reshapes The best part about einops is how intuitive it is to reshape tensors without worrying about getting the dims wrong:\nThis is how you can concat all images in a batch along the height axis:\nimport torch from einops.layers.torch import Rearrange x = torch.randn(5, 3, 100, 100) layer = Rearrange(x, 'b h w c - (b h) w c') x = layer(x).numpy() plt.imshow(x) Now in order to do the same thing along width, all that we have to do is:\nlayer = Rearrange(x, 'b h w c - (b h) w c') I’ll add more stuff to this post after further explorations :)\n",
+  "wordCount" : "292",
   "inLanguage": "en",
-  "datePublished": "2021-07-30T00:00:00Z",
-  "dateModified": "2021-07-30T00:00:00Z",
+  "datePublished": "2020-08-10T00:00:00Z",
+  "dateModified": "2020-08-10T00:00:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://mayukhdeb.github.io/blog/post/undertanding-einops/"
@@ -125,7 +125,7 @@
     <h1 class="post-title">
       My own little guide to einops
     </h1>
-    <div class="post-meta">July 30, 2021
+    <div class="post-meta">August 10, 2020
 
     </div>
   </header> 
@@ -140,11 +140,13 @@
 </code></pre></div><p>Which is pretty neat if you ask me :)</p>
 <h1 id="some-useful-ops">Some useful ops<a hidden class="anchor" aria-hidden="true" href="#some-useful-ops">#</a></h1>
 <h3 id="repeat">Repeat<a hidden class="anchor" aria-hidden="true" href="#repeat">#</a></h3>
+<p>Repeats a tensor over a give (or new) dim</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> einops <span style="color:#f92672">import</span> repeat
 
 output_tensor <span style="color:#f92672">=</span> repeat(input_tensor, <span style="color:#e6db74">&#39;h w -&gt; h w c&#39;</span>, c<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)
 </code></pre></div><p>You can set <code>c</code> to have any value as per your wish.</p>
 <h3 id="rearranging-axes">Rearranging axes<a hidden class="anchor" aria-hidden="true" href="#rearranging-axes">#</a></h3>
+<p>Goodbye <code>np.moveaxis</code> or <code>x.permute/x.transpose</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> einops <span style="color:#f92672">import</span> rearrange
 
 x <span style="color:#f92672">=</span> rearrange(x, <span style="color:#e6db74">&#39;c h w -&gt; h w c&#39;</span>)
@@ -168,11 +170,12 @@ model <span style="color:#f92672">=</span> Sequential(
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
 <span style="color:#f92672">from</span> einops.layers.torch <span style="color:#f92672">import</span> Rearrange
 
-x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>)
-x <span style="color:#f92672">=</span> Rearrange(ims, <span style="color:#e6db74">&#39;b h w c -&gt; (b h) w c&#39;</span>)<span style="color:#f92672">.</span>numpy()
+x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>randn(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>)
+layer <span style="color:#f92672">=</span> Rearrange(x, <span style="color:#e6db74">&#39;b h w c -&gt; (b h) w c&#39;</span>)
+x <span style="color:#f92672">=</span> layer(x)<span style="color:#f92672">.</span>numpy()
 plt<span style="color:#f92672">.</span>imshow(x)
 </code></pre></div><p>Now in order to do the same thing along width, all that we have to do is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x <span style="color:#f92672">=</span> Rearrange(ims, <span style="color:#e6db74">&#39;b h w c -&gt; h (b w) c&#39;</span>)<span style="color:#f92672">.</span>numpy()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">layer <span style="color:#f92672">=</span> Rearrange(x, <span style="color:#e6db74">&#39;b h w c -&gt; (b h) w c&#39;</span>)
 </code></pre></div><p>I&rsquo;ll add more stuff to this post after further explorations :)</p>
 
 </div>
