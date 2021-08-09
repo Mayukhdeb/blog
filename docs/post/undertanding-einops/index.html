@@ -28,8 +28,8 @@
 <meta property="og:description" content="einpops" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://mayukhdeb.github.io/blog/post/undertanding-einops/" />
-<meta property="article:published_time" content="2020-08-10T00:00:00+00:00" />
-<meta property="article:modified_time" content="2020-08-10T00:00:00+00:00" />
+<meta property="article:published_time" content="2021-08-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-09T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="My own little guide to einops"/>
 <meta name="twitter:description" content="einpops"/>
@@ -47,8 +47,8 @@
   "articleBody": "Ein-what ? In a nutshell einops is a library that will help us get rid of those weird tensor operations which didnt make sense until we printed the shapes after each line, or added multiple comments to describe whats going on.\nInstead, einops will help us to make our tensor operations much more intuitive and readable.\nx = x.reshape(x.size(0), -1) ## [B,C,H,W] becomes [B, C*H*W] becomes\nrearrange(x, 'b c h w - b (c h w)') Which is pretty neat if you ask me :)\nSome useful ops Repeat Repeats a tensor over a give (or new) dim\nfrom einops import repeat output_tensor = repeat(input_tensor, 'h w - h w c', c=3) You can set c to have any value as per your wish.\nRearranging axes Goodbye np.moveaxis or x.permute/x.transpose\nfrom einops import rearrange x = rearrange(x, 'c h w - h w c') In pytorch from einops.layers.torch import Rearrange model = Sequential( Conv2d(3, 6, kernel_size=5), MaxPool2d(kernel_size=2), Conv2d(6, 16, kernel_size=5), MaxPool2d(kernel_size=2), # flattening Rearrange('b c h w - b (c h w)'), ## this is where the magic is Linear(16*5*5, 120), ReLU(), Linear(120, 10), ) Going wild with reshapes The best part about einops is how intuitive it is to reshape tensors without worrying about getting the dims wrong:\nThis is how you can concat all images in a batch along the height axis:\nimport torch from einops.layers.torch import Rearrange x = torch.randn(5, 3, 100, 100) layer = Rearrange(x, 'b h w c - (b h) w c') x = layer(x).numpy() plt.imshow(x) Now in order to do the same thing along width, all that we have to do is:\nlayer = Rearrange(x, 'b h w c - (b h) w c') I’ll add more stuff to this post after further explorations :)\n",
   "wordCount" : "292",
   "inLanguage": "en",
-  "datePublished": "2020-08-10T00:00:00Z",
-  "dateModified": "2020-08-10T00:00:00Z",
+  "datePublished": "2021-08-09T00:00:00Z",
+  "dateModified": "2021-08-09T00:00:00Z",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://mayukhdeb.github.io/blog/post/undertanding-einops/"
@@ -125,7 +125,7 @@
     <h1 class="post-title">
       My own little guide to einops
     </h1>
-    <div class="post-meta">August 10, 2020
+    <div class="post-meta">August 9, 2021
 
     </div>
   </header> 
