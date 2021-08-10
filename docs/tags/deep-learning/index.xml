@@ -6,10 +6,28 @@
     <description>Recent content in Deep learning on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An image is worth 16x16 words is worth a lot more words</title>
+      <link>https://mayukhdeb.github.io/blog/post/an-image-is-worth-16-x-16-explained/</link>
+      <pubDate>Tue, 10 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/an-image-is-worth-16-x-16-explained/</guid>
+      <description>Figuring out how an image might be worth 16x16 words</description>
+    </item>
+    
+    <item>
+      <title>Transformer toolbox</title>
+      <link>https://mayukhdeb.github.io/blog/post/transformers-toolbox/</link>
+      <pubDate>Tue, 10 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/transformers-toolbox/</guid>
+      <description>stuff you need to understand before understanding how transformers work</description>
+    </item>
     
     <item>
       <title>My own little guide to einops</title>
