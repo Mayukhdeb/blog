@@ -12,9 +12,9 @@ publishDir: docs
 params:
     homeInfoParams:
         Title: Hi, I'm Mayukh
-        Content: I spend most of my time messing with deep-learning models and trying to reverse engineer them (which eventually led to [torch-dreams](https://github.com/Mayukhdeb/torch-dreams), my favourite personal project). <br>  Apart from that I also work with [INCF](https://incf.org/)/[OpenWorm](http://openworm.org/) to build a [toolkit](https://github.com/DevoLearn/devolearn) to help accelerate research in data driven developmental biology. Welcome to this corner of the internet.
+        Content: This is where I keep my notes and some other random stuff. Welcome to this corner of the internet.
     params:
-    defaultTheme: dark
+    defaultTheme: light
 taxonomies:
   tag: tags
 menu:
