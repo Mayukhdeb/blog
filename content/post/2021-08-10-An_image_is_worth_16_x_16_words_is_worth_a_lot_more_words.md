@@ -11,11 +11,11 @@ summary = "Figuring out how an image might be worth 16x16 words"
 
 +++
 
-## What does the paper try to prove ? 
+## What does the paper try to prove ?
 
 The use of transformers for vision has remained quite limited so far.  We did see some weird mixtures of convolutional layers and attention, but it turns out that a pure transformer can also perform very well on image classification tasks. 
 
-## The problem with conv layers 
+## The problem with conv layers
 
 Conv layers are *really* good at detecting textures in images, but they're not at all good at detecting large visual features (this is because of the fact that conv filters are just these tiny sliding windows).
 
@@ -34,7 +34,7 @@ This is how they did it:
 
 And now we have our sequence of "tokens" which we can feed into the model :)
 
-**Hold up, what are positional embeddings** ? 
+**Hold up, what are positional embeddings** ?
 
 In simple words, they're "vectors" which tells the transformer where every patch was in an image. These positional embeddings are learnable.
 
@@ -53,7 +53,7 @@ Now that we have our "tokens", the next step is to feed them into the transforme
 {{< figure src="https://github.com/Mayukhdeb/blog/blob/master/content/post/images/2021_aug_10/transformer_block.png?raw=true" width="20%">}}
 
 
-In order to better understand how each of those small boxes work, you should read [this other post](link) I wrote.
+In order to better understand how each of those small boxes work, you should read [this other post](https://mayukhdeb.github.io/blog/post/transformers-toolbox/) I wrote.
 
 At this point I'll assume that you already have a basic understanding of stuff like Layer normalization, multi head attention, residual skip connections.
 

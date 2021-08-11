@@ -52,10 +52,10 @@ This is how its done:
 3. Produce lower dimensional linear embeddings from flattened patches. 
 4. "Add in/concat" positional embeddings.
 
-[This section](link) in another post elaborates on how tokenization is acheieved using image patches.
+[This section](https://mayukhdeb.github.io/blog/post/an-image-is-worth-16-x-16-explained/#how-do-we-tokenize-images) in another post elaborates on how tokenization is acheieved using image patches.
 
 
-## Positional embeddings 
+## Positional embeddings
 
 When preparing a token, it is always good to also include information on "where it is" and not just "what it is". This is what a positional embedding is. Generally its concatenated/added into the image/text embedding before feeding it into the transformer encdoer.
 
