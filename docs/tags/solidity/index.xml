@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>solidity on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/solidity/</link>
+    <description>Recent content in solidity on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 21 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/solidity/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Notes on solidity</title>
+      <link>https://mayukhdeb.github.io/blog/post/solidity-notes/</link>
+      <pubDate>Sat, 21 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/solidity-notes/</guid>
+      <description>Trying to learn a bit of solidity because why not</description>
+    </item>
+    
+  </channel>
+</rss>

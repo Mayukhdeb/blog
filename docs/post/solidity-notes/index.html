@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Notes on solidity | @mayukhdeb</title>
+
+<meta name="keywords" content="solidity" />
+<meta name="description" content="Notes on solidity">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/solidity-notes/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Notes on solidity" />
+<meta property="og:description" content="Notes on solidity" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/solidity-notes/" />
+<meta property="article:published_time" content="2021-08-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-08-21T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Notes on solidity"/>
+<meta name="twitter:description" content="Notes on solidity"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Notes on solidity",
+  "name": "Notes on solidity",
+  "description": "Trying to learn a bit of solidity because why not",
+  "keywords": [
+    "solidity"
+  ],
+  "articleBody": "Intro solidity is pretty neat, it lets you run your code in the ethereum blockchain.\nSome people really like to call the units as “smart contracts”. For someone whos coming from python, you can simply think of them as a class wrapper which handles transactions etc, much like a python class.\nCaveman example Every file of solidity code (*.sol) starts with something like:\npragma solidity ^0.8; It specifies the minimum compiler version to be used, in this case it’s 0.8\nEvery “smart contract” that you write will start with the contract keyword:\ncontract RubberDucky { // your stuff here } Here we named our contract as RubberDucky.\nNow let’s try to fill up our RubberDucky with some real solidity stuff:\npragma solidity ^0.8; // a smart contract is just code that gets executed on the blockchain  contract RubberDucky{ // solidity is a statically typed language, so we have to declare datatypes  // string value is a variable that belongs to the entire smart contract  // much like self.value in python, but here it gets stored on the blockchain  string value; // a constructor is basically like __init__ in python  constructor() public { value = \"myValue\"; } // now lets create a way to read this value  // \"public\" sets the visibility of the function to public  function get() public view returns(string memory) { return value; } // public means that anyone can set this value on a blockchain  function set(string memory _value) public { value = _value; } } Instead of explaining this, I’ll first try to write the python equivalent of this code:\nclass RubberDucky: def __init__(self): self.value = 'myValue' def get(self): return self.value def set(self, _value: str): self.value = _value Compiling/running You can run/play around solidity on the browser on the remix IDE, zero setup required.\nAnother example Taken and modified from this source\npragma solidity ^0.8; contract MyFirstContract { // setting up 2 private attributes name and age string private name; uint private age; // function to set a new value for name function setName(string memory newName) public { name = newName; } // returns the current value of name, you can think of name as self.name function getName() public view returns (string memory) { return name; } // function to set a new value for age function setAge(uint newAge) public { age = newAge; } // returns the current value of name, you can think of name as self.age function getAge() public view returns (uint) { return age; } } This is equivalent to:\nclass MyFirstContract: def __init__(self): \"\"\" Except for the fact that there's no real \"private\" thingy in python this is equivalent to the solidity code shown above \"\"\" self.name = '' self.age = 0 def setName(self, newName:str): self.name = newName def getName(self): return self.name def setAge(self, newAge:int): self.age = newAge def getAge(self): return self.age ",
+  "wordCount" : "471",
+  "inLanguage": "en",
+  "datePublished": "2021-08-21T00:00:00Z",
+  "dateModified": "2021-08-21T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/solidity-notes/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Notes on solidity
+    </h1>
+    <div class="post-meta">August 21, 2021
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h2 id="intro">Intro<a hidden class="anchor" aria-hidden="true" href="#intro">#</a></h2>
+<p><code>solidity</code> is pretty neat, it lets you run your code in the ethereum blockchain.</p>
+<p>Some people really like to call the units as &ldquo;smart contracts&rdquo;. For someone whos coming from python, you can simply think of them as a class wrapper which handles transactions etc, much like a python <code>class</code>.</p>
+<h2 id="caveman-example">Caveman example<a hidden class="anchor" aria-hidden="true" href="#caveman-example">#</a></h2>
+<p>Every file of solidity code (<code>*.sol</code>) starts with something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-solidity" data-lang="solidity"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">8</span>;
+</code></pre></div><p>It specifies the minimum compiler version to be used, in this case it&rsquo;s <code>0.8</code></p>
+<p>Every &ldquo;smart contract&rdquo; that you write will start with the <code>contract</code> keyword:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-solidity" data-lang="solidity"><span style="color:#66d9ef">contract</span> RubberDucky {
+    <span style="color:#75715e">// your stuff here
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Here we named our contract as <code>RubberDucky</code>.</p>
+<p>Now let&rsquo;s try to fill up our <code>RubberDucky</code> with some real solidity stuff:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-solidity" data-lang="solidity"><span style="color:#66d9ef">pragma solidity</span> <span style="color:#f92672">^</span><span style="color:#ae81ff">0</span>.<span style="color:#ae81ff">8</span>;
+
+<span style="color:#75715e">// a smart contract is just code that gets executed on the blockchain
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">contract</span> RubberDucky{
+    
+    <span style="color:#75715e">// solidity is a statically typed language, so we have to declare datatypes
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// string value is a variable that belongs to the entire smart contract
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// much like self.value in python, but here it gets stored on the blockchain 
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">string</span> value;
+    
+    <span style="color:#75715e">// a constructor is basically like __init__ in python
+</span><span style="color:#75715e"></span>    constructor() <span style="color:#66d9ef">public</span> {
+        value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;myValue&#34;</span>;
+    }
+
+    <span style="color:#75715e">// now lets create a way to read this value
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// &#34;public&#34; sets the visibility of the function to public
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> get() <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">view</span> <span style="color:#66d9ef">returns</span>(<span style="color:#66d9ef">string</span> <span style="color:#66d9ef">memory</span>) {
+        <span style="color:#66d9ef">return</span> value;
+    }
+    
+    <span style="color:#75715e">// public means that anyone can set this value on a blockchain
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">function</span> set(<span style="color:#66d9ef">string</span> <span style="color:#66d9ef">memory</span> _value) <span style="color:#66d9ef">public</span> {
+        value <span style="color:#f92672">=</span> _value;
+    }
+    
+}
+</code></pre></div><p>Instead of explaining this, I&rsquo;ll first try to write the python equivalent of this code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RubberDucky</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;myValue&#39;</span>
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>value
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set</span>(self, _value: str):
+        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> _value
+</code></pre></div><h2 id="compilingrunning">Compiling/running<a hidden class="anchor" aria-hidden="true" href="#compilingrunning">#</a></h2>
+<p>You can run/play around solidity on the browser on  the <a href="https://remix.ethereum.org/">remix IDE</a>, zero setup required.</p>
+<h2 id="another-example">Another example<a hidden class="anchor" aria-hidden="true" href="#another-example">#</a></h2>
+<p>Taken and modified from <a href="https://github.com/willitscale/learning-solidity/blob/master/tutorial-01/myfirstcontract.sol">this source</a></p>
+<pre><code>pragma solidity ^0.8;
+
+contract MyFirstContract {
+    
+    // setting up 2 private attributes name and age
+    string private name;
+    uint private age;
+    
+    // function to set a new value for name
+    function setName(string memory newName) public {
+        name = newName;
+    }
+    
+    // returns the current value of name, you can think of name as self.name
+    function getName() public view returns (string memory) {
+        return name;
+    }
+    
+    // function to set a new value for age
+    function setAge(uint newAge) public {
+        age = newAge;
+    }
+    
+    // returns the current value of name, you can think of name as self.age
+    function getAge() public view returns (uint) {
+        return age;
+    }
+}
+</code></pre><p>This is equivalent to:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyFirstContract</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">        Except for the fact that there&#39;s no real &#34;private&#34; thingy in python
+</span><span style="color:#e6db74">        this is equivalent to the solidity code shown above
+</span><span style="color:#e6db74">        &#34;&#34;&#34;</span>
+        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span>
+        self<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setName</span>(self, newName:str):
+        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span>  newName
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getName</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>name
+    
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">setAge</span>(self, newAge:int):
+        self<span style="color:#f92672">.</span>age <span style="color:#f92672">=</span>  newAge
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getAge</span>(self):
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>age
+</code></pre></div>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/solidity/">solidity</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2021 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
