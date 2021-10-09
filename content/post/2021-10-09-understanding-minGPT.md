@@ -141,6 +141,81 @@ That's all for the dataset! before we move on to the model, here's another inter
 
 # 2. The model
 
+The next step would now be to look at the model's basic architecture, which depends mainly on the following factors: 
+
+1. Vocabulary size of the dataset 
+2. Block size of the dataset.
+3. Number of layers 
+4. Number of attention heads
+5. Size of the embedding vector
+
+The first 2 factors are already known from the training dataset. So let us look at the last 3 factors:
+
+* Number of layers (`num_layers`): The number of standard repeated layers to be used in the model. Higher -> deeper model. 
+* Number of attention heads (`n_head`): Check out [this section](https://mayukhdeb.github.io/blog/post/transformers-toolbox/#multi-head-attention) I wrote in another blog post
+* Size of the embedding vector (`n_embd`): It can be thought of as a lookup table which takes in a bunch of integers as input and returns corresponding "vectors". 
+
+**Wait, what are embeddings ?**
+
+They're "learnable look-up tables", which can be constructed with `torch.nn.embedding`: 
+
+```python
+import torch.nn as nn
+
+embedding = nn.Embedding(3, 4)
+print('embedding values: \n', embedding.weight.data)
+
+print(f'embedding([0]): ', embedding(torch.tensor([0])).detach())
+print(f'embedding([1,2]): ', embedding(torch.tensor([1,2])).detach())
+```
+
+would print something like: 
+```python
+embedding values: 
+ tensor([[ 1.5205, -2.2728, -0.0874,  0.4219],
+        [-1.3103,  0.3491, -0.0410,  1.1601],
+        [ 0.7829,  0.2559, -1.7153,  0.1395]])
+embedding([0]):  tensor([[ 1.5205, -2.2728, -0.0874,  0.4219]])
+embedding([1,2]):  tensor([[-1.3103,  0.3491, -0.0410,  1.1601], [ 0.7829,  0.2559, -1.7153,  0.1395]])
+```
+
+**Also, what is layer normalization ?**
+
+Would recommend you to check out [this section](https://mayukhdeb.github.io/blog/post/transformers-toolbox/#layer-normalization) I wrote in another blog post.
+
+## Architecture 
+
+### Self attention:
+
+I've already explained how self attention works in [another blog post](https://mayukhdeb.github.io/blog/post/what-on-earth-is-attention/), highly recommended that you check it out. 
+
+The difference here (`CasualSelfAttention`) is that it is [has multiple heads](https://mayukhdeb.github.io/blog/post/transformers-toolbox/#multi-head-attention), with an extra linear layer in the end. 
+
+
+### The transformer block: 
+
+```python
+class Block(nn.Module):
+    """ an unassuming Transformer block """
+
+    def __init__(self, config):
+        super().__init__()
+        self.ln1 = nn.LayerNorm(config.n_embd)
+        self.ln2 = nn.LayerNorm(config.n_embd)
+        self.attn = CausalSelfAttention(config)
+        self.mlp = nn.Sequential(
+            nn.Linear(config.n_embd, 4 * config.n_embd),
+            nn.GELU(),
+            nn.Linear(4 * config.n_embd, config.n_embd),
+            nn.Dropout(config.resid_pdrop),
+        )
+
+    def forward(self, x):
+        x = x + self.attn(self.ln1(x))
+        x = x + self.mlp(self.ln2(x))
+        return x
+```
+
 # 3. Training
 
 # 4. Inference
