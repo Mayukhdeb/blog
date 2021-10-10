@@ -183,7 +183,7 @@ embedding([1,2]):  tensor([[-1.3103,  0.3491, -0.0410,  1.1601], [ 0.7829,  0.25
 
 Would recommend you to check out [this section](https://mayukhdeb.github.io/blog/post/transformers-toolbox/#layer-normalization) I wrote in another blog post.
 
-## Architecture 
+## Components 
 
 ### Self attention:
 
@@ -215,6 +215,26 @@ class Block(nn.Module):
         x = x + self.mlp(self.ln2(x))
         return x
 ```
+
+Let's first look at the GeLU actvation function.
+
+```python
+import torch
+import numpy as np
+
+def gelu(x):
+    cdf = 0.5 * (1.0 + torch.erf(x / np.sqrt(2.0)))
+    return x * cdf
+```
+
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_oct_9/gelu.png" width="50%">}}
+
+It should be visible from the image above how GeLU is different from ReLU. But the real interesting difference lie in their derivatives 
+
+{{< figure src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_oct_9/gelu_derivative.png" width="80%">}}
+
+The image shown above is taken from [this blog post](https://alaaalatif.github.io/2019-04-11-gelu/) which is a great resource if you want to know more about GeLU.
+
 
 # 3. Training
 
