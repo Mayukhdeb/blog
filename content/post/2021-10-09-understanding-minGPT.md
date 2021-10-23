@@ -13,7 +13,7 @@ summary = "Trying to understand how Andrej Karpathy's minGPT works, step by step
 
 > *First off, this is by no means an official guide/tutorial. If you're stalking me, then this post wont be super useful. If you're here by accident, then all that I can say is that life works in mysterious ways.*
 
-I'll try my best to explain to myself and to you, the reader how [Andrej Karpathy](https://github.com/karpathy)'s [minGPT](https://github.com/karpathy/minGPT) works. All the source code you see here are taken (and maybe slightly modified) from the [minGPT repo](https://github.com/karpathy/minGPT).
+I'll try my best to explain to myself and to you, the reader how [Andrej Karpathy](https://github.com/karpathy)'s [minGPT](https://github.com/karpathy/minGPT) works. All the source code you see here is taken (and maybe slightly modified) from the [minGPT repo](https://github.com/karpathy/minGPT).
 
 # 1. Building a dataset 
 
@@ -238,4 +238,72 @@ The image shown above is taken from [this blog post](https://alaaalatif.github.i
 
 # 3. Training
 
+## Abstraction
+
+First of, let us see what the model actually does from an input-output perspective: 
+
+Given a sequence of characters, we first convert them to an embedding (a bunch of integers). For our example, we are assuming that the block size is 4. hence the length of the input along dim 0 is 4.
+
+```python
+## ['p', 'y', 't', 'h', 'o']
+x = [2, 6, 7, 8, 4]
+```
+
+Given the input sequence as shown above, the model has to predict the next "step" of the sequence. Something like: 
+
+```python
+y = model(x)
+y ## ['y', 't', 'h', 'o', 'n']
+>>> [6, 7, 8, 4, 3]
+```
+
+In reality, the output is of shape: `[Block size, Vocabulary size]`. So if the vocab size was 9, then the ideal output `[6, 7, 8, 4, 3]` is actually:
+
+```python
+## shape: (4, 9) i.e (Block size, Vocabulary size)
+[
+    [0, 0, 0, 0, 0, 0, 1, 0, 0], # 6
+    [0, 0, 0, 0, 0, 0, 0, 1, 0], # 7
+    [0, 0, 0, 0, 0, 0, 0, 0, 1], # 8
+    [0, 0, 0, 0, 1, 0, 0, 0, 0]  # 4
+    [0, 0, 0, 1, 0, 0, 0, 0, 0]  # 3
+]
+```
+
+Then if we run argmax over this output, we get `[6, 7, 8, 4, 3]`.
+
+## Loss
+
+The nature of the outputs of the model points to the fact that we're "classifying" the next sequence of words from an input sequence. 
+
+For classification problems, we use the cross entropy loss. [This blog post](https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy) is a great resource in case you're not familiar with it. 
+
+The special thing to notice here is that this is not your regular classification problem. Instead it is actually `n`
+ classfication problems stacked up (where `n` = block size). 
+
+ Hence the loss function looks like: 
+
+```python
+import torch.nn.functional as F
+
+'''
+block_size: 10
+vocab_size: 33
+'''
+x = torch.tensor([1,2,3,4,5,6,7,8,9,0]).unsqueeze(0)
+targets = torch.tensor([2,3,4,5,6,7,8,9,0,22])
+
+'''
+forward pass, you can ignore the ", _" for now
+'''
+logits, _ = model(x) # logits.shape: torch.Size([1, 10, 34])
+
+'''
+reshaping logits from (batch_size, vocab_size, block_size) to (batch_size*vocab_size, block_size)
+and then calculating the cross entropy loss w.r.t targets
+'''
+loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1))  
+print(loss)
+# >>> tensor(3.4539, grad_fn=<NllLossBackward>)
+```
 # 4. Inference
