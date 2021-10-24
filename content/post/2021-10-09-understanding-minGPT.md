@@ -307,3 +307,113 @@ print(loss)
 # >>> tensor(3.4539, grad_fn=<NllLossBackward>)
 ```
 # 4. Inference
+
+At the heart of this section is the `sample()` function, let's  see what it does line by line:
+
+```python
+def top_k_logits(logits, k):
+    v, ix = torch.topk(logits, k)
+    out = logits.clone()
+    out[out < v[:, [-1]]] = -float('Inf')
+    return out
+
+@torch.no_grad()
+def sample(model, x, steps, temperature=1.0, top_k=None):
+    """
+    take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in
+    the sequence, feeding the predictions back into the model each time. Clearly the sampling
+    has quadratic complexity unlike an RNN that is only linear, and has a finite context window
+    of block_size, unlike an RNN that has an infinite context window.
+    """
+    block_size = model.get_block_size()
+    model.eval()
+    
+    print(f"starting sample with \nblock size: {block_size} \nsteps: {steps} \nx of shape: {x.shape}")
+    for k in range(steps):
+        
+        '''
+        if the context i.e x is too long, then we crop it to have length block_size
+        '''
+        x_cropped = x if x.size(1) <= block_size else x[:, -block_size:]
+
+        '''
+        run a forward pass through the model
+        logits.shape is expected to be: (batch_size, context_length, vocab_size)
+        '''
+        logits, _ = model(x_cropped)
+        
+        '''
+        pick out the last chaaracter i.e the predicted value
+        '''
+        logits = logits[:, -1, :] / temperature
+        
+        # optionally crop probabilities to only the top k options
+        if top_k is not None:
+            logits = top_k_logits(logits, top_k)
+            
+        '''
+        apply softmax over the vocab dim (last dim) to convert it to a probability map
+        and pick the character with the highest probability value
+        '''    
+        probs = F.softmax(logits, dim=-1)
+        _, ix = torch.topk(probs, k=1, dim=-1)
+        
+        '''
+        concatenate predicted character to the input over the context dim
+        '''
+        x = torch.cat((x, ix), dim=1)
+
+    return x
+```
+
+Let's try to understand this in `steps` (pun intended):
+
+We'll run the `sample()` function multiple times, each with one step as shown below: 
+
+```python
+steps_to_take = 21
+
+context = "Monkeys are divided"
+x = torch.tensor([train_dataset.stoi[s] for s in context], dtype=torch.long)[None,...].to(trainer.device)
+
+for step_number in range(steps_to_take):
+    y = sample(model, x, steps = 1, temperature=1.0, top_k=10)[0]
+    completion = ''.join([train_dataset.itos[int(i)] for i in y])
+    print(f'step number: {step_number +1} input: {completion[-block_size -1:-1]}, pred: {completion[-block_size:]}')
+    
+    x = torch.tensor([train_dataset.stoi[s] for s in completion], dtype=torch.long)[None,...].to(trainer.device)
+
+print(f'Prompt: {context}')
+print(f'Final result: {completion}')
+```
+
+And the output is as follows: 
+
+
+```
+step number: 1 input: re divided, pred: e divided 
+step number: 2 input: e divided , pred:  divided i
+step number: 3 input:  divided i, pred: divided in
+step number: 4 input: divided in, pred: ivided int
+step number: 5 input: ivided int, pred: vided into
+step number: 6 input: vided into, pred: ided into 
+step number: 7 input: ided into , pred: ded into t
+step number: 8 input: ded into t, pred: ed into tw
+step number: 9 input: ed into tw, pred: d into two
+step number: 10 input: d into two, pred:  into two 
+step number: 11 input:  into two , pred: into two s
+step number: 12 input: into two s, pred: nto two su
+step number: 13 input: nto two su, pred: to two sub
+step number: 14 input: to two sub, pred: o two subf
+step number: 15 input: o two subf, pred:  two subfa
+step number: 16 input:  two subfa, pred: two subfam
+step number: 17 input: two subfam, pred: wo subfami
+step number: 18 input: wo subfami, pred: o subfamil
+step number: 19 input: o subfamil, pred:  subfamili
+step number: 20 input:  subfamili, pred: subfamilie
+step number: 21 input: subfamilie, pred: ubfamilies
+Prompt: Monkeys are divided
+Final result: Monkeys are divided into two subfamilies
+```
+
+Generally we run the inference in the same way as shown above, but with not so many print statements, instead we can just change the `steps` argument in `sample()`. Which does the same exact thing.
