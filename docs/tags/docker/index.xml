@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>docker on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/docker/</link>
+    <description>Recent content in docker on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 11 Sep 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker Handbook</title>
+      <link>https://mayukhdeb.github.io/blog/post/docker-handbook/</link>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/docker-handbook/</guid>
+      <description>Docker for people who don&amp;rsquo;t dont really want to spend too much time on docker</description>
+    </item>
+    
+  </channel>
+</rss>

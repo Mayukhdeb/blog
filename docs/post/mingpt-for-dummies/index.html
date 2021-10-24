@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>minGPT for dummies | @mayukhdeb</title>
+
+<meta name="keywords" content="deep-learning, GPT" />
+<meta name="description" content="Trying to understand how Andrej Karpathy&rsquo;s minGPT works, step by step.">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/mingpt-for-dummies/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="minGPT for dummies" />
+<meta property="og:description" content="Trying to understand how Andrej Karpathy&rsquo;s minGPT works, step by step." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/mingpt-for-dummies/" />
+<meta property="article:published_time" content="2021-10-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-09T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="minGPT for dummies"/>
+<meta name="twitter:description" content="Trying to understand how Andrej Karpathy&rsquo;s minGPT works, step by step."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "minGPT for dummies",
+  "name": "minGPT for dummies",
+  "description": "Trying to understand how Andrej Karpathy\u0026amp;rsquo;s minGPT works, step by step.",
+  "keywords": [
+    "deep-learning", "GPT"
+  ],
+  "articleBody": " First off, this is by no means an official guide/tutorial. If you’re stalking me, then this post wont be super useful. If you’re here by accident, then all that I can say is that life works in mysterious ways.\n I’ll try my best to explain to myself and to you, the reader how Andrej Karpathy‘s minGPT works. All the source code you see here is taken (and maybe slightly modified) from the minGPT repo.\n1. Building a dataset import math from torch.utils.data import Dataset class CharDataset(Dataset): def __init__(self, data, block_size): chars = sorted(list(set(data))) data_size, vocab_size = len(data), len(chars) print('data has %dcharacters, %dunique.' % (data_size, vocab_size)) self.stoi = { ch:i for i,ch in enumerate(chars) } self.itos = { i:ch for i,ch in enumerate(chars) } self.block_size = block_size self.vocab_size = vocab_size self.data = data def __len__(self): return len(self.data) - self.block_size def __getitem__(self, idx): # grab a chunk of (block_size + 1) characters from the data chunk = self.data[idx:idx + self.block_size + 1] # encode every character to an integer dix = [self.stoi[s] for s in chunk] x = torch.tensor(dix[:-1], dtype=torch.long) y = torch.tensor(dix[1:], dtype=torch.long) return x, y So what’s going on inside __init__ ?\nFirst, lets look at the arguments.\n data: a long, long string which contains all of the training data. In this case it would be something short like that of a poem. block_size: number of characters to be included in the input/label. One can also think of it as the spatial extent of the model for its context.  And now the attributes:\n self.stoi: weird name, which actually means “str to int” self.itos: weird name, which actually means “int to str” self.vocab_size is the total number of unique characters found within the training data.  if you print self.stoi, it looks like:\n{'\\n': 0, ' ': 1, \"'\": 2, '(': 3, ')': 4, ### its a lot longer IRL, I clipped it out :) } self.itos is basically the same thing but flipped around:\n{0: '\\n', 1: ' ', 2: \"'\", 3: '(', 4: ')', ### its a lot longer IRL, I clipped it out :) } In a nutshell, they’re just a way to map all of the unique characters in the dataset to certain integers.\nNow let’s build a dataset:\nblock_size = 10 ## 10 is not a good number for training, but is good for intuition  text = open('input.txt', 'r').read() train_dataset = CharDataset(text, block_size) Let’s look at a single training sample:\nx, y = train_dataset.__getitem__(0) print('x: ', x) print('y: ', y) the output would be something like:\nx: tensor([10, 28, 1, 17, 18, 16, 17, 1, 27, 14]) y: tensor([28, 1, 17, 18, 16, 17, 1, 27, 14, 10]) here, each number in x and y points to a certain character in the training dataset. Let’s see what x and y actually are:\ndef ints_to_readable(train_dataset, x): x_readable = [train_dataset.itos[i.item()] for i in x] return(''.join(x_readable)) print('x: ', ints_to_readable(train_dataset, x)) print('y: ', ints_to_readable(train_dataset, y)) output:\nx: at high se y: t high sea That’s all for the dataset! before we move on to the model, here’s another interesting point mentioned in the original notebook:\nSo for example if block_size is 4, then we could e.g. sample a chunk of text “hello”, the integers in x will correspond to “hell” and in y will be “ello”. This will then actually “multitask” 4 separate examples at the same time in the language model:\n given just “h”, please predict “e” as next given “he” please predict “l” next given “hel” predict “l” next given “hell” predict “o” next  2. The model The next step would now be to look at the model’s basic architecture, which depends mainly on the following factors:\n Vocabulary size of the dataset Block size of the dataset. Number of layers Number of attention heads Size of the embedding vector  The first 2 factors are already known from the training dataset. So let us look at the last 3 factors:\n Number of layers (num_layers): The number of standard repeated layers to be used in the model. Higher - deeper model. Number of attention heads (n_head): Check out this section I wrote in another blog post Size of the embedding vector (n_embd): It can be thought of as a lookup table which takes in a bunch of integers as input and returns corresponding “vectors”.  Wait, what are embeddings ?\nThey’re “learnable look-up tables”, which can be constructed with torch.nn.embedding:\nimport torch.nn as nn embedding = nn.Embedding(3, 4) print('embedding values: \\n', embedding.weight.data) print(f'embedding([0]): ', embedding(torch.tensor([0])).detach()) print(f'embedding([1,2]): ', embedding(torch.tensor([1,2])).detach()) would print something like:\nembedding values: tensor([[ 1.5205, -2.2728, -0.0874, 0.4219], [-1.3103, 0.3491, -0.0410, 1.1601], [ 0.7829, 0.2559, -1.7153, 0.1395]]) embedding([0]): tensor([[ 1.5205, -2.2728, -0.0874, 0.4219]]) embedding([1,2]): tensor([[-1.3103, 0.3491, -0.0410, 1.1601], [ 0.7829, 0.2559, -1.7153, 0.1395]]) Also, what is layer normalization ?\nWould recommend you to check out this section I wrote in another blog post.\nComponents Self attention: I’ve already explained how self attention works in another blog post, highly recommended that you check it out.\nThe difference here (CasualSelfAttention) is that it is has multiple heads, with an extra linear layer in the end.\nThe transformer block: class Block(nn.Module): \"\"\" an unassuming Transformer block \"\"\" def __init__(self, config): super().__init__() self.ln1 = nn.LayerNorm(config.n_embd) self.ln2 = nn.LayerNorm(config.n_embd) self.attn = CausalSelfAttention(config) self.mlp = nn.Sequential( nn.Linear(config.n_embd, 4 * config.n_embd), nn.GELU(), nn.Linear(4 * config.n_embd, config.n_embd), nn.Dropout(config.resid_pdrop), ) def forward(self, x): x = x + self.attn(self.ln1(x)) x = x + self.mlp(self.ln2(x)) return x Let’s first look at the GeLU actvation function.\nimport torch import numpy as np def gelu(x): cdf = 0.5 * (1.0 + torch.erf(x / np.sqrt(2.0))) return x * cdf   It should be visible from the image above how GeLU is different from ReLU. But the real interesting difference lie in their derivatives\n  The image shown above is taken from this blog post which is a great resource if you want to know more about GeLU.\n3. Training Abstraction First of, let us see what the model actually does from an input-output perspective:\nGiven a sequence of characters, we first convert them to an embedding (a bunch of integers). For our example, we are assuming that the block size is 4. hence the length of the input along dim 0 is 4.\n## ['p', 'y', 't', 'h', 'o'] x = [2, 6, 7, 8, 4] Given the input sequence as shown above, the model has to predict the next “step” of the sequence. Something like:\ny = model(x) y ## ['y', 't', 'h', 'o', 'n']  [6, 7, 8, 4, 3] In reality, the output is of shape: [Block size, Vocabulary size]. So if the vocab size was 9, then the ideal output [6, 7, 8, 4, 3] is actually:\n## shape: (4, 9) i.e (Block size, Vocabulary size) [ [0, 0, 0, 0, 0, 0, 1, 0, 0], # 6 [0, 0, 0, 0, 0, 0, 0, 1, 0], # 7 [0, 0, 0, 0, 0, 0, 0, 0, 1], # 8 [0, 0, 0, 0, 1, 0, 0, 0, 0] # 4 [0, 0, 0, 1, 0, 0, 0, 0, 0] # 3 ] Then if we run argmax over this output, we get [6, 7, 8, 4, 3].\nLoss The nature of the outputs of the model points to the fact that we’re “classifying” the next sequence of words from an input sequence.\nFor classification problems, we use the cross entropy loss. This blog post is a great resource in case you’re not familiar with it.\nThe special thing to notice here is that this is not your regular classification problem. Instead it is actually n classfication problems stacked up (where n = block size).\nHence the loss function looks like:\nimport torch.nn.functional as F ''' block_size: 10 vocab_size: 33 ''' x = torch.tensor([1,2,3,4,5,6,7,8,9,0]).unsqueeze(0) targets = torch.tensor([2,3,4,5,6,7,8,9,0,22]) ''' forward pass, you can ignore the \", _\" for now ''' logits, _ = model(x) # logits.shape: torch.Size([1, 10, 34]) ''' reshaping logits from (batch_size, vocab_size, block_size) to (batch_size*vocab_size, block_size) and then calculating the cross entropy loss w.r.t targets ''' loss = F.cross_entropy(logits.view(-1, logits.size(-1)), targets.view(-1)) print(loss) #  tensor(3.4539, grad_fn=) 4. Inference At the heart of this section is the sample() function, let’s see what it does line by line:\ndef top_k_logits(logits, k): v, ix = torch.topk(logits, k) out = logits.clone() out[out  v[:, [-1]]] = -float('Inf') return out @torch.no_grad() def sample(model, x, steps, temperature=1.0, top_k=None): \"\"\" take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in the sequence, feeding the predictions back into the model each time. Clearly the sampling has quadratic complexity unlike an RNN that is only linear, and has a finite context window of block_size, unlike an RNN that has an infinite context window. \"\"\" block_size = model.get_block_size() model.eval() print(f\"starting sample with \\nblock size: {block_size} \\nsteps: {steps} \\nx of shape: {x.shape}\") for k in range(steps): ''' if the context i.e x is too long, then we crop it to have length block_size ''' x_cropped = x if x.size(1)  block_size else x[:, -block_size:] ''' run a forward pass through the model logits.shape is expected to be: (batch_size, context_length, vocab_size) ''' logits, _ = model(x_cropped) ''' pick out the last chaaracter i.e the predicted value ''' logits = logits[:, -1, :] / temperature # optionally crop probabilities to only the top k options if top_k is not None: logits = top_k_logits(logits, top_k) ''' apply softmax over the vocab dim (last dim) to convert it to a probability map and pick the character with the highest probability value ''' probs = F.softmax(logits, dim=-1) _, ix = torch.topk(probs, k=1, dim=-1) ''' concatenate predicted character to the input over the context dim ''' x = torch.cat((x, ix), dim=1) return x Let’s try to understand this in steps (pun intended):\nWe’ll run the sample() function multiple times, each with one step as shown below:\nsteps_to_take = 21 context = \"Monkeys are divided\" x = torch.tensor([train_dataset.stoi[s] for s in context], dtype=torch.long)[None,...].to(trainer.device) for step_number in range(steps_to_take): y = sample(model, x, steps = 1, temperature=1.0, top_k=10)[0] completion = ''.join([train_dataset.itos[int(i)] for i in y]) print(f'step number: {step_number +1} input: {completion[-block_size -1:-1]}, pred: {completion[-block_size:]}') x = torch.tensor([train_dataset.stoi[s] for s in completion], dtype=torch.long)[None,...].to(trainer.device) print(f'Prompt: {context}') print(f'Final result: {completion}') And the output is as follows:\nstep number: 1 input: re divided, pred: e divided step number: 2 input: e divided , pred: divided i step number: 3 input: divided i, pred: divided in step number: 4 input: divided in, pred: ivided int step number: 5 input: ivided int, pred: vided into step number: 6 input: vided into, pred: ided into step number: 7 input: ided into , pred: ded into t step number: 8 input: ded into t, pred: ed into tw step number: 9 input: ed into tw, pred: d into two step number: 10 input: d into two, pred: into two step number: 11 input: into two , pred: into two s step number: 12 input: into two s, pred: nto two su step number: 13 input: nto two su, pred: to two sub step number: 14 input: to two sub, pred: o two subf step number: 15 input: o two subf, pred: two subfa step number: 16 input: two subfa, pred: two subfam step number: 17 input: two subfam, pred: wo subfami step number: 18 input: wo subfami, pred: o subfamil step number: 19 input: o subfamil, pred: subfamili step number: 20 input: subfamili, pred: subfamilie step number: 21 input: subfamilie, pred: ubfamilies Prompt: Monkeys are divided Final result: Monkeys are divided into two subfamilies Generally we run the inference in the same way as shown above, but with not so many print statements, instead we can just change the steps argument in sample(). Which does the same exact thing.\n",
+  "wordCount" : "1937",
+  "inLanguage": "en",
+  "datePublished": "2021-10-09T00:00:00Z",
+  "dateModified": "2021-10-09T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/mingpt-for-dummies/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      minGPT for dummies
+    </h1>
+    <div class="post-meta">October 9, 2021
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<blockquote>
+<p><em>First off, this is by no means an official guide/tutorial. If you&rsquo;re stalking me, then this post wont be super useful. If you&rsquo;re here by accident, then all that I can say is that life works in mysterious ways.</em></p>
+</blockquote>
+<p>I&rsquo;ll try my best to explain to myself and to you, the reader how <a href="https://github.com/karpathy">Andrej Karpathy</a>&lsquo;s <a href="https://github.com/karpathy/minGPT">minGPT</a> works. All the source code you see here is taken (and maybe slightly modified) from the <a href="https://github.com/karpathy/minGPT">minGPT repo</a>.</p>
+<h1 id="1-building-a-dataset">1. Building a dataset<a hidden class="anchor" aria-hidden="true" href="#1-building-a-dataset">#</a></h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> math
+<span style="color:#f92672">from</span> torch.utils.data <span style="color:#f92672">import</span> Dataset
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CharDataset</span>(Dataset):
+
+    <span style="color:#66d9ef">def</span> __init__(self, data, block_size):
+        chars <span style="color:#f92672">=</span> sorted(list(set(data)))
+        data_size, vocab_size <span style="color:#f92672">=</span> len(data), len(chars)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;data has </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> characters, </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> unique.&#39;</span> <span style="color:#f92672">%</span> (data_size, vocab_size))
+        
+        self<span style="color:#f92672">.</span>stoi <span style="color:#f92672">=</span> { ch:i <span style="color:#66d9ef">for</span> i,ch <span style="color:#f92672">in</span> enumerate(chars) }
+        self<span style="color:#f92672">.</span>itos <span style="color:#f92672">=</span> { i:ch <span style="color:#66d9ef">for</span> i,ch <span style="color:#f92672">in</span> enumerate(chars) }
+        self<span style="color:#f92672">.</span>block_size <span style="color:#f92672">=</span> block_size
+        self<span style="color:#f92672">.</span>vocab_size <span style="color:#f92672">=</span> vocab_size
+        self<span style="color:#f92672">.</span>data <span style="color:#f92672">=</span> data
+    
+    <span style="color:#66d9ef">def</span> __len__(self):
+        <span style="color:#66d9ef">return</span> len(self<span style="color:#f92672">.</span>data) <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>block_size
+
+    <span style="color:#66d9ef">def</span> __getitem__(self, idx):
+        <span style="color:#75715e"># grab a chunk of (block_size + 1) characters from the data</span>
+        chunk <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>data[idx:idx <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>block_size <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+        <span style="color:#75715e"># encode every character to an integer</span>
+        dix <span style="color:#f92672">=</span> [self<span style="color:#f92672">.</span>stoi[s] <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> chunk]
+    
+        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(dix[:<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>long)
+        y <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor(dix[<span style="color:#ae81ff">1</span>:], dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>long)
+        <span style="color:#66d9ef">return</span> x, y
+</code></pre></div><p>So what&rsquo;s going on inside <code>__init__</code> ?</p>
+<p>First, lets look at the arguments.</p>
+<ul>
+<li><code>data</code>: a long, long string which contains all of the training data. In this case it would be something short like that of a poem.</li>
+<li><code>block_size</code>: number of characters to be included in the input/label. One can also think of it as the spatial extent of the model for its context.</li>
+</ul>
+<p>And now the attributes:</p>
+<ul>
+<li><code>self.stoi</code>: weird name, which actually means &ldquo;<code>str</code> to <code>int</code>&rdquo;</li>
+<li><code>self.itos</code>: weird name, which actually means &ldquo;<code>int</code> to <code>str</code>&rdquo;</li>
+<li><code>self.vocab_size</code> is the total number of unique characters found within the training data.</li>
+</ul>
+<p>if you print <code>self.stoi</code>, it looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">{<span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>: <span style="color:#ae81ff">0</span>,
+ <span style="color:#e6db74">&#39; &#39;</span>: <span style="color:#ae81ff">1</span>,
+ <span style="color:#e6db74">&#34;&#39;&#34;</span>: <span style="color:#ae81ff">2</span>,
+ <span style="color:#e6db74">&#39;(&#39;</span>: <span style="color:#ae81ff">3</span>,
+ <span style="color:#e6db74">&#39;)&#39;</span>: <span style="color:#ae81ff">4</span>,
+ <span style="color:#75715e">### its a lot longer IRL, I clipped it out :)</span>
+}
+</code></pre></div><p><code>self.itos</code> is basically the same thing but flipped around:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">{<span style="color:#ae81ff">0</span>: <span style="color:#e6db74">&#39;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>,
+ <span style="color:#ae81ff">1</span>: <span style="color:#e6db74">&#39; &#39;</span>,
+ <span style="color:#ae81ff">2</span>: <span style="color:#e6db74">&#34;&#39;&#34;</span>,
+ <span style="color:#ae81ff">3</span>: <span style="color:#e6db74">&#39;(&#39;</span>,
+ <span style="color:#ae81ff">4</span>: <span style="color:#e6db74">&#39;)&#39;</span>,
+ <span style="color:#75715e">### its a lot longer IRL, I clipped it out :)</span>
+}
+</code></pre></div><p>In a nutshell, they&rsquo;re just a way to map all of the unique characters in the dataset to certain integers.</p>
+<p>Now let&rsquo;s build a dataset:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">block_size <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#75715e">## 10 is not a good number for training, but is good for intuition </span>
+text <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;input.txt&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>)<span style="color:#f92672">.</span>read() 
+train_dataset <span style="color:#f92672">=</span> CharDataset(text, block_size) 
+</code></pre></div><p>Let&rsquo;s look at a single training sample:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3">x, y <span style="color:#f92672">=</span> train_dataset<span style="color:#f92672">.</span>__getitem__(<span style="color:#ae81ff">0</span>)
+print(<span style="color:#e6db74">&#39;x: &#39;</span>, x)
+print(<span style="color:#e6db74">&#39;y: &#39;</span>, y)
+</code></pre></div><p>the output would be something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">x:  tensor([<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">28</span>,  <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">17</span>,  <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">27</span>, <span style="color:#ae81ff">14</span>])
+y:  tensor([<span style="color:#ae81ff">28</span>,  <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">18</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">17</span>,  <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">27</span>, <span style="color:#ae81ff">14</span>, <span style="color:#ae81ff">10</span>])
+</code></pre></div><p>here, each number in <code>x</code> and <code>y</code> points to a certain character in the training dataset. Let&rsquo;s see what <code>x</code> and <code>y</code> actually are:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ints_to_readable</span>(train_dataset, x):
+    x_readable <span style="color:#f92672">=</span> [train_dataset<span style="color:#f92672">.</span>itos[i<span style="color:#f92672">.</span>item()] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> x]
+    <span style="color:#66d9ef">return</span>(<span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(x_readable))
+
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;x: &#39;</span>, ints_to_readable(train_dataset, x))
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;y: &#39;</span>, ints_to_readable(train_dataset, y))
+</code></pre></div><p>output:</p>
+<pre><code>x:  at high se
+y:  t high sea
+</code></pre><p>That&rsquo;s all for the dataset! before we move on to the model, here&rsquo;s another interesting point mentioned in the <a href="https://github.com/karpathy/minGPT/blob/master/play_char.ipynb">original notebook</a>:</p>
+<p><em>So for example if block_size is 4, then we could e.g. sample a chunk of text &ldquo;hello&rdquo;, the integers in x will correspond to &ldquo;hell&rdquo; and in y will be &ldquo;ello&rdquo;. This will then actually &ldquo;multitask&rdquo; 4 separate examples at the same time in the language model:</em></p>
+<ul>
+<li><em>given just &ldquo;h&rdquo;, please predict &ldquo;e&rdquo; as next</em></li>
+<li><em>given &ldquo;he&rdquo; please predict &ldquo;l&rdquo; next</em></li>
+<li><em>given &ldquo;hel&rdquo; predict &ldquo;l&rdquo; next</em></li>
+<li><em>given &ldquo;hell&rdquo; predict &ldquo;o&rdquo; next</em></li>
+</ul>
+<h1 id="2-the-model">2. The model<a hidden class="anchor" aria-hidden="true" href="#2-the-model">#</a></h1>
+<p>The next step would now be to look at the model&rsquo;s basic architecture, which depends mainly on the following factors:</p>
+<ol>
+<li>Vocabulary size of the dataset</li>
+<li>Block size of the dataset.</li>
+<li>Number of layers</li>
+<li>Number of attention heads</li>
+<li>Size of the embedding vector</li>
+</ol>
+<p>The first 2 factors are already known from the training dataset. So let us look at the last 3 factors:</p>
+<ul>
+<li>Number of layers (<code>num_layers</code>): The number of standard repeated layers to be used in the model. Higher -&gt; deeper model.</li>
+<li>Number of attention heads (<code>n_head</code>): Check out <a href="https://mayukhdeb.github.io/blog/post/transformers-toolbox/#multi-head-attention">this section</a> I wrote in another blog post</li>
+<li>Size of the embedding vector (<code>n_embd</code>): It can be thought of as a lookup table which takes in a bunch of integers as input and returns corresponding &ldquo;vectors&rdquo;.</li>
+</ul>
+<p><strong>Wait, what are embeddings ?</strong></p>
+<p>They&rsquo;re &ldquo;learnable look-up tables&rdquo;, which can be constructed with <code>torch.nn.embedding</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch.nn <span style="color:#f92672">as</span> nn
+
+embedding <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Embedding(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>)
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;embedding values: </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;</span>, embedding<span style="color:#f92672">.</span>weight<span style="color:#f92672">.</span>data)
+
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;embedding([0]): &#39;</span>, embedding(torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">0</span>]))<span style="color:#f92672">.</span>detach())
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;embedding([1,2]): &#39;</span>, embedding(torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>]))<span style="color:#f92672">.</span>detach())
+</code></pre></div><p>would print something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">embedding values: 
+ tensor([[ <span style="color:#ae81ff">1.5205</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.2728</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0874</span>,  <span style="color:#ae81ff">0.4219</span>],
+        [<span style="color:#f92672">-</span><span style="color:#ae81ff">1.3103</span>,  <span style="color:#ae81ff">0.3491</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0410</span>,  <span style="color:#ae81ff">1.1601</span>],
+        [ <span style="color:#ae81ff">0.7829</span>,  <span style="color:#ae81ff">0.2559</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.7153</span>,  <span style="color:#ae81ff">0.1395</span>]])
+embedding([<span style="color:#ae81ff">0</span>]):  tensor([[ <span style="color:#ae81ff">1.5205</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">2.2728</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0874</span>,  <span style="color:#ae81ff">0.4219</span>]])
+embedding([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>]):  tensor([[<span style="color:#f92672">-</span><span style="color:#ae81ff">1.3103</span>,  <span style="color:#ae81ff">0.3491</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">0.0410</span>,  <span style="color:#ae81ff">1.1601</span>], [ <span style="color:#ae81ff">0.7829</span>,  <span style="color:#ae81ff">0.2559</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1.7153</span>,  <span style="color:#ae81ff">0.1395</span>]])
+</code></pre></div><p><strong>Also, what is layer normalization ?</strong></p>
+<p>Would recommend you to check out <a href="https://mayukhdeb.github.io/blog/post/transformers-toolbox/#layer-normalization">this section</a> I wrote in another blog post.</p>
+<h2 id="components">Components<a hidden class="anchor" aria-hidden="true" href="#components">#</a></h2>
+<h3 id="self-attention">Self attention:<a hidden class="anchor" aria-hidden="true" href="#self-attention">#</a></h3>
+<p>I&rsquo;ve already explained how self attention works in <a href="https://mayukhdeb.github.io/blog/post/what-on-earth-is-attention/">another blog post</a>, highly recommended that you check it out.</p>
+<p>The difference here (<code>CasualSelfAttention</code>) is that it is <a href="https://mayukhdeb.github.io/blog/post/transformers-toolbox/#multi-head-attention">has multiple heads</a>, with an extra linear layer in the end.</p>
+<h3 id="the-transformer-block">The transformer block:<a hidden class="anchor" aria-hidden="true" href="#the-transformer-block">#</a></h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Block</span>(nn<span style="color:#f92672">.</span>Module):
+    <span style="color:#e6db74">&#34;&#34;&#34; an unassuming Transformer block &#34;&#34;&#34;</span>
+
+    <span style="color:#66d9ef">def</span> __init__(self, config):
+        super()<span style="color:#f92672">.</span>__init__()
+        self<span style="color:#f92672">.</span>ln1 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LayerNorm(config<span style="color:#f92672">.</span>n_embd)
+        self<span style="color:#f92672">.</span>ln2 <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>LayerNorm(config<span style="color:#f92672">.</span>n_embd)
+        self<span style="color:#f92672">.</span>attn <span style="color:#f92672">=</span> CausalSelfAttention(config)
+        self<span style="color:#f92672">.</span>mlp <span style="color:#f92672">=</span> nn<span style="color:#f92672">.</span>Sequential(
+            nn<span style="color:#f92672">.</span>Linear(config<span style="color:#f92672">.</span>n_embd, <span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> config<span style="color:#f92672">.</span>n_embd),
+            nn<span style="color:#f92672">.</span>GELU(),
+            nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">4</span> <span style="color:#f92672">*</span> config<span style="color:#f92672">.</span>n_embd, config<span style="color:#f92672">.</span>n_embd),
+            nn<span style="color:#f92672">.</span>Dropout(config<span style="color:#f92672">.</span>resid_pdrop),
+        )
+
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">forward</span>(self, x):
+        x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>attn(self<span style="color:#f92672">.</span>ln1(x))
+        x <span style="color:#f92672">=</span> x <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>mlp(self<span style="color:#f92672">.</span>ln2(x))
+        <span style="color:#66d9ef">return</span> x
+</code></pre></div><p>Let&rsquo;s first look at the GeLU actvation function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gelu</span>(x):
+    cdf <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5</span> <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.0</span> <span style="color:#f92672">+</span> torch<span style="color:#f92672">.</span>erf(x <span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sqrt(<span style="color:#ae81ff">2.0</span>)))
+    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> cdf
+</code></pre></div><figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_oct_9/gelu.png" width="50%"/> 
+</figure>
+
+<p>It should be visible from the image above how GeLU is different from ReLU. But the real interesting difference lie in their derivatives</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2021_oct_9/gelu_derivative.png" width="80%"/> 
+</figure>
+
+<p>The image shown above is taken from <a href="https://alaaalatif.github.io/2019-04-11-gelu/">this blog post</a> which is a great resource if you want to know more about GeLU.</p>
+<h1 id="3-training">3. Training<a hidden class="anchor" aria-hidden="true" href="#3-training">#</a></h1>
+<h2 id="abstraction">Abstraction<a hidden class="anchor" aria-hidden="true" href="#abstraction">#</a></h2>
+<p>First of, let us see what the model actually does from an input-output perspective:</p>
+<p>Given a sequence of characters, we first convert them to an embedding (a bunch of integers). For our example, we are assuming that the block size is 4. hence the length of the input along dim 0 is 4.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## [&#39;p&#39;, &#39;y&#39;, &#39;t&#39;, &#39;h&#39;, &#39;o&#39;]</span>
+x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>]
+</code></pre></div><p>Given the input sequence as shown above, the model has to predict the next &ldquo;step&rdquo; of the sequence. Something like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">y <span style="color:#f92672">=</span> model(x)
+y <span style="color:#75715e">## [&#39;y&#39;, &#39;t&#39;, &#39;h&#39;, &#39;o&#39;, &#39;n&#39;]</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> [<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>]
+</code></pre></div><p>In reality, the output is of shape: <code>[Block size, Vocabulary size]</code>. So if the vocab size was 9, then the ideal output <code>[6, 7, 8, 4, 3]</code> is actually:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## shape: (4, 9) i.e (Block size, Vocabulary size)</span>
+[
+    [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>], <span style="color:#75715e"># 6</span>
+    [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>], <span style="color:#75715e"># 7</span>
+    [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>], <span style="color:#75715e"># 8</span>
+    [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]  <span style="color:#75715e"># 4</span>
+    [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>]  <span style="color:#75715e"># 3</span>
+]
+</code></pre></div><p>Then if we run argmax over this output, we get <code>[6, 7, 8, 4, 3]</code>.</p>
+<h2 id="loss">Loss<a hidden class="anchor" aria-hidden="true" href="#loss">#</a></h2>
+<p>The nature of the outputs of the model points to the fact that we&rsquo;re &ldquo;classifying&rdquo; the next sequence of words from an input sequence.</p>
+<p>For classification problems, we use the cross entropy loss. <a href="https://ml-cheatsheet.readthedocs.io/en/latest/loss_functions.html#cross-entropy">This blog post</a> is a great resource in case you&rsquo;re not familiar with it.</p>
+<p>The special thing to notice here is that this is not your regular classification problem. Instead it is actually <code>n</code>
+classfication problems stacked up (where <code>n</code> = block size).</p>
+<p>Hence the loss function looks like:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> torch.nn.functional <span style="color:#f92672">as</span> F
+
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">block_size: 10
+</span><span style="color:#e6db74">vocab_size: 33
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">0</span>])<span style="color:#f92672">.</span>unsqueeze(<span style="color:#ae81ff">0</span>)
+targets <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">6</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">9</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">22</span>])
+
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">forward pass, you can ignore the &#34;, _&#34; for now
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+logits, _ <span style="color:#f92672">=</span> model(x) <span style="color:#75715e"># logits.shape: torch.Size([1, 10, 34])</span>
+
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">reshaping logits from (batch_size, vocab_size, block_size) to (batch_size*vocab_size, block_size)
+</span><span style="color:#e6db74">and then calculating the cross entropy loss w.r.t targets
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+loss <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>cross_entropy(logits<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, logits<span style="color:#f92672">.</span>size(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)), targets<span style="color:#f92672">.</span>view(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))  
+<span style="color:#66d9ef">print</span>(loss)
+<span style="color:#75715e"># &gt;&gt;&gt; tensor(3.4539, grad_fn=&lt;NllLossBackward&gt;)</span>
+</code></pre></div><h1 id="4-inference">4. Inference<a hidden class="anchor" aria-hidden="true" href="#4-inference">#</a></h1>
+<p>At the heart of this section is the <code>sample()</code> function, let&rsquo;s  see what it does line by line:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">top_k_logits</span>(logits, k):
+    v, ix <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>topk(logits, k)
+    out <span style="color:#f92672">=</span> logits<span style="color:#f92672">.</span>clone()
+    out[out <span style="color:#f92672">&lt;</span> v[:, [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]]] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>float(<span style="color:#e6db74">&#39;Inf&#39;</span>)
+    <span style="color:#66d9ef">return</span> out
+
+<span style="color:#a6e22e">@torch.no_grad</span>()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sample</span>(model, x, steps, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, top_k<span style="color:#f92672">=</span>None):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    take a conditioning sequence of indices in x (of shape (b,t)) and predict the next token in
+</span><span style="color:#e6db74">    the sequence, feeding the predictions back into the model each time. Clearly the sampling
+</span><span style="color:#e6db74">    has quadratic complexity unlike an RNN that is only linear, and has a finite context window
+</span><span style="color:#e6db74">    of block_size, unlike an RNN that has an infinite context window.
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    block_size <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>get_block_size()
+    model<span style="color:#f92672">.</span>eval()
+    
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;starting sample with </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">block size: {block_size} </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">steps: {steps} </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">x of shape: {x.shape}&#34;</span>)
+    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(steps):
+        
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        if the context i.e x is too long, then we crop it to have length block_size
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        x_cropped <span style="color:#f92672">=</span> x <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>size(<span style="color:#ae81ff">1</span>) <span style="color:#f92672">&lt;=</span> block_size <span style="color:#66d9ef">else</span> x[:, <span style="color:#f92672">-</span>block_size:]
+
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        run a forward pass through the model
+</span><span style="color:#e6db74">        logits.shape is expected to be: (batch_size, context_length, vocab_size)
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        logits, _ <span style="color:#f92672">=</span> model(x_cropped)
+        
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        pick out the last chaaracter i.e the predicted value
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        logits <span style="color:#f92672">=</span> logits[:, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, :] <span style="color:#f92672">/</span> temperature
+        
+        <span style="color:#75715e"># optionally crop probabilities to only the top k options</span>
+        <span style="color:#66d9ef">if</span> top_k <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+            logits <span style="color:#f92672">=</span> top_k_logits(logits, top_k)
+            
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        apply softmax over the vocab dim (last dim) to convert it to a probability map
+</span><span style="color:#e6db74">        and pick the character with the highest probability value
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>    
+        probs <span style="color:#f92672">=</span> F<span style="color:#f92672">.</span>softmax(logits, dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+        _, ix <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>topk(probs, k<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, dim<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+        
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        concatenate predicted character to the input over the context dim
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>cat((x, ix), dim<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+
+    <span style="color:#66d9ef">return</span> x
+</code></pre></div><p>Let&rsquo;s try to understand this in <code>steps</code> (pun intended):</p>
+<p>We&rsquo;ll run the <code>sample()</code> function multiple times, each with one step as shown below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">steps_to_take <span style="color:#f92672">=</span> <span style="color:#ae81ff">21</span>
+
+context <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Monkeys are divided&#34;</span>
+x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([train_dataset<span style="color:#f92672">.</span>stoi[s] <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> context], dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>long)[None,<span style="color:#f92672">...</span>]<span style="color:#f92672">.</span>to(trainer<span style="color:#f92672">.</span>device)
+
+<span style="color:#66d9ef">for</span> step_number <span style="color:#f92672">in</span> range(steps_to_take):
+    y <span style="color:#f92672">=</span> sample(model, x, steps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, temperature<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, top_k<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>)[<span style="color:#ae81ff">0</span>]
+    completion <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join([train_dataset<span style="color:#f92672">.</span>itos[int(i)] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> y])
+    <span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;step number: {step_number +1} input: {completion[-block_size -1:-1]}, pred: {completion[-block_size:]}&#39;</span>)
+    
+    x <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>tensor([train_dataset<span style="color:#f92672">.</span>stoi[s] <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> completion], dtype<span style="color:#f92672">=</span>torch<span style="color:#f92672">.</span>long)[None,<span style="color:#f92672">...</span>]<span style="color:#f92672">.</span>to(trainer<span style="color:#f92672">.</span>device)
+
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Prompt: {context}&#39;</span>)
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#39;Final result: {completion}&#39;</span>)
+</code></pre></div><p>And the output is as follows:</p>
+<pre><code>step number: 1 input: re divided, pred: e divided 
+step number: 2 input: e divided , pred:  divided i
+step number: 3 input:  divided i, pred: divided in
+step number: 4 input: divided in, pred: ivided int
+step number: 5 input: ivided int, pred: vided into
+step number: 6 input: vided into, pred: ided into 
+step number: 7 input: ided into , pred: ded into t
+step number: 8 input: ded into t, pred: ed into tw
+step number: 9 input: ed into tw, pred: d into two
+step number: 10 input: d into two, pred:  into two 
+step number: 11 input:  into two , pred: into two s
+step number: 12 input: into two s, pred: nto two su
+step number: 13 input: nto two su, pred: to two sub
+step number: 14 input: to two sub, pred: o two subf
+step number: 15 input: o two subf, pred:  two subfa
+step number: 16 input:  two subfa, pred: two subfam
+step number: 17 input: two subfam, pred: wo subfami
+step number: 18 input: wo subfami, pred: o subfamil
+step number: 19 input: o subfamil, pred:  subfamili
+step number: 20 input:  subfamili, pred: subfamilie
+step number: 21 input: subfamilie, pred: ubfamilies
+Prompt: Monkeys are divided
+Final result: Monkeys are divided into two subfamilies
+</code></pre><p>Generally we run the inference in the same way as shown above, but with not so many print statements, instead we can just change the <code>steps</code> argument in <code>sample()</code>. Which does the same exact thing.</p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/gpt/">GPT</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2021 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

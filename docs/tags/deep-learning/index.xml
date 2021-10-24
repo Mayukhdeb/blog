@@ -6,10 +6,19 @@
     <description>Recent content in Deep learning on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Aug 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 09 Oct 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>minGPT for dummies</title>
+      <link>https://mayukhdeb.github.io/blog/post/mingpt-for-dummies/</link>
+      <pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/mingpt-for-dummies/</guid>
+      <description>Trying to understand how Andrej Karpathy&amp;rsquo;s minGPT works, step by step.</description>
+    </item>
     
     <item>
       <title>An image is worth 16x16 words is worth a lot more words</title>
