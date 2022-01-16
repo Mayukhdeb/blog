@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>An actually boring introduction to knowledge neurons in transformers | @mayukhdeb</title>
+
+<meta name="keywords" content="deep-learning, transformers" />
+<meta name="description" content="The author tries to explain knowledge neurons to himself. Not much to see here">
+<meta name="author" content="">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/boring-intro-to-knowledge-neurons/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="An actually boring introduction to knowledge neurons in transformers" />
+<meta property="og:description" content="The author tries to explain knowledge neurons to himself. Not much to see here" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/boring-intro-to-knowledge-neurons/" />
+<meta property="article:published_time" content="2022-01-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-01-16T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="An actually boring introduction to knowledge neurons in transformers"/>
+<meta name="twitter:description" content="The author tries to explain knowledge neurons to himself. Not much to see here"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "An actually boring introduction to knowledge neurons in transformers",
+  "name": "An actually boring introduction to knowledge neurons in transformers",
+  "description": "The author tries to explain knowledge neurons to himself. Not much to see here",
+  "keywords": [
+    "deep-learning", "transformers"
+  ],
+  "articleBody": "Knowledge Neurons By any chance if you’ve still clicked into this post to see if I’ve used reverse psychology to trick you into clicking in, you’d be very disappointed. If you really want to know how it works, I recommend the following links:\n The original paper on arxiv Intro to integrated gradients Nice warm-up article explaining how integrated gradients work and why they make sense. EleutherAI/knowledge-neurons a python library where they implemented the method for some transformers.  The knowledge neurons paper asks the following question:\nGiven an output y from an intermediate layer, how can we determine the neurons which contributed the most/least to the prediction ?\nThe neurons which contribute the most to the “fact” mentioned by the model are generally tagged as the “knowledge neurons\".\nProcedure to find knowledge neurons   Produce n different and diverse prompts expressing the same fact.\n  For each prompt, calculate the attribution score of each intermediate neurons\n  For each prompt, set an attribution score threshold t and retain only neurons with attribution scores greater than t, which are coarse knowledge neurons\n  We design our knowledge attribution method based on integrated gradients to evaluate the true contribution of each specific intermediate neuron in FFNs (Feed Forward Networks) to the final output.\n  Considering coarse knowledge neurons of all prompts, set a sharing percentage threshold and retain only neurons shared by more than prompts. The finally retained neurons are true knowledge neurons, where the fact is located.\n  Drawbacks:   Generally this method does not work well with a single input prompt. It needs multiple sentences which have the same meaning but written differently in order to work effectively. Much like augmenting images in gradcam/IntegratedGradients to generate smoother heatmaps. One interesting way to possibly fix this issue would be to use something like NoiseGrad in the layers to get smoother outputs with a smaller amount of alt sentences.\n  Another drawback is the fact that is a localised explanation method, which can encapsulate only a small part of the model at a given instance. We can potentially find a way to find an extended “knowledge neuron map” which spans though multiple layers of the model.\n  Other interesting facts:   Suppressing and amplifying knowledge neurons can control the expressions of the corresponding knowledge, without affecting other facts.\n  Such knowledge surgery in pretrained Transformers enables us to update incorrect knowledge, and to erase unethical knowledge.\n  ",
+  "wordCount" : "392",
+  "inLanguage": "en",
+  "datePublished": "2022-01-16T00:00:00Z",
+  "dateModified": "2022-01-16T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/boring-intro-to-knowledge-neurons/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      An actually boring introduction to knowledge neurons in transformers
+    </h1>
+    <div class="post-meta">January 16, 2022
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h1 id="knowledge-neurons">Knowledge Neurons<a hidden class="anchor" aria-hidden="true" href="#knowledge-neurons">#</a></h1>
+<p>By any chance if you&rsquo;ve still clicked into this post to see if I&rsquo;ve used reverse psychology to trick you into clicking in, you&rsquo;d be very disappointed. If you really want to know how it works, I recommend the following links:</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2104.08696">The original paper on arxiv</a></li>
+<li><a href="https://blog.fiddler.ai/2020/04/video-ai-explained-what-are-integrated-gradients/">Intro to integrated gradients</a> Nice warm-up article explaining how integrated gradients work and why they make sense.</li>
+<li><a href="https://github.com/EleutherAI/knowledge-neurons">EleutherAI/knowledge-neurons</a> a python library where they implemented the method for some transformers.</li>
+</ul>
+<p>The knowledge neurons paper asks the following question:</p>
+<p><em>Given an output <code>y</code> from an intermediate layer, how can we determine the neurons which contributed the most/least to the prediction ?</em></p>
+<p>The neurons which contribute the most to the &ldquo;fact&rdquo; mentioned by the model are generally tagged as the &ldquo;<em>knowledge neurons</em>&quot;.</p>
+<h2 id="procedure-to-find-knowledge-neurons">Procedure to find knowledge neurons<a hidden class="anchor" aria-hidden="true" href="#procedure-to-find-knowledge-neurons">#</a></h2>
+<ol>
+<li>
+<p>Produce <code>n</code> different and diverse prompts expressing the same fact.</p>
+</li>
+<li>
+<p>For each prompt, calculate the attribution score of each intermediate neurons</p>
+</li>
+<li>
+<p>For each prompt, set an attribution score threshold <code>t</code> and retain only neurons with attribution scores greater than <code>t</code>, which are coarse knowledge neurons</p>
+</li>
+<li>
+<p>We design our knowledge attribution method based on integrated gradients to evaluate the true contribution of each specific intermediate neuron in FFNs (Feed Forward Networks) to the final output.</p>
+</li>
+<li>
+<p>Considering coarse knowledge neurons of all prompts, set a sharing percentage threshold and retain only neurons shared by more than prompts. The finally retained neurons are true knowledge neurons, where the fact is located.</p>
+</li>
+</ol>
+<h2 id="drawbacks">Drawbacks:<a hidden class="anchor" aria-hidden="true" href="#drawbacks">#</a></h2>
+<ol>
+<li>
+<p>Generally this method <strong>does not work well with a single input prompt</strong>. It needs multiple sentences which have the same meaning but written differently in order to work effectively. Much like augmenting images in gradcam/IntegratedGradients to generate smoother heatmaps.  One interesting way to possibly fix this issue would be to use something like NoiseGrad in the layers to get smoother outputs with a smaller amount of alt sentences.</p>
+</li>
+<li>
+<p>Another drawback is the fact that is a <strong>localised explanation method</strong>, which can encapsulate only a small part of the model at a given instance. We can potentially find a way to find an extended &ldquo;knowledge neuron map&rdquo; which spans though multiple layers of the model.</p>
+</li>
+</ol>
+<h2 id="other-interesting-facts">Other interesting facts:<a hidden class="anchor" aria-hidden="true" href="#other-interesting-facts">#</a></h2>
+<ul>
+<li>
+<p>Suppressing and amplifying knowledge neurons can control the expressions of the corresponding knowledge, without affecting other facts.</p>
+</li>
+<li>
+<p>Such knowledge surgery in pretrained Transformers enables us to update incorrect knowledge, and to erase unethical knowledge.</p>
+</li>
+</ul>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/deep-learning/">Deep learning</a></li>
+      <li><a href="https://mayukhdeb.github.io/blog/tags/transformers/">transformers</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2022 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>
