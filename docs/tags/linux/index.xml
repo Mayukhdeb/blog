@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>linux on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/linux/</link>
+    <description>Recent content in linux on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 12 Apr 2022 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>tmux for dummies</title>
+      <link>https://mayukhdeb.github.io/blog/post/tmux-for-dummies/</link>
+      <pubDate>Tue, 12 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/tmux-for-dummies/</guid>
+      <description>Imagine that you&amp;rsquo;re a 21 y/o student in a hostel with a really bad wifi. On top of that, you&amp;rsquo;re bound by the timings of the lunch and dinner, and you cannot just leave your laptop open while you&amp;rsquo;re out because then your very near and dear friends would mess with your laptop&amp;rsquo;s .bashrc.
+What you need, is a way to start long running scripts on your remote machine via ssh and log out without stopping the it, so that you can check back in later on.</description>
+    </item>
+    
+  </channel>
+</rss>

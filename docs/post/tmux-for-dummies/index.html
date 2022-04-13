@@ -5,12 +5,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Posts | @mayukhdeb</title>
+<title>tmux for dummies | @mayukhdeb</title>
 
-<meta name="keywords" content="" />
-<meta name="description" content="">
+<meta name="keywords" content="linux" />
+<meta name="description" content="Imagine that you&rsquo;re a 21 y/o student in a hostel with a really bad wifi. On top of that, you&rsquo;re bound by the timings of the lunch and dinner, and you cannot just leave your laptop open while you&rsquo;re out because then your very near and dear friends would mess with your laptop&rsquo;s .bashrc.
+What you need, is a way to start long running scripts on your remote machine via ssh and log out without stopping the it, so that you can check back in later on.">
 <meta name="author" content="">
-<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/" />
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/tmux-for-dummies/" />
 <link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
     as="style">
 
@@ -22,23 +23,55 @@
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
 <meta name="generator" content="Hugo 0.68.3" />
-<link rel="alternate" type="application/rss&#43;xml" href="https://mayukhdeb.github.io/blog/post/index.xml">
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/" />
-<meta property="og:updated_time" content="2022-04-12T00:00:00+00:00" />
+<meta property="og:title" content="tmux for dummies" />
+<meta property="og:description" content="Imagine that you&rsquo;re a 21 y/o student in a hostel with a really bad wifi. On top of that, you&rsquo;re bound by the timings of the lunch and dinner, and you cannot just leave your laptop open while you&rsquo;re out because then your very near and dear friends would mess with your laptop&rsquo;s .bashrc.
+What you need, is a way to start long running scripts on your remote machine via ssh and log out without stopping the it, so that you can check back in later on." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/tmux-for-dummies/" />
+<meta property="article:published_time" content="2022-04-12T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-04-12T00:00:00+00:00" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content=""/>
+<meta name="twitter:title" content="tmux for dummies"/>
+<meta name="twitter:description" content="Imagine that you&rsquo;re a 21 y/o student in a hostel with a really bad wifi. On top of that, you&rsquo;re bound by the timings of the lunch and dinner, and you cannot just leave your laptop open while you&rsquo;re out because then your very near and dear friends would mess with your laptop&rsquo;s .bashrc.
+What you need, is a way to start long running scripts on your remote machine via ssh and log out without stopping the it, so that you can check back in later on."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "tmux for dummies",
+  "name": "tmux for dummies",
+  "description": "Imagine that you\u0026amp;rsquo;re a 21 y/o student in a hostel with a really bad wifi. On top of that, you\u0026amp;rsquo;re bound by the timings of the lunch and dinner, and you cannot just leave …",
+  "keywords": [
+    "linux"
+  ],
+  "articleBody": "Imagine that you’re a 21 y/o student in a hostel with a really bad wifi. On top of that, you’re bound by the timings of the lunch and dinner, and you cannot just leave your laptop open while you’re out because then your very near and dear friends would mess with your laptop’s .bashrc.\nWhat you need, is a way to start long running scripts on your remote machine via ssh and log out without stopping the it, so that you can check back in later on.\nThis is exactly what tmux does for you.\nTo start a tmux session:\ntmux then run whatever stuff you want to run within the session.\nAfter that, you can exit the session with: ctrl B + D\nWhen you want to log back in, you might first want to list down the active tmux sessions:\ntmux list-sessions then, to attach to session 0 (for example), you can do the following.\ntmux attach -t 0 That’s it, that’s the blog post. I’ll probably keep coming back here because I always keep forgetting these commands.\n",
+  "wordCount" : "180",
+  "inLanguage": "en",
+  "datePublished": "2022-04-12T00:00:00Z",
+  "dateModified": "2022-04-12T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/tmux-for-dummies/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
 
 
 
 </head>
 
-<body class="list">
+<body class="">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -88,160 +121,39 @@
     </nav>
 </header>
 
-    <main class="main"> 
-<header class="page-header">
-  <h1>Posts</h1>
-</header>
+    <main class="main">
 
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      tmux for dummies
+    </h1>
+    <div class="post-meta">April 12, 2022
 
+    </div>
+  </header> 
 
-<article class="post-entry"> 
+  <div class="post-content">
+<p>Imagine that you&rsquo;re a 21 y/o student in a hostel with a really bad wifi. On top of that, you&rsquo;re bound by the timings of the lunch and dinner, and you cannot just leave your laptop open while you&rsquo;re out because then your very near and dear friends would mess with your laptop&rsquo;s <code>.bashrc</code>.</p>
+<p>What you need, is a way to start long running scripts on your remote machine via ssh and log out without stopping the it, so that you can check back in later on.</p>
+<p>This is exactly what tmux does for you.</p>
+<p>To start a tmux session:</p>
+<pre><code>tmux
+</code></pre><p>then run whatever stuff you want to run within the session.</p>
+<p>After that, you can exit the session with: <code>ctrl B + D</code></p>
+<p>When you want to log back in, you might first want to list down the active tmux sessions:</p>
+<pre><code>tmux list-sessions
+</code></pre><p>then, to attach to session 0 (for example), you can do the following.</p>
+<pre><code>tmux attach -t 0
+</code></pre><p>That&rsquo;s it, that&rsquo;s the blog post. I&rsquo;ll probably keep coming back here because I always keep forgetting these commands.</p>
 
-  <header class="entry-header">
-    <h2>
-      A Few Months With Feature Visualization
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Learning to reverse engineer CNNs and other stuff...</p>
-  </section>
-  <footer class="entry-footer">May 24, 2021
-</footer>
-  <a class="entry-link" aria-label="post link to A Few Months With Feature Visualization" href="https://mayukhdeb.github.io/blog/post/feature-vis/"></a>
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/linux/">linux</a></li>
+    </ul>
+  </footer>
 </article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Making the perfect boiled egg
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Your guide to making that perfect boiled egg...</p>
-  </section>
-  <footer class="entry-footer">May 5, 2021
-</footer>
-  <a class="entry-link" aria-label="post link to Making the perfect boiled egg" href="https://mayukhdeb.github.io/blog/post/perfect-boiled-egg/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Lessons from Kaggle
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>How I approached my first kaggle competition, with a tragic ending...</p>
-  </section>
-  <footer class="entry-footer">October 23, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Lessons from Kaggle" href="https://mayukhdeb.github.io/blog/post/kaggle-moa/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Looking ahead
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 12 | Tangents included...</p>
-  </section>
-  <footer class="entry-footer">August 23, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Looking ahead" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-23/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      And then there were tests
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 11...</p>
-  </section>
-  <footer class="entry-footer">August 16, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to And then there were tests" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-16/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Publishing a PyPI package
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 10...</p>
-  </section>
-  <footer class="entry-footer">August 9, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Publishing a PyPI package" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-august-9/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Hello DevoLearn
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 9...</p>
-  </section>
-  <footer class="entry-footer">August 2, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Hello DevoLearn" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-aug-2/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Training a GAN
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 8...</p>
-  </section>
-  <footer class="entry-footer">July 26, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Training a GAN" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-26/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Finally the bridge works now
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 7...</p>
-  </section>
-  <footer class="entry-footer">July 19, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Finally the bridge works now" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-19/"></a>
-</article>
-<article class="post-entry"> 
-
-  <header class="entry-header">
-    <h2>
-      Cleaning up the bridge
-    </h2>
-  </header>
-  <section class="entry-content">
-    <p>Google Summer of Code | Coding period week 6...</p>
-  </section>
-  <footer class="entry-footer">July 12, 2020
-</footer>
-  <a class="entry-link" aria-label="post link to Cleaning up the bridge" href="https://mayukhdeb.github.io/blog/post/gsoc-2020-july-12/"></a>
-</article>
-<footer class="page-footer">
-  <nav class="pagination">
-    <a class="prev" href="https://mayukhdeb.github.io/blog/post/">« Prev Page</a>
-    <a class="next" href="https://mayukhdeb.github.io/blog/post/page/3/">Next Page »</a>
-  </nav>
-</footer>
-
     </main><footer class="footer">
     <span>&copy; 2022 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
     <span>&middot;</span>
