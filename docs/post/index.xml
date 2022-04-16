@@ -22,6 +22,15 @@ What you need, is a way to start long running scripts on your remote machine via
     </item>
     
     <item>
+      <title>An actually boring introduction to knowledge neurons in transformers</title>
+      <link>https://mayukhdeb.github.io/blog/post/boring-intro-to-knowledge-neurons/</link>
+      <pubDate>Sun, 16 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/boring-intro-to-knowledge-neurons/</guid>
+      <description>The author tries to explain knowledge neurons to himself. Not much to see here</description>
+    </item>
+    
+    <item>
       <title>minGPT for dummies</title>
       <link>https://mayukhdeb.github.io/blog/post/mingpt-for-dummies/</link>
       <pubDate>Sat, 09 Oct 2021 00:00:00 +0000</pubDate>
