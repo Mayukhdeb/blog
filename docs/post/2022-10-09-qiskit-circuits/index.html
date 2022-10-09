@@ -221,12 +221,12 @@ circuit<span style="color:#f92672">.</span>measure([<span style="color:#ae81ff">
 c: 1/══════╩═
            0 
 </code></pre><p>When we run the circuit, we would now be able to track measurements across n shots:</p>
-<pre><code>## now lets execute this on a backend
-simulator = Aer.get_backend('qasm_simulator')
-result = execute(circuit, backend = simulator, shots = 1024).result()
-counts = result.get_counts()
-print(counts)
-</code></pre><p>The output of the above snippet would be <code>{'1': 1024}</code>, which means that every time we ran the circuit (1024 shots), the output was 1.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## now lets execute this on a backend</span>
+simulator <span style="color:#f92672">=</span> Aer<span style="color:#f92672">.</span>get_backend(<span style="color:#e6db74">&#39;qasm_simulator&#39;</span>)
+result <span style="color:#f92672">=</span> execute(circuit, backend <span style="color:#f92672">=</span> simulator, shots <span style="color:#f92672">=</span> <span style="color:#ae81ff">1024</span>)<span style="color:#f92672">.</span>result()
+counts <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get_counts()
+<span style="color:#66d9ef">print</span>(counts)
+</code></pre></div><p>The output of the above snippet would be <code>{'1': 1024}</code>, which means that every time we ran the circuit (1024 shots), the output was 1.</p>
 
 </div>
   <footer class="post-footer">

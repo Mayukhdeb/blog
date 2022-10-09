@@ -106,7 +106,7 @@ c: 1/══════╩═
 
 When we run the circuit, we would now be able to track measurements across n shots:
 
-```
+```python
 ## now lets execute this on a backend
 simulator = Aer.get_backend('qasm_simulator')
 result = execute(circuit, backend = simulator, shots = 1024).result()
