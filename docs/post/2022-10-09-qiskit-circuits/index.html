@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Understanding Quantum Circuits with Qiskit | @mayukhdeb</title>
+
+<meta name="keywords" content="video" />
+<meta name="description" content="On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world&rsquo;s most glorified not gate.
+The original video can be found here.
+The x operation (i.e not) The x operation simply flips a state.
+x|0&gt; = 1and x|1&gt; = 0
+Jargon alert: x|0&gt; means &ldquo;x gate applied to 0&rdquo;.
+In fact, we can also represent this gate with matrices! In this matrix world, 0 is represented by [[1], [0]] and 1 is represented by [[0], [1]] (one-hot vectors).">
+<meta name="author" content="Mayukh Deb">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/2022-10-09-qiskit-circuits/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="Understanding Quantum Circuits with Qiskit" />
+<meta property="og:description" content="On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world&rsquo;s most glorified not gate.
+The original video can be found here.
+The x operation (i.e not) The x operation simply flips a state.
+x|0&gt; = 1and x|1&gt; = 0
+Jargon alert: x|0&gt; means &ldquo;x gate applied to 0&rdquo;.
+In fact, we can also represent this gate with matrices! In this matrix world, 0 is represented by [[1], [0]] and 1 is represented by [[0], [1]] (one-hot vectors)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/2022-10-09-qiskit-circuits/" />
+<meta property="article:published_time" content="2022-10-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-10-09T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Understanding Quantum Circuits with Qiskit"/>
+<meta name="twitter:description" content="On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world&rsquo;s most glorified not gate.
+The original video can be found here.
+The x operation (i.e not) The x operation simply flips a state.
+x|0&gt; = 1and x|1&gt; = 0
+Jargon alert: x|0&gt; means &ldquo;x gate applied to 0&rdquo;.
+In fact, we can also represent this gate with matrices! In this matrix world, 0 is represented by [[1], [0]] and 1 is represented by [[0], [1]] (one-hot vectors)."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Understanding Quantum Circuits with Qiskit",
+  "name": "Understanding Quantum Circuits with Qiskit",
+  "description": "On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world\u0026amp;rsquo;s most glorified not gate.\nThe original video can be found here.\nThe x …",
+  "keywords": [
+    "video"
+  ],
+  "articleBody": "On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world’s most glorified not gate.\nThe original video can be found here.\nThe x operation (i.e not) The x operation simply flips a state.\nx|0 = 1and x|1 = 0\nJargon alert: x|0 means “x gate applied to 0”.\nIn fact, we can also represent this gate with matrices! In this matrix world, 0 is represented by [[1], [0]] and 1 is represented by [[0], [1]] (one-hot vectors).\nThe x gate can be represented by a simple matrix multiplication:\nimport numpy as np zero_onehot = np.array([[1], [0]]) one_onehot = np.array([[0], [1]]) class XGate: def __init__(self): self.matrix = np.array( [ [0,1], [1,0] ] ) def apply(self, a): return np.matmul(self.matrix, a) gate = XGate() y = gate.apply(one_onehot) ## returns: ## array([[1],[0]]) - one_onehot y = gate.apply(zero_onehot) ## returns: ## array([[0],[1]]) - zero_onehot Now, let’s make our first circuit in qiskit:\nimport qiskit from qiskit import QuantumCircuit, Aer from qiskit.tools.visualization import plot_bloch_multivector ## create a quantum circuit with one qubit and one classical bit circuit = QuantumCircuit(1,1) ## and now, we keep the `x` operation inside the circuit circuit.x(0) Now, let’s run this circuit within a simulator (backend):\n## next, we would need a simulator simulator = Aer.get_backend('statevector_simulator') ## run results in simulator result = qiskit.execute(circuit, backend = simulator).result() statevector = result.get_statevector() print(statevector) and we get this output:\nStatevector([0.+0.j, 1.+0.j], dims=(2,)) We can also visualize the simple circuit :\n## now lets try drawing the circuit circuit.draw(output = 'mpl') ''' ┌───┐ q: ┤ X ├ └───┘ c: 1/═════ ''' On top of this, we can also measure results across multiple shots\n## measure value of qubit 0 and store it on classical bit 0 circuit.measure([0], [0]) print(circuit) We’ll now be able to see a measure gate (M thingy) in the circuit:\n ┌───┐┌─┐ q: ┤ X ├┤M├ └───┘└╥┘ c: 1/══════╩═ 0 When we run the circuit, we would now be able to track measurements across n shots:\n## now lets execute this on a backend simulator = Aer.get_backend('qasm_simulator') result = execute(circuit, backend = simulator, shots = 1024).result() counts = result.get_counts() print(counts) The output of the above snippet would be {'1': 1024}, which means that every time we ran the circuit (1024 shots), the output was 1.\n",
+  "wordCount" : "380",
+  "inLanguage": "en",
+  "datePublished": "2022-10-09T00:00:00Z",
+  "dateModified": "2022-10-09T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Mayukh Deb"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/2022-10-09-qiskit-circuits/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      Understanding Quantum Circuits with Qiskit
+    </h1>
+    <div class="post-meta">
+
+October 9, 2022&nbsp;·&nbsp;Mayukh Deb
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<p>On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world&rsquo;s most glorified not gate.</p>
+<p>The original video can be <a href="https://www.youtube.com/watch?v=tBnWG_95F9c">found here</a>.</p>
+<h2 id="the-x-operation-ie-not">The <code>x</code> operation (i.e <code>not</code>)<a hidden class="anchor" aria-hidden="true" href="#the-x-operation-ie-not">#</a></h2>
+<p>The <code>x</code> operation simply flips a state.</p>
+<p><code>x|0&gt; = 1</code>and <code>x|1&gt; = 0</code></p>
+<p>Jargon alert: <code>x|0&gt;</code> means &ldquo;x gate applied to 0&rdquo;.</p>
+<p>In fact, we can also represent this gate with matrices! In this matrix world, 0 is represented by <code>[[1], [0]]</code> and 1 is represented by <code>[[0], [1]]</code> (one-hot vectors).</p>
+<p>The x gate can be represented by a simple matrix multiplication:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+
+zero_onehot <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1</span>], [<span style="color:#ae81ff">0</span>]])
+one_onehot <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">1</span>]])
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">XGate</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        self<span style="color:#f92672">.</span>matrix <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array(
+            [
+                [<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>], 
+                [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>]
+            ]
+        )
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">apply</span>(self, a):
+        <span style="color:#66d9ef">return</span> np<span style="color:#f92672">.</span>matmul(self<span style="color:#f92672">.</span>matrix, a)
+
+gate <span style="color:#f92672">=</span> XGate()
+y <span style="color:#f92672">=</span> gate<span style="color:#f92672">.</span>apply(one_onehot) <span style="color:#75715e">## returns: ## array([[1],[0]]) -&gt; one_onehot</span>
+y <span style="color:#f92672">=</span> gate<span style="color:#f92672">.</span>apply(zero_onehot) <span style="color:#75715e">## returns: ## array([[0],[1]]) -&gt; zero_onehot</span>
+</code></pre></div><p>Now, let&rsquo;s make our first circuit in qiskit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> qiskit
+<span style="color:#f92672">from</span> qiskit <span style="color:#f92672">import</span> QuantumCircuit, Aer
+<span style="color:#f92672">from</span> qiskit.tools.visualization <span style="color:#f92672">import</span> plot_bloch_multivector
+
+
+<span style="color:#75715e">## create a quantum circuit with one qubit and one classical bit</span>
+circuit <span style="color:#f92672">=</span> QuantumCircuit(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>)
+
+<span style="color:#75715e">## and now, we keep the `x` operation inside the circuit</span>
+circuit<span style="color:#f92672">.</span>x(<span style="color:#ae81ff">0</span>)
+</code></pre></div><p>Now, let&rsquo;s run this circuit within a simulator (backend):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## next, we would need a simulator</span>
+simulator <span style="color:#f92672">=</span> Aer<span style="color:#f92672">.</span>get_backend(<span style="color:#e6db74">&#39;statevector_simulator&#39;</span>)
+<span style="color:#75715e">## run results in simulator</span>
+result <span style="color:#f92672">=</span> qiskit<span style="color:#f92672">.</span>execute(circuit, backend <span style="color:#f92672">=</span> simulator)<span style="color:#f92672">.</span>result()
+statevector <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>get_statevector()
+<span style="color:#66d9ef">print</span>(statevector)
+</code></pre></div><p>and we get this output:</p>
+<pre><code>Statevector([0.+0.j, 1.+0.j],
+            dims=(2,))
+</code></pre><p>We can also visualize the simple circuit :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## now lets try drawing the circuit</span>
+circuit<span style="color:#f92672">.</span>draw(output <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;mpl&#39;</span>)
+
+<span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">     ┌───┐
+</span><span style="color:#e6db74">  q: ┤ X ├
+</span><span style="color:#e6db74">     └───┘
+</span><span style="color:#e6db74">c: 1/═════
+</span><span style="color:#e6db74">&#39;&#39;&#39;</span>
+</code></pre></div><p>On top of this, we can also measure results across multiple shots</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">## measure value of qubit 0 and store it on classical bit 0</span>
+circuit<span style="color:#f92672">.</span>measure([<span style="color:#ae81ff">0</span>], [<span style="color:#ae81ff">0</span>])
+<span style="color:#66d9ef">print</span>(circuit)
+</code></pre></div><p>We&rsquo;ll now be able to see a measure gate (<code>M</code> thingy) in the circuit:</p>
+<pre><code>     ┌───┐┌─┐
+  q: ┤ X ├┤M├
+     └───┘└╥┘
+c: 1/══════╩═
+           0 
+</code></pre><p>When we run the circuit, we would now be able to track measurements across n shots:</p>
+<pre><code>## now lets execute this on a backend
+simulator = Aer.get_backend('qasm_simulator')
+result = execute(circuit, backend = simulator, shots = 1024).result()
+counts = result.get_counts()
+print(counts)
+</code></pre><p>The output of the above snippet would be <code>{'1': 1024}</code>, which means that every time we ran the circuit (1024 shots), the output was 1.</p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/video/">video</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2022 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>video on @mayukhdeb</title>
+    <link>https://mayukhdeb.github.io/blog/tags/video/</link>
+    <description>Recent content in video on @mayukhdeb</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 09 Oct 2022 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://mayukhdeb.github.io/blog/tags/video/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Understanding Quantum Circuits with Qiskit</title>
+      <link>https://mayukhdeb.github.io/blog/post/2022-10-09-qiskit-circuits/</link>
+      <pubDate>Sun, 09 Oct 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/2022-10-09-qiskit-circuits/</guid>
+      <description>On this sunday, we plan to gain a basic understanding of how quantum circuits work by making the world&amp;rsquo;s most glorified not gate.
+The original video can be found here.
+The x operation (i.e not) The x operation simply flips a state.
+x|0&amp;gt; = 1and x|1&amp;gt; = 0
+Jargon alert: x|0&amp;gt; means &amp;ldquo;x gate applied to 0&amp;rdquo;.
+In fact, we can also represent this gate with matrices! In this matrix world, 0 is represented by [[1], [0]] and 1 is represented by [[0], [1]] (one-hot vectors).</description>
+    </item>
+    
+  </channel>
+</rss>
