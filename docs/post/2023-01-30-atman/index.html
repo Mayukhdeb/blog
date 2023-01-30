@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>AtMan - Making LLMs Trustworthy with Attention Manipulation | @mayukhdeb</title>
+
+<meta name="keywords" content="research" />
+<meta name="description" content="What is it? AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory efficient and is also multimodal (i.e it works on both images and text).
+  Existing methods to explain the outputs of neural networks are generally classified into one of the 2 given types:
+  Gradient based methods:
+ Require a backward pass, which takes up almost double the memory as that of a forward pass.">
+<meta name="author" content="Mayukh Deb">
+<link rel="canonical" href="https://mayukhdeb.github.io/blog/post/2023-01-30-atman/" />
+<link href="https://mayukhdeb.github.io/blog/assets/css/stylesheet.min.d1bc2b736056bd5698d770eeedc08a73bce9e6cebb30810f6f1b2c2048e46ab8.css" integrity="sha256-0bwrc2BWvVaY13Du7cCKc7zp5s67MIEPbxssIEjkarg=" rel="preload stylesheet"
+    as="style">
+
+<link rel="icon" href="https://mayukhdeb.github.io/blog/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://mayukhdeb.github.io/blog/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://mayukhdeb.github.io/blog/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://mayukhdeb.github.io/blog/apple-touch-icon.png">
+<link rel="mask-icon" href="https://mayukhdeb.github.io/blog/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<meta property="og:title" content="AtMan - Making LLMs Trustworthy with Attention Manipulation" />
+<meta property="og:description" content="What is it? AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory efficient and is also multimodal (i.e it works on both images and text).
+  Existing methods to explain the outputs of neural networks are generally classified into one of the 2 given types:
+  Gradient based methods:
+ Require a backward pass, which takes up almost double the memory as that of a forward pass." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://mayukhdeb.github.io/blog/post/2023-01-30-atman/" />
+<meta property="article:published_time" content="2023-01-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-01-30T00:00:00+00:00" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="AtMan - Making LLMs Trustworthy with Attention Manipulation"/>
+<meta name="twitter:description" content="What is it? AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory efficient and is also multimodal (i.e it works on both images and text).
+  Existing methods to explain the outputs of neural networks are generally classified into one of the 2 given types:
+  Gradient based methods:
+ Require a backward pass, which takes up almost double the memory as that of a forward pass."/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "AtMan - Making LLMs Trustworthy with Attention Manipulation",
+  "name": "AtMan - Making LLMs Trustworthy with Attention Manipulation",
+  "description": "What is it? AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory …",
+  "keywords": [
+    "research"
+  ],
+  "articleBody": "What is it? AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory efficient and is also multimodal (i.e it works on both images and text).\n  Existing methods to explain the outputs of neural networks are generally classified into one of the 2 given types:\n  Gradient based methods:\n Require a backward pass, which takes up almost double the memory as that of a forward pass. Generally also requires knowledge about the model’s architecture (which layer’s gradients/activations do we take etc)    Perturbation based methods:\n Require less memory, but involve making lots of “blintd” perturbations to the input and tracking the changes in the output. The neural network can be treated as a black box. Generally less accurate when compared to the former    AtMan is an attempt to get the best of both worlds, instead of making blind perturbations on the input space, we make deliberate perturbations on the intermediate representations within the layers which alter the flow of information across the sequence dimension (i.e the attention scores). This was particularly inspired by the idea of “Attention Heads as Information Movement” found here.\nWhy do we need it? LLM based systems like that of ChatGPT are good at helping you rephrase your emails and writing blog posts. But it is basically useless for high-value work unless we have a way to know when to trust it and when not to.\nFor example, let’s assume you have an LLM based document Question-Answering engine. Given that it’s a good LLM, your user will surely get the answer. But would a lawyer feel confident enough to blindly trust the LLM’s answer for an argument on behalf of his client?\nWhat if the lawyer not only wants an answer, but also wants to find the part of the document which led to it?\nThis is where AtMan comes into play. It would let the lawyer know that this is the part of the document that led to the answer.\n  The examples shown below demonstrates how AtMan helps validate the answer given by an LLM:\n  Another use-case for AtMan is to detect when the LLM is really looking at the document v/s when it’s hallucinating world knowledge. This way, we will know when your LLM is not blurting out garbage which looks like a valid answer. Notice how on the example shown below, nothing is highlighted on the text. From this, the user can infer that the answer given by the model has nothing to do with the document.\n  AtMan also works surprisingly well for localization of objects in an image as seen below.\n  How does it work? The core idea is quite simple: we erase a small part of the input at a time and look at the change in the output. If the output changes a lot, then that erased part is assumed to be important. For text, we can do this by erasing one single token at a time. For images, we do the same by erasing a single image patch at a time.\n   Unfortunately, the idea discussed above does have a small flaw which we realized and managed to fix later for images. It has been discussed in section 3.3 in the paper.\n The neat thing about AtMan is that it requires only forward passes, hence it’s super easy to deploy into pre-existing LLM inference pipelines with only minor modifications to the attention module.\nSo how do we Erase tokens?\nWe do this by manipulating the attention scores in each transformer layer by scaling down the values corresponding to the input token(s) to be suppressed. In the example shown below, x would be 0.1 in order to suppress the input token at index 1.\n  If you have read this far, I highly encourage you to read the paper!\n",
+  "wordCount" : "641",
+  "inLanguage": "en",
+  "datePublished": "2023-01-30T00:00:00Z",
+  "dateModified": "2023-01-30T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Mayukh Deb"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://mayukhdeb.github.io/blog/post/2023-01-30-atman/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "@mayukhdeb",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://mayukhdeb.github.io/blog/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+
+</head>
+
+<body class="">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<noscript>
+    <style type="text/css">
+        .theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+</noscript>
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://mayukhdeb.github.io/blog/" accesskey="h" title="@mayukhdeb (Alt + H)">@mayukhdeb</a>
+            <span class="logo-switches">
+                <span class="theme-toggle" title="(Alt + T)">
+                    <a id="theme-toggle" accesskey="t">
+                        <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                        <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </a>
+                </span>
+                
+            </span>
+        </div>
+        <ul class="menu" id="menu" onscroll="menu_on_scroll()"></ul>
+    </nav>
+</header>
+
+    <main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      AtMan - Making LLMs Trustworthy with Attention Manipulation
+    </h1>
+    <div class="post-meta">
+
+January 30, 2023&nbsp;·&nbsp;Mayukh Deb
+
+    </div>
+  </header> 
+
+  <div class="post-content">
+<h2 id="what-is-it">What is it?<a hidden class="anchor" aria-hidden="true" href="#what-is-it">#</a></h2>
+<p>AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory efficient and is also multimodal (i.e it works on both images and text).</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/image_explain.jpg" width="70%"/> 
+</figure>
+
+<p>Existing methods to explain the outputs of neural networks are generally classified into one of the 2 given types:</p>
+<ul>
+<li>
+<p><strong>Gradient based methods</strong>:</p>
+<ul>
+<li>Require a backward pass, which takes up almost double the memory as that of a forward pass.</li>
+<li>Generally also requires knowledge about the model’s architecture (which layer’s gradients/activations do we take etc)</li>
+</ul>
+</li>
+<li>
+<p><strong>Perturbation based methods</strong>:</p>
+<ul>
+<li>Require less memory, but involve making lots of “blintd” perturbations to the input and tracking the changes in the output.</li>
+<li>The neural network can be treated as a black box.</li>
+<li>Generally less accurate when compared to the former</li>
+</ul>
+</li>
+</ul>
+<p>AtMan is an attempt to get the best of both worlds, instead of making blind perturbations on the input space, we make deliberate perturbations on the intermediate representations within the layers which alter the flow of information across the sequence dimension (i.e the attention scores). This was particularly inspired by the idea of <em>&ldquo;Attention Heads as Information Movement&rdquo;</em> found <a href="https://transformer-circuits.pub/2021/framework/index.html">here</a>.</p>
+<h2 id="why-do-we-need-it">Why do we need it?<a hidden class="anchor" aria-hidden="true" href="#why-do-we-need-it">#</a></h2>
+<p>LLM based systems like that of ChatGPT are good at helping you rephrase your emails and writing blog posts. But it is basically useless for high-value work unless we have a way to know when to trust it and when not to.</p>
+<p>For example, let’s assume you have an LLM based document Question-Answering engine. Given that it’s a good LLM, your user will surely get the answer. But would a lawyer feel confident enough to blindly trust the LLM’s answer for an argument on behalf of his client?</p>
+<p>What if the lawyer not only wants an answer, but also wants to find the part of the document which led to it?</p>
+<p>This is where AtMan comes into play. It would let the lawyer know that this is the part of the document that led to the answer.</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/doc.jpg" width="70%"/> 
+</figure>
+
+<p>The examples shown below demonstrates how AtMan helps validate the answer given by an LLM:</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/doc_2.jpg" width="80%"/> 
+</figure>
+
+<p>Another use-case for AtMan is to detect when the LLM is really looking at the document v/s when it’s hallucinating world knowledge. This way, we will know when your LLM is not blurting out garbage which looks like a valid answer. Notice how on the example shown below, nothing is highlighted on the text. From this, the user can infer that the answer given by the model has nothing to do with the document.</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/world_knowledge_answer.png" width="80%"/> 
+</figure>
+
+<p>AtMan also works surprisingly well for localization of objects in an image as seen below.</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/orangutan.jpg" width="70%"/> 
+</figure>
+
+<h2 id="how-does-it-work">How does it work?<a hidden class="anchor" aria-hidden="true" href="#how-does-it-work">#</a></h2>
+<p>The core idea is quite simple: we erase a small part of the input at a time and look at the change in the output. If the output changes a lot, then that erased part is assumed to be important. For text, we can do this by erasing one single token at a time. For images, we do the same by erasing a single image patch at a time.</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/ben.png" width="70%"/> 
+</figure>
+
+<blockquote>
+<p><em>Unfortunately, the idea discussed above does have a small flaw which we realized and managed to fix later for images. It has been discussed in section 3.3 in the paper.</em></p>
+</blockquote>
+<p>The neat thing about AtMan is that it requires only forward passes, hence it’s super easy to deploy into pre-existing LLM inference pipelines with only minor modifications to the attention module.</p>
+<p><strong>So how do we Erase tokens?</strong></p>
+<p>We do this by manipulating the attention scores in each transformer layer by scaling down the values corresponding to the input token(s) to be suppressed. In the example shown below, <code>x</code> would be <code>0.1</code> in order to suppress the input token at index <code>1</code>.</p>
+<figure>
+    <img src="https://raw.githubusercontent.com/Mayukhdeb/blog/master/content/post/images/2023-01-30-atman/attn_manipulation.png" width="70%"/> 
+</figure>
+
+<p>If you have read this far, I highly encourage you to read the <a href="https://arxiv.org/abs/2301.08110">paper</a>!</p>
+
+</div>
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://mayukhdeb.github.io/blog/tags/research/">research</a></li>
+    </ul>
+  </footer>
+</article>
+    </main><footer class="footer">
+    <span>&copy; 2023 <a href="https://mayukhdeb.github.io/blog/">@mayukhdeb</a></span>
+    <span>&middot;</span>
+    <span>Powered by <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a></span>
+    <span>&middot;</span>
+    <span>Theme <a href="https://git.io/hugopapermod" rel="noopener" target="_blank">PaperMod</a></span>
+</footer>
+<button class="top-link" id="top-link" type="button" aria-label="go to top" title="Go to Top (Alt + G)" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6">
+        <path d="M12 6H0l6-6z" /></svg>
+</button>
+
+
+
+<script defer src="https://mayukhdeb.github.io/blog/assets/js/highlight.min.27cd435cc9ed6abb4b496581b151804f79f366c412620272bb94e2f5f598ebcc.js" integrity="sha256-J81DXMntartLSWWBsVGAT3nzZsQSYgJyu5Ti9fWY68w="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<script>
+    window.onload = function () {
+        if (localStorage.getItem("menu-scroll-position")) {
+            document.getElementById('menu').scrollLeft = localStorage.getItem("menu-scroll-position");
+        }
+    }
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+    mybutton.onclick = function () {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.location.hash = ''
+    }
+
+    function menu_on_scroll() {
+        localStorage.setItem("menu-scroll-position", document.getElementById('menu').scrollLeft);
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+
+</body>
+
+</html>

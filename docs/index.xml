@@ -6,10 +6,22 @@
     <description>Recent content on @mayukhdeb</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jan 2023 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://mayukhdeb.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AtMan - Making LLMs Trustworthy with Attention Manipulation</title>
+      <link>https://mayukhdeb.github.io/blog/post/2023-01-30-atman/</link>
+      <pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://mayukhdeb.github.io/blog/post/2023-01-30-atman/</guid>
+      <description>What is it? AtMan is an attempt at helping users know the source of the answer/completion given by LLMs (Large Language Models). Unlike other existing methods, AtMan is memory efficient and is also multimodal (i.e it works on both images and text).
+  Existing methods to explain the outputs of neural networks are generally classified into one of the 2 given types:
+  Gradient based methods:
+ Require a backward pass, which takes up almost double the memory as that of a forward pass.</description>
+    </item>
     
     <item>
       <title>Understanding Quantum Circuits with Qiskit</title>
